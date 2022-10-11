@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductItem = void 0;
+const jsx_runtime_1 = require("react/jsx-runtime");
 const classnames_1 = __importDefault(require("classnames"));
 const react_router_dom_1 = require("react-router-dom");
 const react_number_format_1 = __importDefault(require("react-number-format"));
@@ -34,54 +35,7 @@ const ProductItem = ({ phoneImage, rating, testimonials, productName, priceValue
         };
         dispatch((0, favoriteSlice_1.addFavoriteItem)(item));
     };
-    return (<div className={ProductItem_module_scss_1.default.productItem}>
-      <div className={ProductItem_module_scss_1.default.productItemInner}>
-        <react_router_dom_1.NavLink to={`/products/${productId}`} className={ProductItem_module_scss_1.default.image}>
-          <img src={phoneImage}/>
-        </react_router_dom_1.NavLink>
-        <div className={ProductItem_module_scss_1.default.icons}>
-          <div className={(0, classnames_1.default)(ProductItem_module_scss_1.default.rating, "tooltip", ProductItem_module_scss_1.default.tooltip)}>
-            <i className="fa-solid fa-star"></i>
-            <span>{rating}</span>
-            <div className={(0, classnames_1.default)("tooltipText", ProductItem_module_scss_1.default.tooltipText)}>
-              Рейтинг {rating} из 5
-            </div>
-          </div>
-          <div className={(0, classnames_1.default)(ProductItem_module_scss_1.default.testimonials, "tooltip", ProductItem_module_scss_1.default.tooltip)}>
-            <i className="fa-solid fa-comment"></i>
-            <span>{testimonials}</span>
-            <div className={(0, classnames_1.default)("tooltipText", ProductItem_module_scss_1.default.tooltipText)}>
-              {testimonials} отзывов
-            </div>
-          </div>
-          <div className={(0, classnames_1.default)(ProductItem_module_scss_1.default.favorites, "tooltip", ProductItem_module_scss_1.default.tooltip)} onClick={onClickAddToFavorites}>
-            <i className="fa-solid fa-heart"></i>
-            <div className={(0, classnames_1.default)("tooltipText", ProductItem_module_scss_1.default.tooltipText)}>
-              Добавить в избранное
-            </div>
-          </div>
-        </div>
-        <react_router_dom_1.NavLink to={`/products/${productId}`} className={ProductItem_module_scss_1.default.productLink}>
-          {productName}
-        </react_router_dom_1.NavLink>
-        <div className={ProductItem_module_scss_1.default.buyContainer}>
-          <div className={ProductItem_module_scss_1.default.buy}>
-            <react_router_dom_1.NavLink to={`/products/${productId}`} className={ProductItem_module_scss_1.default.price}>
-              <div className={ProductItem_module_scss_1.default.priceValue}>
-                <react_number_format_1.default value={priceValue} displayType='text' thousandSeparator=' '/>
-              </div>
-              <div className={ProductItem_module_scss_1.default.currency}>₽</div>
-            </react_router_dom_1.NavLink>
-            <div className={ProductItem_module_scss_1.default.addToCart}>
-              <button className="tooltip" onClick={onClickAddToCart}>
-                <i className="fa-solid fa-cart-shopping"></i>
-                <div className="tooltipText">Добавить в корзину</div>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>);
+    return ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: ProductItem_module_scss_1.default.productItem }, { children: (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: ProductItem_module_scss_1.default.productItemInner }, { children: [(0, jsx_runtime_1.jsx)(react_router_dom_1.NavLink, Object.assign({ to: `/products/${productId}`, className: ProductItem_module_scss_1.default.image }, { children: (0, jsx_runtime_1.jsx)("img", { src: phoneImage }) })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: ProductItem_module_scss_1.default.icons }, { children: [(0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(ProductItem_module_scss_1.default.rating, "tooltip", ProductItem_module_scss_1.default.tooltip) }, { children: [(0, jsx_runtime_1.jsx)("i", { className: "fa-solid fa-star" }), (0, jsx_runtime_1.jsx)("span", { children: rating }), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)("tooltipText", ProductItem_module_scss_1.default.tooltipText) }, { children: ["\u0420\u0435\u0439\u0442\u0438\u043D\u0433 ", rating, " \u0438\u0437 5"] }))] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(ProductItem_module_scss_1.default.testimonials, "tooltip", ProductItem_module_scss_1.default.tooltip) }, { children: [(0, jsx_runtime_1.jsx)("i", { className: "fa-solid fa-comment" }), (0, jsx_runtime_1.jsx)("span", { children: testimonials }), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)("tooltipText", ProductItem_module_scss_1.default.tooltipText) }, { children: [testimonials, " \u043E\u0442\u0437\u044B\u0432\u043E\u0432"] }))] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(ProductItem_module_scss_1.default.favorites, "tooltip", ProductItem_module_scss_1.default.tooltip), onClick: onClickAddToFavorites }, { children: [(0, jsx_runtime_1.jsx)("i", { className: "fa-solid fa-heart" }), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: (0, classnames_1.default)("tooltipText", ProductItem_module_scss_1.default.tooltipText) }, { children: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0432 \u0438\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u0435" }))] }))] })), (0, jsx_runtime_1.jsx)(react_router_dom_1.NavLink, Object.assign({ to: `/products/${productId}`, className: ProductItem_module_scss_1.default.productLink }, { children: productName })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: ProductItem_module_scss_1.default.buyContainer }, { children: (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: ProductItem_module_scss_1.default.buy }, { children: [(0, jsx_runtime_1.jsxs)(react_router_dom_1.NavLink, Object.assign({ to: `/products/${productId}`, className: ProductItem_module_scss_1.default.price }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: ProductItem_module_scss_1.default.priceValue }, { children: (0, jsx_runtime_1.jsx)(react_number_format_1.default, { value: priceValue, displayType: 'text', thousandSeparator: ' ' }) })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: ProductItem_module_scss_1.default.currency }, { children: "\u20BD" }))] })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: ProductItem_module_scss_1.default.addToCart }, { children: (0, jsx_runtime_1.jsxs)("button", Object.assign({ className: "tooltip", onClick: onClickAddToCart }, { children: [(0, jsx_runtime_1.jsx)("i", { className: "fa-solid fa-cart-shopping" }), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: "tooltipText" }, { children: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0432 \u043A\u043E\u0440\u0437\u0438\u043D\u0443" }))] })) }))] })) }))] })) })));
 };
 exports.ProductItem = ProductItem;
 //# sourceMappingURL=index.js.map

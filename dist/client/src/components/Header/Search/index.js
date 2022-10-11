@@ -1,33 +1,11 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Search = void 0;
-const react_1 = __importStar(require("react"));
+const jsx_runtime_1 = require("react/jsx-runtime");
+const react_1 = require("react");
 const hooks_1 = require("../../../redux/hooks");
 const filterSlice_1 = require("../../../redux/filter/filterSlice");
 const Search_module_scss_1 = __importDefault(require("./Search.module.scss"));
@@ -51,16 +29,7 @@ const Search = () => {
             updateSearchValue('');
         }
     }, [value]);
-    return (<div className={Search_module_scss_1.default.search}>
-      <div className={Search_module_scss_1.default.searchContainer}>
-        <div className={Search_module_scss_1.default.searchInput}>
-          <input type="text" value={value} onChange={onInputChange} onKeyDown={handleOnEnter} placeholder="Я ищу..."/>
-        </div>
-        <div className={Search_module_scss_1.default.searchIcon} onClick={() => updateSearchValue(value)}>
-          <i className="fa-solid fa-magnifying-glass"></i>
-        </div>
-      </div>
-    </div>);
+    return ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: Search_module_scss_1.default.search }, { children: (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Search_module_scss_1.default.searchContainer }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: Search_module_scss_1.default.searchInput }, { children: (0, jsx_runtime_1.jsx)("input", { type: "text", value: value, onChange: onInputChange, onKeyDown: handleOnEnter, placeholder: "\u042F \u0438\u0449\u0443..." }) })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: Search_module_scss_1.default.searchIcon, onClick: () => updateSearchValue(value) }, { children: (0, jsx_runtime_1.jsx)("i", { className: "fa-solid fa-magnifying-glass" }) }))] })) })));
 };
 exports.Search = Search;
 //# sourceMappingURL=index.js.map

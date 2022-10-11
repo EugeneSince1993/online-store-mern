@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CartItem = void 0;
+const jsx_runtime_1 = require("react/jsx-runtime");
 const react_number_format_1 = __importDefault(require("react-number-format"));
 const hooks_1 = require("../../redux/hooks");
 const react_router_dom_1 = require("react-router-dom");
@@ -26,46 +27,7 @@ const CartItem = ({ id, name, price, imageUrl, count, productCode }) => {
             dispatch((0, cartSlice_1.removeItem)(id));
         }
     };
-    return (<div className={CartItem_module_scss_1.default.productItem}>
-      <react_router_dom_1.NavLink to={`/products/${id}`} className={CartItem_module_scss_1.default.thumbnail}>
-        <img src={imageUrl}/>
-      </react_router_dom_1.NavLink>
-      <div className={CartItem_module_scss_1.default.dataContainer}>
-        <div className={CartItem_module_scss_1.default.productInfo}>
-          <react_router_dom_1.NavLink to={`/products/${id}`} className={CartItem_module_scss_1.default.productName}>
-            {name}
-          </react_router_dom_1.NavLink>
-          <div className={CartItem_module_scss_1.default.productCode}>
-            Код товара: {productCode}
-          </div>
-        </div>
-        <div className={CartItem_module_scss_1.default.quantityContainer}>
-          <div className={CartItem_module_scss_1.default.quantity}>
-            <button disabled={count === 1} onClick={onClickSubtract}>
-              <i className="fa-solid fa-minus"></i>
-            </button>
-            <div>{count}</div>
-            <button onClick={onClickAdd}>
-              <i className="fa-solid fa-plus"></i>
-            </button>
-          </div>
-        </div>
-        <div className={CartItem_module_scss_1.default.price}>
-          <div className={CartItem_module_scss_1.default.priceValue}>
-            <react_number_format_1.default value={price * count} displayType='text' thousandSeparator=' '/>
-          </div>
-          <div className={CartItem_module_scss_1.default.currency}>₽</div>
-        </div>
-        <div className={(0, classnames_1.default)(CartItem_module_scss_1.default.deleteProduct, "tooltip", CartItem_module_scss_1.default.tooltip)}>
-          <div onClick={onClickRemove}>
-            <i className="fa-solid fa-trash"></i>
-            <div className={(0, classnames_1.default)("tooltipText", CartItem_module_scss_1.default.tooltipText)}>
-              Удалить
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>);
+    return ((0, jsx_runtime_1.jsxs)("div", Object.assign({ className: CartItem_module_scss_1.default.productItem }, { children: [(0, jsx_runtime_1.jsx)(react_router_dom_1.NavLink, Object.assign({ to: `/products/${id}`, className: CartItem_module_scss_1.default.thumbnail }, { children: (0, jsx_runtime_1.jsx)("img", { src: imageUrl }) })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: CartItem_module_scss_1.default.dataContainer }, { children: [(0, jsx_runtime_1.jsxs)("div", Object.assign({ className: CartItem_module_scss_1.default.productInfo }, { children: [(0, jsx_runtime_1.jsx)(react_router_dom_1.NavLink, Object.assign({ to: `/products/${id}`, className: CartItem_module_scss_1.default.productName }, { children: name })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: CartItem_module_scss_1.default.productCode }, { children: ["\u041A\u043E\u0434 \u0442\u043E\u0432\u0430\u0440\u0430: ", productCode] }))] })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: CartItem_module_scss_1.default.quantityContainer }, { children: (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: CartItem_module_scss_1.default.quantity }, { children: [(0, jsx_runtime_1.jsx)("button", Object.assign({ disabled: count === 1, onClick: onClickSubtract }, { children: (0, jsx_runtime_1.jsx)("i", { className: "fa-solid fa-minus" }) })), (0, jsx_runtime_1.jsx)("div", { children: count }), (0, jsx_runtime_1.jsx)("button", Object.assign({ onClick: onClickAdd }, { children: (0, jsx_runtime_1.jsx)("i", { className: "fa-solid fa-plus" }) }))] })) })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: CartItem_module_scss_1.default.price }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: CartItem_module_scss_1.default.priceValue }, { children: (0, jsx_runtime_1.jsx)(react_number_format_1.default, { value: price * count, displayType: 'text', thousandSeparator: ' ' }) })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: CartItem_module_scss_1.default.currency }, { children: "\u20BD" }))] })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: (0, classnames_1.default)(CartItem_module_scss_1.default.deleteProduct, "tooltip", CartItem_module_scss_1.default.tooltip) }, { children: (0, jsx_runtime_1.jsxs)("div", Object.assign({ onClick: onClickRemove }, { children: [(0, jsx_runtime_1.jsx)("i", { className: "fa-solid fa-trash" }), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: (0, classnames_1.default)("tooltipText", CartItem_module_scss_1.default.tooltipText) }, { children: "\u0423\u0434\u0430\u043B\u0438\u0442\u044C" }))] })) }))] }))] })));
 };
 exports.CartItem = CartItem;
 //# sourceMappingURL=index.js.map

@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FavoriteItem = void 0;
+const jsx_runtime_1 = require("react/jsx-runtime");
 const react_number_format_1 = __importDefault(require("react-number-format"));
 const hooks_1 = require("../../redux/hooks");
 const react_router_dom_1 = require("react-router-dom");
@@ -30,42 +31,7 @@ const FavoriteItem = ({ id, name, price, imageUrl, productCode }) => {
         };
         dispatch((0, cartSlice_1.addItem)(item));
     };
-    return (<div className={FavoriteItem_module_scss_1.default.productItem}>
-      <react_router_dom_1.NavLink to={`/products/${id}`} className={FavoriteItem_module_scss_1.default.thumbnail}>
-        <img src={imageUrl}/>
-      </react_router_dom_1.NavLink>
-      <div className={FavoriteItem_module_scss_1.default.dataContainer}>
-        <div className={FavoriteItem_module_scss_1.default.productInfo}>
-          <react_router_dom_1.NavLink to={`/products/${id}`} className={FavoriteItem_module_scss_1.default.productName}>
-            {name}
-          </react_router_dom_1.NavLink>
-        </div>
-        <div className={FavoriteItem_module_scss_1.default.price}>
-          <div className={FavoriteItem_module_scss_1.default.priceValue}>
-            <react_number_format_1.default value={price} displayType='text' thousandSeparator=' '/>
-          </div>
-          <div className={FavoriteItem_module_scss_1.default.currency}>₽</div>
-        </div>
-        <div className={FavoriteItem_module_scss_1.default.addToCart}>
-          <button onClick={onClickAddToCart}>
-            <div>
-              <span className={FavoriteItem_module_scss_1.default.cartIcon}>
-                <i className="fa-solid fa-cart-shopping"></i>
-              </span>
-              <span className={FavoriteItem_module_scss_1.default.toCart}>В корзину</span>
-            </div>
-          </button>
-        </div>
-        <div className={(0, classnames_1.default)(FavoriteItem_module_scss_1.default.deleteProduct, "tooltip", FavoriteItem_module_scss_1.default.tooltip)}>
-          <div onClick={onClickRemove}>
-            <i className="fa-solid fa-trash"></i>
-            <div className={(0, classnames_1.default)("tooltipText", FavoriteItem_module_scss_1.default.tooltipText)}>
-              Удалить
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>);
+    return ((0, jsx_runtime_1.jsxs)("div", Object.assign({ className: FavoriteItem_module_scss_1.default.productItem }, { children: [(0, jsx_runtime_1.jsx)(react_router_dom_1.NavLink, Object.assign({ to: `/products/${id}`, className: FavoriteItem_module_scss_1.default.thumbnail }, { children: (0, jsx_runtime_1.jsx)("img", { src: imageUrl }) })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: FavoriteItem_module_scss_1.default.dataContainer }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: FavoriteItem_module_scss_1.default.productInfo }, { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.NavLink, Object.assign({ to: `/products/${id}`, className: FavoriteItem_module_scss_1.default.productName }, { children: name })) })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: FavoriteItem_module_scss_1.default.price }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: FavoriteItem_module_scss_1.default.priceValue }, { children: (0, jsx_runtime_1.jsx)(react_number_format_1.default, { value: price, displayType: 'text', thousandSeparator: ' ' }) })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: FavoriteItem_module_scss_1.default.currency }, { children: "\u20BD" }))] })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: FavoriteItem_module_scss_1.default.addToCart }, { children: (0, jsx_runtime_1.jsx)("button", Object.assign({ onClick: onClickAddToCart }, { children: (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("span", Object.assign({ className: FavoriteItem_module_scss_1.default.cartIcon }, { children: (0, jsx_runtime_1.jsx)("i", { className: "fa-solid fa-cart-shopping" }) })), (0, jsx_runtime_1.jsx)("span", Object.assign({ className: FavoriteItem_module_scss_1.default.toCart }, { children: "\u0412 \u043A\u043E\u0440\u0437\u0438\u043D\u0443" }))] }) })) })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: (0, classnames_1.default)(FavoriteItem_module_scss_1.default.deleteProduct, "tooltip", FavoriteItem_module_scss_1.default.tooltip) }, { children: (0, jsx_runtime_1.jsxs)("div", Object.assign({ onClick: onClickRemove }, { children: [(0, jsx_runtime_1.jsx)("i", { className: "fa-solid fa-trash" }), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: (0, classnames_1.default)("tooltipText", FavoriteItem_module_scss_1.default.tooltipText) }, { children: "\u0423\u0434\u0430\u043B\u0438\u0442\u044C" }))] })) }))] }))] })));
 };
 exports.FavoriteItem = FavoriteItem;
 //# sourceMappingURL=index.js.map

@@ -27,23 +27,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Collapse = void 0;
+const jsx_runtime_1 = require("react/jsx-runtime");
 const React = __importStar(require("react"));
 const Collapse_module_scss_1 = __importDefault(require("./Collapse.module.scss"));
 const classnames_1 = __importDefault(require("classnames"));
 const Collapse = ({ collapsed, children, filterName, elementType: ElementType = 'h5' }) => {
     const [isCollapsed, setIsCollapsed] = React.useState(collapsed);
-    return (<>
-      <div className={Collapse_module_scss_1.default.collapseDiv} onClick={() => setIsCollapsed(!isCollapsed)}>
-        <ElementType>{filterName}</ElementType>
-        {isCollapsed ? (<i className="fa-solid fa-chevron-down"></i>) : (<i className="fa-solid fa-chevron-up"></i>)}
-      </div>
-      <div className={(0, classnames_1.default)(Collapse_module_scss_1.default.collapseContent, {
-            [Collapse_module_scss_1.default.collapsed]: isCollapsed,
-            [Collapse_module_scss_1.default.expanded]: !isCollapsed
-        })} aria-expanded={isCollapsed}>
-        {children}
-      </div>
-    </>);
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Collapse_module_scss_1.default.collapseDiv, onClick: () => setIsCollapsed(!isCollapsed) }, { children: [(0, jsx_runtime_1.jsx)(ElementType, { children: filterName }), isCollapsed ? ((0, jsx_runtime_1.jsx)("i", { className: "fa-solid fa-chevron-down" })) : ((0, jsx_runtime_1.jsx)("i", { className: "fa-solid fa-chevron-up" }))] })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: (0, classnames_1.default)(Collapse_module_scss_1.default.collapseContent, {
+                    [Collapse_module_scss_1.default.collapsed]: isCollapsed,
+                    [Collapse_module_scss_1.default.expanded]: !isCollapsed
+                }), "aria-expanded": isCollapsed }, { children: children }))] }));
 };
 exports.Collapse = Collapse;
 //# sourceMappingURL=index.js.map

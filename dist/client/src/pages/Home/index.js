@@ -1,33 +1,11 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Home = void 0;
-const react_1 = __importStar(require("react"));
+const jsx_runtime_1 = require("react/jsx-runtime");
+const react_1 = require("react");
 const react_responsive_1 = __importDefault(require("react-responsive"));
 const components_1 = require("../../components");
 const selectors_1 = require("../../redux/filter/selectors");
@@ -197,47 +175,9 @@ const Home = () => {
     const ramArr = [filterSlice_1.setRam, ram];
     const cpuCoresArr = [filterSlice_1.setCpuCores, cpuCores];
     const colorsArr = [filterSlice_1.setColors, colors];
-    return (<div className={Home_module_scss_1.default.homeContainer}>
-      <div className={Home_module_scss_1.default.filtersColumn}>
-        <react_responsive_1.default maxWidth={699}>
-          <div className={Home_module_scss_1.default.filtersCollapse}>
-            <components_1.Collapse filterName="Фильтры" elementType="h5" collapsed={true}>
-              <components_1.Filters handleChange={handleChange} setFirstPage={setFirstPage} brandsArr={brandsArr} memoryArr={memoryArr} ramArr={ramArr} cpuCoresArr={cpuCoresArr} colorsArr={colorsArr}/>
-            </components_1.Collapse>
-          </div>
-        </react_responsive_1.default>
-        <react_responsive_1.default minWidth={700}>
-          <components_1.Filters handleChange={handleChange} setFirstPage={setFirstPage} brandsArr={brandsArr} memoryArr={memoryArr} ramArr={ramArr} cpuCoresArr={cpuCoresArr} colorsArr={colorsArr}/>
-        </react_responsive_1.default>
-      </div>
-      <div className={Home_module_scss_1.default.productsColumn}>
-        <components_1.Sorting />
-        <div className={Home_module_scss_1.default.productListContainer}>
-          {isLoading ? (<div className={Home_module_scss_1.default.loadingBlock}>
-              <img src={Spinner_1s_200px_gif_1.default}/>
-            </div>) : (currentData.length ? (<>
-              <div className={Home_module_scss_1.default.productListWrapper}>
-                <div className={Home_module_scss_1.default.productList}>
-                  {currentData.map((item, index) => {
-                return (<ProductItem_1.ProductItem productId={item.id} phoneImage={item.imageUrl} rating={item.rating} testimonials={item.testimonials} productName={item.name} priceValue={item.price} productCode={item.productCode} key={index}/>);
-            })}
-                </div>
-              </div>
-              <div className={Home_module_scss_1.default.productsPagination}>
-                <components_1.Pagination className={Home_module_scss_1.default.paginationBar} currentPage={currentPage} totalCount={finalProducts.length} pageSize={pageSize} onPageChange={(page) => dispatch((0, filterSlice_1.setCurrentPage)(page))}/>
-              </div>
-            </>) : (<div className={Home_module_scss_1.default.productsNotFound}>
-              <div className={Home_module_scss_1.default.emptyCart}>
-                <img src={empty_cart_2_400x400_png_1.default} alt="empty cart"/>
-              </div>
-              <div>
-                <h5>Товары не найдены</h5>
-                <p>Попробуйте изменить критерии поиска</p>
-              </div>
-            </div>))}
-        </div>
-      </div>
-    </div>);
+    return ((0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Home_module_scss_1.default.homeContainer }, { children: [(0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Home_module_scss_1.default.filtersColumn }, { children: [(0, jsx_runtime_1.jsx)(react_responsive_1.default, Object.assign({ maxWidth: 699 }, { children: (0, jsx_runtime_1.jsx)("div", Object.assign({ className: Home_module_scss_1.default.filtersCollapse }, { children: (0, jsx_runtime_1.jsx)(components_1.Collapse, Object.assign({ filterName: "\u0424\u0438\u043B\u044C\u0442\u0440\u044B", elementType: "h5", collapsed: true }, { children: (0, jsx_runtime_1.jsx)(components_1.Filters, { handleChange: handleChange, setFirstPage: setFirstPage, brandsArr: brandsArr, memoryArr: memoryArr, ramArr: ramArr, cpuCoresArr: cpuCoresArr, colorsArr: colorsArr }) })) })) })), (0, jsx_runtime_1.jsx)(react_responsive_1.default, Object.assign({ minWidth: 700 }, { children: (0, jsx_runtime_1.jsx)(components_1.Filters, { handleChange: handleChange, setFirstPage: setFirstPage, brandsArr: brandsArr, memoryArr: memoryArr, ramArr: ramArr, cpuCoresArr: cpuCoresArr, colorsArr: colorsArr }) }))] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Home_module_scss_1.default.productsColumn }, { children: [(0, jsx_runtime_1.jsx)(components_1.Sorting, {}), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: Home_module_scss_1.default.productListContainer }, { children: isLoading ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: Home_module_scss_1.default.loadingBlock }, { children: (0, jsx_runtime_1.jsx)("img", { src: Spinner_1s_200px_gif_1.default }) }))) : (currentData.length ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: Home_module_scss_1.default.productListWrapper }, { children: (0, jsx_runtime_1.jsx)("div", Object.assign({ className: Home_module_scss_1.default.productList }, { children: currentData.map((item, index) => {
+                                            return ((0, jsx_runtime_1.jsx)(ProductItem_1.ProductItem, { productId: item.id, phoneImage: item.imageUrl, rating: item.rating, testimonials: item.testimonials, productName: item.name, priceValue: item.price, productCode: item.productCode }, index));
+                                        }) })) })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: Home_module_scss_1.default.productsPagination }, { children: (0, jsx_runtime_1.jsx)(components_1.Pagination, { className: Home_module_scss_1.default.paginationBar, currentPage: currentPage, totalCount: finalProducts.length, pageSize: pageSize, onPageChange: (page) => dispatch((0, filterSlice_1.setCurrentPage)(page)) }) }))] })) : ((0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Home_module_scss_1.default.productsNotFound }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: Home_module_scss_1.default.emptyCart }, { children: (0, jsx_runtime_1.jsx)("img", { src: empty_cart_2_400x400_png_1.default, alt: "empty cart" }) })), (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("h5", { children: "\u0422\u043E\u0432\u0430\u0440\u044B \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u044B" }), (0, jsx_runtime_1.jsx)("p", { children: "\u041F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0438\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u043A\u0440\u0438\u0442\u0435\u0440\u0438\u0438 \u043F\u043E\u0438\u0441\u043A\u0430" })] })] })))) }))] }))] })));
 };
 exports.Home = Home;
 //# sourceMappingURL=index.js.map

@@ -1,0 +1,67 @@
+{
+  "name": "online-store-1",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.8.3",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^14.3.0",
+    "@types/jest": "^27.5.2",
+    "@types/lodash": "^4.14.182",
+    "@types/lodash.debounce": "^4.0.7",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@types/react-redux": "^7.1.24",
+    "@types/react-router-dom": "^5.3.3",
+    "axios": "^0.27.2",
+    "classnames": "^2.3.1",
+    "html-react-parser": "^3.0.4",
+    "lodash": "^4.17.21",
+    "lodash.debounce": "^4.0.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-image-lightbox": "^5.1.4",
+    "react-number-format": "^4.9.3",
+    "react-redux": "^8.0.2",
+    "react-responsive": "^9.0.0",
+    "react-responsive-carousel": "^3.2.23",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "5.0.1",
+    "react-tabs": "^5.1.0",
+    "sass": "^1.54.0",
+    "typescript": "^4.7.4",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "jest",
+    "eject": "react-scripts eject",
+    "json-server": "json-server --watch db.json --port 3004",
+    "dev": "concurrently \"npm start\" \"npm run json-server\""
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^18.6.2",
+    "jest": "^27.5.1",
+    "react-test-renderer": "^18.2.0"
+  }
+}

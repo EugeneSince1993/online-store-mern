@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Sorting = exports.sortList = void 0;
+const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const classnames_1 = __importDefault(require("classnames"));
 const filterSlice_1 = require("../../redux/filter/filterSlice");
@@ -103,21 +104,9 @@ const Sorting = () => {
         onClickListItem(exports.sortList[0]);
         setIsRatingActive(true);
     }, []);
-    return (<div className={Sorting_module_scss_1.default.sorting}>
-      <div className={(0, classnames_1.default)(Sorting_module_scss_1.default.rating, { [Sorting_module_scss_1.default.selected]: isRatingActive })} onClick={handleRatingClick}>
-        по популярности
-      </div>
-      <div className={(0, classnames_1.default)(Sorting_module_scss_1.default.price, { [Sorting_module_scss_1.default.selected]: isPriceActive })} onClick={handlePriceClick}>
-        <span>по цене</span>
-        {!priceVisited ? ''
-            : isPriceAscending ? (<i className="fa-solid fa-arrow-up-short-wide"></i>) : (<i className="fa-solid fa-arrow-down-short-wide"></i>)}
-      </div>
-      <div className={(0, classnames_1.default)(Sorting_module_scss_1.default.title, { [Sorting_module_scss_1.default.selected]: isTitleActive })} onClick={handleTitleClick}>
-        <span>по алфавиту</span>
-        {!titleVisited ? ''
-            : isTitleAscending ? (<i className="fa-solid fa-arrow-up-short-wide"></i>) : (<i className="fa-solid fa-arrow-down-short-wide"></i>)}
-      </div>
-    </div>);
+    return ((0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Sorting_module_scss_1.default.sorting }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: (0, classnames_1.default)(Sorting_module_scss_1.default.rating, { [Sorting_module_scss_1.default.selected]: isRatingActive }), onClick: handleRatingClick }, { children: "\u043F\u043E \u043F\u043E\u043F\u0443\u043B\u044F\u0440\u043D\u043E\u0441\u0442\u0438" })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(Sorting_module_scss_1.default.price, { [Sorting_module_scss_1.default.selected]: isPriceActive }), onClick: handlePriceClick }, { children: [(0, jsx_runtime_1.jsx)("span", { children: "\u043F\u043E \u0446\u0435\u043D\u0435" }), !priceVisited ? ''
+                        : isPriceAscending ? ((0, jsx_runtime_1.jsx)("i", { className: "fa-solid fa-arrow-up-short-wide" })) : ((0, jsx_runtime_1.jsx)("i", { className: "fa-solid fa-arrow-down-short-wide" }))] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(Sorting_module_scss_1.default.title, { [Sorting_module_scss_1.default.selected]: isTitleActive }), onClick: handleTitleClick }, { children: [(0, jsx_runtime_1.jsx)("span", { children: "\u043F\u043E \u0430\u043B\u0444\u0430\u0432\u0438\u0442\u0443" }), !titleVisited ? ''
+                        : isTitleAscending ? ((0, jsx_runtime_1.jsx)("i", { className: "fa-solid fa-arrow-up-short-wide" })) : ((0, jsx_runtime_1.jsx)("i", { className: "fa-solid fa-arrow-down-short-wide" }))] }))] })));
 };
 exports.Sorting = Sorting;
 //# sourceMappingURL=index.js.map

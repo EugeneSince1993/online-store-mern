@@ -16,7 +16,22 @@ exports.getOne = exports.getAll = void 0;
 const Product_1 = __importDefault(require("../models/Product"));
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const products = yield Product_1.default.find({}).exec();
+        const sortQuery = req.query.sort;
+        console.log(sortQuery);
+        let sortObject = {};
+        if (req.query.sortField === "rating") {
+            sortObject["rating"] = sortQuery;
+        }
+        else if (req.query.sortField === "price") {
+            sortObject["price"] = sortQuery;
+        }
+        else if (req.query.sortField === "title") {
+            sortObject["title"] = sortQuery;
+        }
+        const products = yield Product_1.default
+            .find({})
+            .sort(sortObject)
+            .exec();
         res.json(products);
     }
     catch (err) {

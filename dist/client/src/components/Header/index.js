@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Header = void 0;
+const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const react_responsive_1 = __importDefault(require("react-responsive"));
 const react_redux_1 = require("react-redux");
@@ -36,22 +37,7 @@ const Header = () => {
         }
         isMounted.current = true;
     }, [favoriteItems]);
-    return (<>
-      <header className={(0, classnames_1.default)(Header_module_scss_1.default.header, 'bgLightGray')}>
-        <div className={Header_module_scss_1.default.logo}>
-          <react_router_dom_1.NavLink to="/">
-            <img src={online_store_logo_min_png_1.default} alt="online store"/>
-          </react_router_dom_1.NavLink>
-        </div>
-        {location.pathname === '/' && <Search_1.Search />}
-        <react_responsive_1.default minWidth={700}>
-          <Nav_1.Nav cartTotal={cartTotal} favoritesTotal={favoritesTotal}/>
-        </react_responsive_1.default>
-      </header>
-      <react_responsive_1.default maxWidth={699}>
-        <Nav_1.Nav cartTotal={cartTotal} favoritesTotal={favoritesTotal}/>
-      </react_responsive_1.default>
-    </>);
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)("header", Object.assign({ className: (0, classnames_1.default)(Header_module_scss_1.default.header, 'bgLightGray') }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: Header_module_scss_1.default.logo }, { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.NavLink, Object.assign({ to: "/" }, { children: (0, jsx_runtime_1.jsx)("img", { src: online_store_logo_min_png_1.default, alt: "online store" }) })) })), location.pathname === '/' && (0, jsx_runtime_1.jsx)(Search_1.Search, {}), (0, jsx_runtime_1.jsx)(react_responsive_1.default, Object.assign({ minWidth: 700 }, { children: (0, jsx_runtime_1.jsx)(Nav_1.Nav, { cartTotal: cartTotal, favoritesTotal: favoritesTotal }) }))] })), (0, jsx_runtime_1.jsx)(react_responsive_1.default, Object.assign({ maxWidth: 699 }, { children: (0, jsx_runtime_1.jsx)(Nav_1.Nav, { cartTotal: cartTotal, favoritesTotal: favoritesTotal }) }))] }));
 };
 exports.Header = Header;
 //# sourceMappingURL=index.js.map

@@ -2,7 +2,22 @@ import ProductModel from '../models/Product';
 
 export const getAll = async (req, res) => {
   try {
-    const products = await ProductModel.find({}).exec();
+    const sortQuery = req.query.sort;
+    console.log(sortQuery);
+
+    let sortObject = {};
+    if (req.query.sortField === "rating") {
+      sortObject["rating"] = sortQuery;
+    } else if (req.query.sortField === "price") {
+      sortObject["price"] = sortQuery;
+    } else if (req.query.sortField === "title") {
+      sortObject["title"] = sortQuery;
+    }
+
+    const products = await ProductModel
+      .find({})
+      .sort(sortObject)
+      .exec();
     res.json(products);
   } catch (err) {
     console.log(err);

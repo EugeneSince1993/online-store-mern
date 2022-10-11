@@ -1,0 +1,49 @@
+.buttonContainer {
+  display: flex;
+
+  &.justifyContentCenter {
+    justify-content: center;
+  }
+}
+
+.button {
+  display: inline-block;
+  font-size: 14px;
+  padding: 7px 12px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &.outlined {
+    background-color: #fff;
+    border: 2px solid #a0a0a0;
+    color: #a0a0a0;
+
+    &:hover {
+      color: #2d7dff;
+      border-color: #2d7dff;
+    }
+  }
+
+  &.solid {
+    background-color: #2d7dff;
+    color: #fff;
+    border: 2px solid #2d7dff;
+
+    &:hover {
+      background-color: #fff;
+      color: #2d7dff;
+      border: 2px solid #2d7dff;
+    }
+  }
+
+  &.db {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  &.dib {
+    display: inline-block;
+  }
+}

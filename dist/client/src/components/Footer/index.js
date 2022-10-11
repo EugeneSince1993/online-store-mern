@@ -4,61 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Footer = void 0;
+const jsx_runtime_1 = require("react/jsx-runtime");
 const classnames_1 = __importDefault(require("classnames"));
 const react_router_dom_1 = require("react-router-dom");
 const Footer_module_scss_1 = __importDefault(require("./Footer.module.scss"));
 const Footer = () => {
     const date = new Date();
     let year = date.getFullYear();
-    return (<footer className={(0, classnames_1.default)(Footer_module_scss_1.default.footerContainer, 'container', 'bgLightGray')}>
-      <div className={(0, classnames_1.default)(Footer_module_scss_1.default.footerRow, Footer_module_scss_1.default.footerLinks)} style={{ display: "none" }}>
-        <div className={(0, classnames_1.default)(Footer_module_scss_1.default.forClients)}>
-          <h6>Покупателям</h6>
-          <ul>
-            <li>
-              <react_router_dom_1.NavLink to="#">Способы оплаты</react_router_dom_1.NavLink>
-            </li>
-            <li>
-              <react_router_dom_1.NavLink to="#">Доставка</react_router_dom_1.NavLink>
-            </li>
-            <li>
-              <react_router_dom_1.NavLink to="#">Вопросы и ответы</react_router_dom_1.NavLink>
-            </li>
-          </ul>
-        </div>
-        <div className={(0, classnames_1.default)(Footer_module_scss_1.default.aboutCompany)}>
-          <h6>О компании</h6>
-          <ul>
-            <li>
-              <react_router_dom_1.NavLink to="#">О нас</react_router_dom_1.NavLink>
-            </li>
-            <li>
-              <react_router_dom_1.NavLink to="#">Контакты</react_router_dom_1.NavLink>
-            </li>
-          </ul>
-        </div>
-        <div className={Footer_module_scss_1.default.followUs}>
-          <h6>Мы в соцсетях</h6>
-          <ul>
-            <li>
-              <react_router_dom_1.NavLink to="#">Вконтакте</react_router_dom_1.NavLink>
-            </li>
-            <li>
-              <react_router_dom_1.NavLink to="#">Одноклассники</react_router_dom_1.NavLink>
-            </li>
-            <li>
-              <react_router_dom_1.NavLink to="#">Телеграм</react_router_dom_1.NavLink>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div className={Footer_module_scss_1.default.footerRow}>
-        <div>
-          <span>{year} </span> 
-          &copy; Online store
-        </div>
-      </div>
-    </footer>);
+    return ((0, jsx_runtime_1.jsxs)("footer", Object.assign({ className: (0, classnames_1.default)(Footer_module_scss_1.default.footerContainer, 'container', 'bgLightGray') }, { children: [(0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(Footer_module_scss_1.default.footerRow, Footer_module_scss_1.default.footerLinks), style: { display: "none" } }, { children: [(0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(Footer_module_scss_1.default.forClients) }, { children: [(0, jsx_runtime_1.jsx)("h6", { children: "\u041F\u043E\u043A\u0443\u043F\u0430\u0442\u0435\u043B\u044F\u043C" }), (0, jsx_runtime_1.jsxs)("ul", { children: [(0, jsx_runtime_1.jsx)("li", { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.NavLink, Object.assign({ to: "#" }, { children: "\u0421\u043F\u043E\u0441\u043E\u0431\u044B \u043E\u043F\u043B\u0430\u0442\u044B" })) }), (0, jsx_runtime_1.jsx)("li", { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.NavLink, Object.assign({ to: "#" }, { children: "\u0414\u043E\u0441\u0442\u0430\u0432\u043A\u0430" })) }), (0, jsx_runtime_1.jsx)("li", { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.NavLink, Object.assign({ to: "#" }, { children: "\u0412\u043E\u043F\u0440\u043E\u0441\u044B \u0438 \u043E\u0442\u0432\u0435\u0442\u044B" })) })] })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(Footer_module_scss_1.default.aboutCompany) }, { children: [(0, jsx_runtime_1.jsx)("h6", { children: "\u041E \u043A\u043E\u043C\u043F\u0430\u043D\u0438\u0438" }), (0, jsx_runtime_1.jsxs)("ul", { children: [(0, jsx_runtime_1.jsx)("li", { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.NavLink, Object.assign({ to: "#" }, { children: "\u041E \u043D\u0430\u0441" })) }), (0, jsx_runtime_1.jsx)("li", { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.NavLink, Object.assign({ to: "#" }, { children: "\u041A\u043E\u043D\u0442\u0430\u043A\u0442\u044B" })) })] })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Footer_module_scss_1.default.followUs }, { children: [(0, jsx_runtime_1.jsx)("h6", { children: "\u041C\u044B \u0432 \u0441\u043E\u0446\u0441\u0435\u0442\u044F\u0445" }), (0, jsx_runtime_1.jsxs)("ul", { children: [(0, jsx_runtime_1.jsx)("li", { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.NavLink, Object.assign({ to: "#" }, { children: "\u0412\u043A\u043E\u043D\u0442\u0430\u043A\u0442\u0435" })) }), (0, jsx_runtime_1.jsx)("li", { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.NavLink, Object.assign({ to: "#" }, { children: "\u041E\u0434\u043D\u043E\u043A\u043B\u0430\u0441\u0441\u043D\u0438\u043A\u0438" })) }), (0, jsx_runtime_1.jsx)("li", { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.NavLink, Object.assign({ to: "#" }, { children: "\u0422\u0435\u043B\u0435\u0433\u0440\u0430\u043C" })) })] })] }))] })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: Footer_module_scss_1.default.footerRow }, { children: (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsxs)("span", { children: [year, " "] }), "\u00A9 Online store"] }) }))] })));
 };
 exports.Footer = Footer;
 //# sourceMappingURL=index.js.map

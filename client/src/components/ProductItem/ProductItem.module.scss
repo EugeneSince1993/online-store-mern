@@ -1,0 +1,275 @@
+.productItem {
+  flex-basis: 25%;
+  padding-right: 20px;
+  margin-bottom: 20px;
+
+  .productItemInner {
+    height: 355px;
+    border: 1px solid #ebebeb;
+    border-radius: 6px;
+    padding: 15px;
+    position: relative;
+
+    .image {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+      overflow: hidden;
+
+      img {
+        max-height: 180px;
+      }
+    }
+
+    .icons {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+
+      i {
+        margin-right: 4px;
+      }
+
+      .testimonials, .favorites {
+        cursor: pointer;
+      }
+
+      .rating {
+        margin-right: 15px;
+
+        i {
+          color: rgb(255, 192, 74);
+        }
+
+        .tooltipText {
+          width: 120px;
+          margin-left: -60px;
+        }
+      }
+
+      .testimonials {
+        display: none;
+
+        i {
+          color: rgb(173, 173, 173);
+        }
+
+        .tooltipText {
+          width: 95px;
+          margin-left: -47px;
+        }
+      }
+
+      .favorites {
+        margin-left: auto;
+
+        i {
+          color: rgb(255, 131, 189);
+          font-size: 19px;
+        }
+
+        .tooltipText {
+          width: 175px;
+          margin-left: -89px;
+        }
+      }
+    }
+
+    .productLink {
+      display: block;
+      font-size: 15px;
+      line-height: 20px;
+      max-height: 40px;
+      overflow: hidden;
+      color: #000;
+    }
+
+    .buyContainer {
+      position: absolute;
+      width: calc(100% - 30px);
+      bottom: 15px;
+
+      .buy {
+        display: flex;
+        align-items: center;
+  
+        .price {
+          display: block;
+  
+          .priceValue, .currency {
+            display: inline-block;
+            font-size: 18px;
+          }
+  
+          .priceValue {
+            margin-right: 5px;
+          }
+        }
+  
+        .addToCart {
+          margin-left: auto;
+  
+          button {
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            padding: 7px;
+            background-color: #2d7dff;
+            transition: background-color 0.2s ease-in-out;
+  
+            &:hover {
+              background-color: #5c9aff;
+            }
+
+            i {
+              color: #fff;
+              font-size: 18px;
+            }
+          }
+  
+          .tooltipText {
+            width: 155px;
+            margin-left: -78px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1270px) and (max-width: 1500px) {
+  .productItem {
+  
+    .productItemInner {
+      height: 317px;
+
+      .image {
+  
+        img {
+          max-height: 148px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1269px) {
+  .productItem {
+  
+    .productItemInner {
+      height: 301px;
+
+      .image {
+  
+        img {
+          max-height: 130px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 700px) and (max-width: 1199px) {
+  .productItem {
+    flex-basis: 50%;
+
+    .productItemInner {
+        height: 298px;
+
+      .image {
+  
+        img {
+          max-height: 130px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 699px) {
+  .productItem {
+    flex-basis: 50%;
+
+    &:nth-of-type(odd) {
+      padding-right: 5px;
+    }
+
+    &:nth-of-type(even) {
+      padding-right: 0;
+      padding-left: 5px;
+    }
+
+    .productItemInner {
+      height: 315px;
+      padding: 15px 10px;
+
+      .image {
+  
+        img {
+          max-height: 125px;
+        }
+      }
+
+      .productLink {
+        max-height: 70px;
+        font-size: 16px;
+      }
+
+      .buyContainer {
+        width: calc(100% - 20px);
+
+        .buy {
+          .price {
+            .priceValue span, .currency {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 355px) {
+  .productItem {
+    flex-basis: 50%;
+
+    &:nth-of-type(odd) {
+      padding-right: 5px;
+    }
+
+    &:nth-of-type(even) {
+      padding-right: 0;
+      padding-left: 5px;
+    }
+
+    .productItemInner {
+      height: 310px;
+      padding: 15px 10px;
+
+      .image {
+  
+        img {
+          max-height: 115px;
+        }
+      }
+
+      .productLink {
+        max-height: 70px;
+        font-size: 16px;
+      }
+
+      .buyContainer {
+        width: calc(100% - 20px);
+
+        .buy {
+          .price {
+            .priceValue span, .currency {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

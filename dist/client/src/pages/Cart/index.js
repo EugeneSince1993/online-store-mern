@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cart = void 0;
+const jsx_runtime_1 = require("react/jsx-runtime");
 const hooks_1 = require("../../redux/hooks");
 const react_redux_1 = require("react-redux");
 const selectors_1 = require("../../redux/cart/selectors");
@@ -23,42 +24,9 @@ const Cart = () => {
         }
     };
     if (!totalPrice) {
-        return <CartEmpty_1.CartEmpty />;
+        return (0, jsx_runtime_1.jsx)(CartEmpty_1.CartEmpty, {});
     }
-    return (<div className={Cart_module_scss_1.default.cartBlock}>
-      <h1>Корзина</h1>
-      <div className={Cart_module_scss_1.default.cartContainer}>
-        <div className={Cart_module_scss_1.default.productList}>
-          {items.map((item) => (<components_1.CartItem key={item.id} {...item}/>))}
-        </div>
-        <div className={Cart_module_scss_1.default.summary}>
-          <div className={Cart_module_scss_1.default.summaryContainer}>
-            <h3>Итого</h3>
-            <div className={Cart_module_scss_1.default.summaryBlocks}>
-              <div className={Cart_module_scss_1.default.productQuantity}>
-                <div className={Cart_module_scss_1.default.quantityKey}>Количество товаров</div>
-                <div className={Cart_module_scss_1.default.quantityValue}>{totalCount}</div>
-              </div>
-              <div className={Cart_module_scss_1.default.total}>
-                <div className={Cart_module_scss_1.default.totalKey}>Сумма</div>
-                <div className={(0, classnames_1.default)(Cart_module_scss_1.default.price, Cart_module_scss_1.default.totalValue)}>
-                  <div className={Cart_module_scss_1.default.priceValue}>
-                    <react_number_format_1.default value={totalPrice} displayType='text' thousandSeparator=' '/>
-                  </div>
-                  <div className={Cart_module_scss_1.default.currency}>₽</div>
-                </div>        
-              </div>
-            </div>
-          </div>
-          <components_1.Button display="block" variant="solid">
-            Оформить заказ
-          </components_1.Button>
-          <components_1.Button display="block" variant="outlined" onClickFunc={onClickClear}>
-            Очистить корзину
-          </components_1.Button>
-        </div>
-      </div>
-    </div>);
+    return ((0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Cart_module_scss_1.default.cartBlock }, { children: [(0, jsx_runtime_1.jsx)("h1", { children: "\u041A\u043E\u0440\u0437\u0438\u043D\u0430" }), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Cart_module_scss_1.default.cartContainer }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: Cart_module_scss_1.default.productList }, { children: items.map((item) => ((0, jsx_runtime_1.jsx)(components_1.CartItem, Object.assign({}, item), item.id))) })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Cart_module_scss_1.default.summary }, { children: [(0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Cart_module_scss_1.default.summaryContainer }, { children: [(0, jsx_runtime_1.jsx)("h3", { children: "\u0418\u0442\u043E\u0433\u043E" }), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Cart_module_scss_1.default.summaryBlocks }, { children: [(0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Cart_module_scss_1.default.productQuantity }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: Cart_module_scss_1.default.quantityKey }, { children: "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u043E\u0432" })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: Cart_module_scss_1.default.quantityValue }, { children: totalCount }))] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Cart_module_scss_1.default.total }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: Cart_module_scss_1.default.totalKey }, { children: "\u0421\u0443\u043C\u043C\u0430" })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(Cart_module_scss_1.default.price, Cart_module_scss_1.default.totalValue) }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: Cart_module_scss_1.default.priceValue }, { children: (0, jsx_runtime_1.jsx)(react_number_format_1.default, { value: totalPrice, displayType: 'text', thousandSeparator: ' ' }) })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: Cart_module_scss_1.default.currency }, { children: "\u20BD" }))] }))] }))] }))] })), (0, jsx_runtime_1.jsx)(components_1.Button, Object.assign({ display: "block", variant: "solid" }, { children: "\u041E\u0444\u043E\u0440\u043C\u0438\u0442\u044C \u0437\u0430\u043A\u0430\u0437" })), (0, jsx_runtime_1.jsx)(components_1.Button, Object.assign({ display: "block", variant: "outlined", onClickFunc: onClickClear }, { children: "\u041E\u0447\u0438\u0441\u0442\u0438\u0442\u044C \u043A\u043E\u0440\u0437\u0438\u043D\u0443" }))] }))] }))] })));
 };
 exports.Cart = Cart;
 //# sourceMappingURL=index.js.map

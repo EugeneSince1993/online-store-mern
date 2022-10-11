@@ -1,0 +1,377 @@
+.productContainer {
+  display: flex;
+
+  .productImage {
+    flex-basis: 35%;
+    padding-right: 40px;
+  }
+
+  .mainData {
+    flex-basis: 65%;
+
+    h1 {
+      margin-bottom: 25px;
+    }
+
+    .shortSpecs {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .productCode {
+      margin-bottom: 20px;
+      color: #757575;
+    }
+
+    .icons {
+      display: flex;
+      align-items: center;
+      margin-right: 30px;
+      margin-bottom: 20px;
+
+      i {
+        margin-right: 4px;
+      }
+
+      .testimonials {
+        cursor: pointer;
+      }
+
+      .rating {
+        margin-right: 15px;
+
+        i {
+          color: rgb(255, 192, 74);
+        }
+
+        .tooltipText {
+          width: 120px;
+          margin-left: -60px;
+        }
+      }
+
+      .testimonials {
+        display: none;
+
+        i {
+          color: rgb(173, 173, 173);
+        }
+
+        .tooltipText {
+          width: 95px;
+          margin-left: -47px;
+        }
+      }
+    }
+
+    .priceAndBuy {
+      margin-bottom: 20px;
+
+      .price {
+        display: block;
+        margin-bottom: 20px;
+
+        .priceValue, .currency {
+          display: inline-block;
+          font-size: 28px;
+        }
+
+        .priceValue {
+          margin-right: 5px;
+        }
+      }
+
+      .addToCartAndFavorites {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        
+        .addToCart {
+  
+          button {
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            padding: 7px;
+            background-color: #2d7dff;
+            transition: background-color 0.2s ease-in-out;
+            margin-right: 30px;
+  
+            &:hover {
+              background-color: #5c9aff;
+            }
+  
+            > div {
+              display: flex;
+              align-items: center;
+  
+              .cartIcon {
+                display: inline-block;
+                margin-right: 7px;
+                
+                i {
+                  color: #fff;
+                  font-size: 16px;
+                }
+              }
+    
+              .toCart {
+                display: inline-block;
+                color: #fff;
+                font-size: 16px;
+              }
+            }
+          }
+        }
+  
+        .favorites {
+          cursor: pointer;
+  
+          i {
+            color: rgb(255, 131, 189);
+            font-size: 24px;
+          }
+  
+          .tooltipText {
+            width: 175px;
+            margin-left: -88px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.info {
+  display: flex;
+  border-top: 1px solid #bebebe;
+
+  .specs {
+
+    .spec {
+      display: flex;
+      margin-bottom: 10px;
+
+      .specName {
+        width: 230px;
+      }
+    }
+  }
+
+  .productDescription {
+    line-height: 20px;
+    width: 1000px;
+
+    div {
+      margin-bottom: 10px;
+    }
+
+    h6 {
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .info {
+
+    .productDescription {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 699px) {
+  .productContainer {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 30px;
+  
+    .productImage {
+      padding-right: 0;
+    }
+  
+    .mainData {
+      margin-top: 30px;
+
+      .shortSpecs {
+        font-size: 17px;
+        line-height: 24px;
+      }
+
+      .productCode {
+        font-size: 16px;
+      }
+
+      .priceAndBuy {
+
+        .price {
+
+          .priceValue span {
+            font-size: 22px;
+          }
+
+          .currency {
+            font-size: 22px;
+          }
+        }
+
+        .addToCartAndFavorites {
+
+          .addToCart {
+
+            button {
+
+              div {
+
+                .cartIcon {
+
+                  i {
+                    font-size: 16px;
+                  }
+                }
+
+                .toCart {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+
+          .favorites {
+
+            i {
+              font-size: 28px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .info {
+  
+    .specs {
+  
+      .spec {
+  
+        div {
+          font-size: 16px;
+
+          &:nth-of-type(2) {
+            padding-left: 10px;
+          }
+        }
+      }
+    }
+
+    .productDescription {
+      width: 100%;
+      line-height: 24px;
+
+      div {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 355px) {
+  .productContainer {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 30px;
+  
+    .productImage {
+      padding-right: 0;
+    }
+  
+    .mainData {
+      margin-top: 30px;
+
+      .shortSpecs {
+        font-size: 17px;
+        line-height: 24px;
+      }
+
+      .productCode {
+        font-size: 16px;
+      }
+
+      .priceAndBuy {
+
+        .price {
+
+          .priceValue span {
+            font-size: 22px;
+          }
+
+          .currency {
+            font-size: 22px;
+          }
+        }
+
+        .addToCartAndFavorites {
+
+          .addToCart {
+
+            button {
+
+              div {
+
+                .cartIcon {
+                  
+                  i {
+                    font-size: 16px;
+                  }
+                }
+
+                .toCart {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+
+          .favorites {
+
+            i {
+              font-size: 28px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .info {
+  
+    .specs {
+  
+      .spec {
+  
+        div {
+          font-size: 16px;
+
+          &:nth-of-type(2) {
+            padding-left: 10px;
+          }
+        }
+
+        .specName {
+          width: 205px;
+        }
+      }
+    }
+
+    .productDescription {
+      width: 100%;
+      line-height: 24px;
+
+      div {
+        font-size: 16px;
+      }
+    }
+  }
+}
