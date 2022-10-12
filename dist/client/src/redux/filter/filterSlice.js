@@ -2,6 +2,7 @@
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.setCurrentPage = exports.setSearchValue = exports.setColors = exports.setMaxBatteryCapacity = exports.setMinBatteryCapacity = exports.setMaxScreenSize = exports.setMinScreenSize = exports.setMaxPrice = exports.setMinPrice = exports.setCpuCores = exports.setRam = exports.setMemory = exports.setBrands = exports.setFilters = exports.setSort = void 0;
+const asyncActions_1 = require("./asyncActions");
 const toolkit_1 = require("@reduxjs/toolkit");
 const types_1 = require("./types");
 const initialState = {
@@ -14,7 +15,7 @@ const initialState = {
         },
         priceRange: {
             min: 0,
-            max: 95000,
+            max: 300000,
         },
         colors: {
             "white": false,
@@ -65,6 +66,22 @@ const initialState = {
     },
     searchValue: '',
     currentPage: 1,
+    rangeExtremes: {
+        priceExtremes: {
+            minPrice: 0,
+            maxPrice: 200000,
+        },
+        screenSizeExtremes: {
+            minScreenSize: 4,
+            maxScreenSize: 7,
+        },
+        batteryCapacityExtremes: {
+            minBatteryCapacity: 1500,
+            maxBatteryCapacity: 7000,
+        }
+    },
+    isLoading: false,
+    error: '',
 };
 const filterSlice = (0, toolkit_1.createSlice)({
     name: 'filters',
@@ -132,6 +149,34 @@ const filterSlice = (0, toolkit_1.createSlice)({
             }
         },
     },
+    extraReducers: (builder) => {
+        builder.addCase(asyncActions_1.getRangeExtremes.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(asyncActions_1.getRangeExtremes.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.error = '';
+            state.rangeExtremes = action.payload;
+        });
+        builder.addCase(asyncActions_1.getRangeExtremes.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+            state.rangeExtremes = {
+                priceExtremes: {
+                    minPrice: 0,
+                    maxPrice: 200000,
+                },
+                screenSizeExtremes: {
+                    minScreenSize: 4,
+                    maxScreenSize: 7,
+                },
+                batteryCapacityExtremes: {
+                    minBatteryCapacity: 1500,
+                    maxBatteryCapacity: 7000,
+                }
+            };
+        });
+    }
 });
 _a = filterSlice.actions, exports.setSort = _a.setSort, exports.setFilters = _a.setFilters, exports.setBrands = _a.setBrands, exports.setMemory = _a.setMemory, exports.setRam = _a.setRam, exports.setCpuCores = _a.setCpuCores, exports.setMinPrice = _a.setMinPrice, exports.setMaxPrice = _a.setMaxPrice, exports.setMinScreenSize = _a.setMinScreenSize, exports.setMaxScreenSize = _a.setMaxScreenSize, exports.setMinBatteryCapacity = _a.setMinBatteryCapacity, exports.setMaxBatteryCapacity = _a.setMaxBatteryCapacity, exports.setColors = _a.setColors, exports.setSearchValue = _a.setSearchValue, exports.setCurrentPage = _a.setCurrentPage;
 exports.default = filterSlice.reducer;

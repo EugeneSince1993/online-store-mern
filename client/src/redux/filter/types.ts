@@ -1,10 +1,10 @@
 export enum SortPropertyEnum {
-  RATING_DESC = 'rating',
-  RATING_ASC = '-rating',
-  TITLE_DESC = 'name',
-  TITLE_ASC = '-name',
-  PRICE_DESC = 'price',
-  PRICE_ASC = '-price',
+  RATING_ASC = 'rating',
+  RATING_DESC = '-rating',
+  TITLE_ASC = 'name',
+  TITLE_DESC = '-name',
+  PRICE_ASC = 'price',
+  PRICE_DESC = '-price'
 }
 
 export type Sort = {
@@ -28,8 +28,13 @@ export interface IStringVal {
 }
 
 export interface IRange {
-  min: number;
-  max: number;
+  [extreme: string]: number;
+}
+
+export interface IRangeExtremes {
+  priceExtremes: IRange;
+  screenSizeExtremes: IRange;
+  batteryCapacityExtremes: IRange;
 }
 
 export interface FilterSliceState {
@@ -37,4 +42,7 @@ export interface FilterSliceState {
   types: ITypes;
   searchValue: string;
   currentPage: number;
+  rangeExtremes: IRangeExtremes;
+  isLoading: boolean;
+  error: string;
 }

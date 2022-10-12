@@ -12,21 +12,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOne = exports.getAll = void 0;
+exports.getRangeExtremes = exports.getOne = exports.getAll = void 0;
 const Product_1 = __importDefault(require("../models/Product"));
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const sortQuery = req.query.sort;
+        const sortQuery = req.query.order;
         console.log(sortQuery);
         let sortObject = {};
-        if (req.query.sortField === "rating") {
+        if (req.query.sortBy === "rating") {
             sortObject["rating"] = sortQuery;
         }
-        else if (req.query.sortField === "price") {
+        else if (req.query.sortBy === "price") {
             sortObject["price"] = sortQuery;
         }
-        else if (req.query.sortField === "title") {
-            sortObject["title"] = sortQuery;
+        else if (req.query.sortBy === "name") {
+            sortObject["name"] = sortQuery;
         }
         const products = yield Product_1.default
             .find({})
@@ -72,4 +72,75 @@ const getOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getOne = getOne;
+const getRangeExtremes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const minPriceRaw = yield Product_1.default
+            .find({})
+            .sort({ price: 'asc' })
+            .limit(1)
+            .select('price -_id')
+            .exec();
+        const minPrice = minPriceRaw[0]["price"];
+        const maxPriceRaw = yield Product_1.default
+            .find({})
+            .sort({ price: 'desc' })
+            .limit(1)
+            .select('price -_id')
+            .exec();
+        const maxPrice = maxPriceRaw[0]["price"];
+        const priceExtremes = {
+            minPrice,
+            maxPrice
+        };
+        const minScreenSizeRaw = yield Product_1.default
+            .find({})
+            .sort({ screenSize: 'asc' })
+            .limit(1)
+            .select('screenSize -_id')
+            .exec();
+        const minScreenSize = minScreenSizeRaw[0]["screenSize"];
+        const maxScreenSizeRaw = yield Product_1.default
+            .find({})
+            .sort({ screenSize: 'desc' })
+            .limit(1)
+            .select('screenSize -_id')
+            .exec();
+        const maxScreenSize = maxScreenSizeRaw[0]["screenSize"];
+        const screenSizeExtremes = {
+            minScreenSize,
+            maxScreenSize
+        };
+        const minBatteryCapacityRaw = yield Product_1.default
+            .find({})
+            .sort({ batteryCapacity: 'asc' })
+            .limit(1)
+            .select('batteryCapacity -_id')
+            .exec();
+        const minBatteryCapacity = minBatteryCapacityRaw[0]["batteryCapacity"];
+        const maxBatteryCapacityRaw = yield Product_1.default
+            .find({})
+            .sort({ batteryCapacity: 'desc' })
+            .limit(1)
+            .select('batteryCapacity -_id')
+            .exec();
+        const maxBatteryCapacity = maxBatteryCapacityRaw[0]["batteryCapacity"];
+        const batteryCapacityExtremes = {
+            minBatteryCapacity,
+            maxBatteryCapacity
+        };
+        const rangeExtremes = {
+            priceExtremes,
+            screenSizeExtremes,
+            batteryCapacityExtremes
+        };
+        res.json(rangeExtremes);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'Не удалось получить товары',
+        });
+    }
+});
+exports.getRangeExtremes = getRangeExtremes;
 //# sourceMappingURL=ProductController.js.map

@@ -21,6 +21,7 @@ async function main() {
 
     app.get('/products', ProductController.getAll);
     app.get('/products/:id', ProductController.getOne);
+    app.get('/get-range-extremes', ProductController.getRangeExtremes);
 
     app.listen(port, () => {
       console.log(`Server is successfully running on port ${port}`);

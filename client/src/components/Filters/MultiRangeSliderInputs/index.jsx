@@ -18,6 +18,14 @@ export const MultiRangeSliderInputs = ({ min, max, step, inputType, setFirstPage
   const [minValue, set_minValue] = useState(min);
   const [maxValue, set_maxValue] = useState(max);
 
+	useEffect(() => {
+		set_minValue(min);
+	}, [min]);
+
+	useEffect(() => {
+		set_maxValue(max);
+	}, [max]);
+
 	const handleInput = (e) => {
 		set_minValue(e.minValue);
 		set_maxValue(e.maxValue);

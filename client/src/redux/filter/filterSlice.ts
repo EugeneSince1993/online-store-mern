@@ -1,9 +1,11 @@
+import { getRangeExtremes } from './asyncActions';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import { 
   FilterSliceState, 
   Sort, 
   SortPropertyEnum,  
-  IStringVal } from './types';
+  IStringVal, 
+  IRangeExtremes} from './types';
 
 const initialState: FilterSliceState = {
   types: {
@@ -15,7 +17,7 @@ const initialState: FilterSliceState = {
     },
     priceRange: {
       min: 0,
-      max: 95000,
+      max: 300000,
     },
     colors: {
       "white": false,
@@ -66,6 +68,22 @@ const initialState: FilterSliceState = {
   },
   searchValue: '',
   currentPage: 1,
+  rangeExtremes: {
+    priceExtremes: {
+      minPrice: 0,
+      maxPrice: 200000,
+    },
+    screenSizeExtremes: {
+      minScreenSize: 4,
+      maxScreenSize: 7,
+    },
+    batteryCapacityExtremes: {
+      minBatteryCapacity: 1500,
+      maxBatteryCapacity: 7000,
+    }
+  },
+  isLoading: false,
+  error: '',
 };
 
 const filterSlice = createSlice({
@@ -133,6 +151,38 @@ const filterSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(getRangeExtremes.pending, (state, action) => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(getRangeExtremes.fulfilled, 
+      (state, action: PayloadAction<IRangeExtremes>) => {
+      state.isLoading = false;
+      state.error = '';
+      state.rangeExtremes = action.payload;
+    });
+
+    builder.addCase(getRangeExtremes.rejected, 
+      (state, action: any) => {
+      state.isLoading = false;
+      state.error = action.payload;
+      state.rangeExtremes = {
+        priceExtremes: {
+          minPrice: 0,
+          maxPrice: 200000,
+        },
+        screenSizeExtremes: {
+          minScreenSize: 4,
+          maxScreenSize: 7,
+        },
+        batteryCapacityExtremes: {
+          minBatteryCapacity: 1500,
+          maxBatteryCapacity: 7000,
+        }
+      };
+    });
+  }
 });
 
 export const {

@@ -1,17 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import styles from './MultiRangeSlider.module.scss';
-import { useAppDispatch } from '../../../redux/hooks';
-import { 
-	setMinPrice, 
-	setMaxPrice, 
-	setMinScreenSize, 
-	setMaxScreenSize, 
-	setMinBatteryCapacity,
-	setMaxBatteryCapacity} from '../../../redux/filter/filterSlice';
 
 export const MultiRangeSlider = React.forwardRef((props, ref) => {
-	const dispatch = useAppDispatch();
 
 	let baseClassName = props.baseClassName || styles.multiRangeSlider;
 	const min = parseFloat(props.min || 0);

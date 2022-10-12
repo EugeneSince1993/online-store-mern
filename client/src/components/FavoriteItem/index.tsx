@@ -33,7 +33,7 @@ export const FavoriteItem: FC<IFavoriteItemProps> = ({
 
   const onClickAddToCart = () => {
     const item: CartItem = {
-      id: id.toString(),
+      id: id,
       name: name,
       price: price,
       imageUrl: imageUrl,

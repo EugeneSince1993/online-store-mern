@@ -4,6 +4,7 @@ import { Collapse } from '../Collapse';
 import { MultiRangeSliderInputs } from './MultiRangeSliderInputs';
 import { CheckboxList } from './CheckboxList';
 import { FilterColor } from './FilterColor';
+import { IRangeExtremes } from '../../redux/filter/types';
 
 type FilterProps = {
   handleChange: (
@@ -17,6 +18,7 @@ type FilterProps = {
   ramArr: any[];
   cpuCoresArr: any[];
   colorsArr: any[];
+  rangeExtremes: IRangeExtremes;
 };
 
 export const Filters: FC<FilterProps> = ({
@@ -26,7 +28,8 @@ export const Filters: FC<FilterProps> = ({
   memoryArr,
   ramArr,
   cpuCoresArr,
-  colorsArr
+  colorsArr,
+  rangeExtremes
 }) => {
 
   return (
@@ -44,8 +47,8 @@ export const Filters: FC<FilterProps> = ({
         <Collapse filterName="Цена, ₽" elementType="h5">
           <MultiRangeSliderInputs 
             inputType="price" 
-            min={0} 
-            max={95000} 
+            min={rangeExtremes.priceExtremes.minPrice} 
+            max={rangeExtremes.priceExtremes.maxPrice} 
             step={1} 
             setFirstPage={setFirstPage}
           />
@@ -64,8 +67,8 @@ export const Filters: FC<FilterProps> = ({
         <Collapse filterName="Диагональ экрана, дюйм" elementType="h5">
           <MultiRangeSliderInputs 
             inputType="screenSize" 
-            min={4} 
-            max={7} 
+            min={rangeExtremes.screenSizeExtremes.minScreenSize} 
+            max={rangeExtremes.screenSizeExtremes.maxScreenSize} 
             step={0.1} 
             setFirstPage={setFirstPage}
           />
@@ -102,8 +105,8 @@ export const Filters: FC<FilterProps> = ({
         <Collapse filterName="Емкость аккумулятора, мАч" elementType="h5">
           <MultiRangeSliderInputs 
             inputType="batteryCapacity" 
-            min={1500} 
-            max={7000}
+            min={rangeExtremes.batteryCapacityExtremes.minBatteryCapacity} 
+            max={rangeExtremes.batteryCapacityExtremes.maxBatteryCapacity}
             step={100}
             setFirstPage={setFirstPage}
           />

@@ -4,6 +4,7 @@ import { Filters, Sorting, Pagination, Collapse } from "../../components";
 import { selectFilter } from "../../redux/filter/selectors";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchProducts } from "../../redux/product/asyncActions";
+import { getRangeExtremes } from "../../redux/filter/asyncActions";
 import spinner from '../../assets/img/Spinner-1s-200px.gif';
 import { ProductItem } from "../../components/ProductItem";
 import { selectProduct } from "../../redux/product/selectors";
@@ -11,22 +12,19 @@ import { setBrands, setColors, setCpuCores, setCurrentPage, setMemory, setRam } 
 import { IProduct } from "../../types/IProduct";
 import emptyCart from "../../assets/img/empty-cart-2-400x400.png";
 import styles from "./Home.module.scss";
+import { IRange } from "../../redux/filter/types";
 
 type filterFunc = (object: IProduct) => boolean;
 type filterFuncArr = filterFunc[];
 type sourceArr = boolean[] | filterFuncArr;
-interface rangeObj {
-  min: number;
-  max: number;
-};
 
 let pageSize = 8;
 
 export const Home: FC = () => {
   const dispatch = useAppDispatch();
-  
+
   const { products, isLoading } = useAppSelector(selectProduct);
-  const { sort, types, searchValue, currentPage } = useAppSelector(selectFilter);
+  const { sort, types, searchValue, currentPage, rangeExtremes } = useAppSelector(selectFilter);
   const { brands, memory, ram, cpuCores, colors, 
     priceRange, screenSizeRange, batteryCapacityRange } = types;
 
@@ -53,7 +51,7 @@ export const Home: FC = () => {
 
   const getProducts = () => {
     const sortBy = sort.sortProperty.replace('-', '');
-    const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
+    const order = sort.sortProperty.includes('-') ? 'desc' : 'asc';
 
     dispatch(fetchProducts({sortBy, order}));
     setFirstPage();
@@ -62,6 +60,10 @@ export const Home: FC = () => {
   useEffect(() => {
     getProducts();
   }, [sort.sortProperty]);
+
+  useEffect(() => {
+    dispatch(getRangeExtremes());
+  }, []);
 
   const setCheckedItems = (itemList: any) => {
     return Object.entries(itemList).filter(item => item[1]).map(item => item[0]);
@@ -92,7 +94,7 @@ export const Home: FC = () => {
   const checkedColors: any[] = setCheckedItems(colors);
   const filteredColors: IProduct[] = setFilteredItems(checkedColors, "color");
 
-  const setFilteredRange = (rangeType: rangeObj, item: string) => {
+  const setFilteredRange = (rangeType: IRange, item: string) => {
     return products.filter(({[item]: itemName}: any) => {
       return itemName >= rangeType.min && itemName <= rangeType.max;
     });
@@ -227,6 +229,7 @@ export const Home: FC = () => {
                 ramArr={ramArr}
                 cpuCoresArr={cpuCoresArr}
                 colorsArr={colorsArr}
+                rangeExtremes={rangeExtremes}
               />
             </Collapse>
           </div>
@@ -240,6 +243,7 @@ export const Home: FC = () => {
             ramArr={ramArr}
             cpuCoresArr={cpuCoresArr}
             colorsArr={colorsArr}
+            rangeExtremes={rangeExtremes}
           />
         </MediaQuery>
       </div>
@@ -257,7 +261,7 @@ export const Home: FC = () => {
                   {currentData.map((item: any, index: number) => {
                     return (
                       <ProductItem
-                        productId={item.id}
+                        productId={item._id}
                         phoneImage={item.imageUrl}
                         rating={item.rating}
                         testimonials={item.testimonials}

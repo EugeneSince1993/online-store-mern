@@ -14,7 +14,7 @@ interface Props {
   testimonials: number;
   productName: string;
   priceValue: number;
-  productId: number;
+  productId: string;
   productCode: number;
 }
 
@@ -31,7 +31,7 @@ export const ProductItem = ({
 
   const onClickAddToCart = () => {
     const item: CartItem = {
-      id: productId.toString(),
+      id: productId,
       name: productName,
       price: priceValue,
       imageUrl: phoneImage,
@@ -43,7 +43,7 @@ export const ProductItem = ({
 
   const onClickAddToFavorites = () => {
     const item: FavoriteItem = {
-      id: productId.toString(),
+      id: productId,
       name: productName,
       price: priceValue,
       imageUrl: phoneImage,

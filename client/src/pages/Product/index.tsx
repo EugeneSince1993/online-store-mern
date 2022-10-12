@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
@@ -12,37 +11,32 @@ import 'react-tabs/style/react-tabs.css';
 import parse from 'html-react-parser';
 import styles from './Product.module.scss';
 import { CartItem } from '../../redux/cart/types';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addItem } from '../../redux/cart/cartSlice';
 import { FavoriteItem } from '../../redux/favorites/types';
 import { addFavoriteItem } from '../../redux/favorites/favoriteSlice';
+import { fetchProductById } from '../../redux/product/asyncActions';
+import { selectProduct } from '../../redux/product/selectors';
 
 export const Product: FC = () => {
   const dispatch = useAppDispatch();
+  const { currentProduct } = useAppSelector(selectProduct);
 
-  const [productObj, setProductObj] = useState<{[key: string]: any}>({});
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const { id } = useParams();
+  let { id } = useParams();
 
   useEffect(() => {
-    axios
-      .get(`https://62d96f595d893b27b2e676e7.mockapi.io/products/${id}`)
-      .then((res) => {
-        setProductObj(res.data);
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
+    dispatch(fetchProductById(id));
   }, []);
 
   const objIsNotEmpty = (obj: any) => {
     return Object.keys(obj).length !== 0;
   };
 
-  const productObjIsNotEmpty = objIsNotEmpty(productObj);
+  const currentProductIsNotEmpty = objIsNotEmpty(currentProduct);
 
-  const galleryImages = productObjIsNotEmpty && productObj.images;
+  const galleryImages = currentProductIsNotEmpty && currentProduct.images;
 
   const divsWithGalImgs = galleryImages && galleryImages.map((el: any, i: number) => {
     return (
@@ -52,7 +46,7 @@ export const Product: FC = () => {
     );
   });
 
-  const specs = productObjIsNotEmpty && productObj.specifications;
+  const specs = currentProductIsNotEmpty && currentProduct.specifications;
 
   const specList = specs && specs.map((el: any, i: number) => {
     let specKeys = Object.keys(el);
@@ -67,11 +61,11 @@ export const Product: FC = () => {
 
   const onClickAddToCart = () => {
     const item: CartItem = {
-      id: productObj.id.toString(),
-      name: productObj.name,
-      price: productObj.price,
-      imageUrl: productObj.imageUrl,
-      productCode: productObj.productCode,
+      id: currentProduct._id,
+      name: currentProduct.name,
+      price: currentProduct.price,
+      imageUrl: currentProduct.imageUrl,
+      productCode: currentProduct.productCode,
       count: 0,
     };
     dispatch(addItem(item));
@@ -79,10 +73,10 @@ export const Product: FC = () => {
 
   const onClickAddToFavorites = () => {
     const item: FavoriteItem = {
-      id: productObj.id.toString(),
-      name: productObj.name,
-      price: productObj.price,
-      imageUrl: productObj.imageUrl,
+      id: currentProduct._id,
+      name: currentProduct.name,
+      price: currentProduct.price,
+      imageUrl: currentProduct.imageUrl,
       count: 0,
     };
     dispatch(addFavoriteItem(item));
@@ -115,26 +109,26 @@ export const Product: FC = () => {
           </div>
         </div>
         <div className={styles.mainData}>
-          <h1>{productObj.name}</h1>
+          <h1>{currentProduct.name}</h1>
           <div className={styles.shortSpecs}>
-            {productObj.shortDesc}
+            {currentProduct.shortDesc}
           </div>
           <div className={styles.productCode}>
-            Код товара: {productObj.productCode}
+            Код товара: {currentProduct.productCode}
           </div>
           <div className={styles.icons}>
             <div className={classNames(styles.rating, "tooltip", styles.tooltip)}>
               <i className="fa-solid fa-star"></i>
-              <span>{productObj.rating}</span>
+              <span>{currentProduct.rating}</span>
               <div className={classNames(styles.tooltipText, "tooltipText")}>
-                Рейтинг {productObj.rating} из 5
+                Рейтинг {currentProduct.rating} из 5
               </div>
             </div>
             <div className={classNames(styles.testimonials, "tooltip", styles.tooltip)}>
               <i className="fa-solid fa-comment"></i>
-              <span>{productObj.testimonials}</span>
+              <span>{currentProduct.testimonials}</span>
               <div className={classNames("tooltipText", styles.tooltipText)}>
-                {productObj.testimonials} отзывов
+                {currentProduct.testimonials} отзывов
               </div>
             </div>
           </div>
@@ -142,7 +136,7 @@ export const Product: FC = () => {
             <div className={styles.price}>
               <div className={styles.priceValue}>
                 <NumberFormat 
-                  value={productObj.price} 
+                  value={currentProduct.price} 
                   displayType='text' 
                   thousandSeparator=' '
                 />
@@ -184,7 +178,7 @@ export const Product: FC = () => {
           </TabPanel>
           <TabPanel>
             <div className={styles.productDescription}>
-              {productObjIsNotEmpty && parse(productObj.description)}
+              {currentProductIsNotEmpty && parse(currentProduct.description)}
             </div>
           </TabPanel>
         </Tabs>

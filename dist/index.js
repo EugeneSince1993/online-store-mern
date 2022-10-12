@@ -54,6 +54,7 @@ function main() {
         app.use((0, cors_1.default)());
         app.get('/products', index_1.ProductController.getAll);
         app.get('/products/:id', index_1.ProductController.getOne);
+        app.get('/get-range-extremes', index_1.ProductController.getRangeExtremes);
         app.listen(port, () => {
             console.log(`Server is successfully running on port ${port}`);
         });
