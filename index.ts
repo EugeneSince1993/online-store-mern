@@ -3,6 +3,7 @@ dotenv.config();
 import mongoose from 'mongoose';
 import express from 'express';
 import cors from 'cors';
+const path = require('path');
 import { ProductController } from './controllers/index';
 
 const url = process.env.MONGO_URI;
@@ -22,6 +23,14 @@ async function main() {
     app.get('/products', ProductController.getAll);
     app.get('/products/:id', ProductController.getOne);
     app.get('/get-range-extremes', ProductController.getRangeExtremes);
+
+    if (process.env.NODE_ENV === 'production') {
+      app.use(express.static('client/build'));
+    
+      app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+      });
+    }
 
     app.listen(port, () => {
       console.log(`Server is successfully running on port ${port}`);
