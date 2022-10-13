@@ -41,7 +41,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const index_1 = require("./controllers/index");
-const url = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+const url = process.env.MONGO_URI;
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         yield mongoose_1.default
@@ -49,7 +49,7 @@ function main() {
             .then(() => console.log('DB ok'))
             .catch((err) => console.log('DB error', err));
         const app = (0, express_1.default)();
-        const port = process.env.PORT || 5000;
+        const port = process.env.PORT || 4444;
         app.use(express_1.default.json());
         app.use((0, cors_1.default)());
         app.get('/products', index_1.ProductController.getAll);

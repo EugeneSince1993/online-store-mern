@@ -16,7 +16,7 @@ const ProductItem = ({ phoneImage, rating, testimonials, productName, priceValue
     const dispatch = (0, hooks_1.useAppDispatch)();
     const onClickAddToCart = () => {
         const item = {
-            id: productId.toString(),
+            id: productId,
             name: productName,
             price: priceValue,
             imageUrl: phoneImage,
@@ -27,7 +27,7 @@ const ProductItem = ({ phoneImage, rating, testimonials, productName, priceValue
     };
     const onClickAddToFavorites = () => {
         const item = {
-            id: productId.toString(),
+            id: productId,
             name: productName,
             price: priceValue,
             imageUrl: phoneImage,

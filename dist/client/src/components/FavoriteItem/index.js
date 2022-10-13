@@ -22,7 +22,7 @@ const FavoriteItem = ({ id, name, price, imageUrl, productCode }) => {
     };
     const onClickAddToCart = () => {
         const item = {
-            id: id.toString(),
+            id: id,
             name: name,
             price: price,
             imageUrl: imageUrl,

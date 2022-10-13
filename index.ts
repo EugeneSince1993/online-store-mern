@@ -5,7 +5,7 @@ import express from 'express';
 import cors from 'cors';
 import { ProductController } from './controllers/index';
 
-const url = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+const url = process.env.MONGO_URI;
 
 async function main() {
   await mongoose
@@ -14,7 +14,7 @@ async function main() {
     .catch((err) => console.log('DB error', err));
   
     const app = express();
-    const port = process.env.PORT || 5000;
+    const port = process.env.PORT || 4444;
 
     app.use(express.json());
     app.use(cors());
