@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from '../../axios';
+import axios from 'axios';
 import { IProduct } from '../../types/IProduct';
 import { IObjWithAnyData, SearchProductParams } from './types';
 import pickBy from 'lodash/pickBy';
