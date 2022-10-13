@@ -6,6 +6,7 @@ import cors from 'cors';
 import { ProductController } from './controllers/index';
 
 const url = process.env.MONGO_URI;
+let port: string | number = process.env.PORT;
 
 async function main() {
   await mongoose
@@ -14,8 +15,11 @@ async function main() {
     .catch((err) => console.log('DB error', err));
   
     const app = express();
-    const port = process.env.PORT || 4444;
 
+    if (port == null || port == "") {
+      port = 8000;
+    }
+    
     app.use(express.json());
     app.use(cors());
 
@@ -29,3 +33,5 @@ async function main() {
   }
 
 main().catch(err => console.log(err));
+
+exports.port = port;
