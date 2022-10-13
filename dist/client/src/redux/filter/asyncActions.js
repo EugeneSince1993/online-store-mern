@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getRangeExtremes = void 0;
 const toolkit_1 = require("@reduxjs/toolkit");
-const axios_1 = __importDefault(require("../../axios"));
+const axios_1 = __importDefault(require("axios"));
 exports.getRangeExtremes = (0, toolkit_1.createAsyncThunk)('product/getRangeExtremes', () => __awaiter(void 0, void 0, void 0, function* () {
     let { data } = yield axios_1.default.get('/get-range-extremes');
     return data;
