@@ -36,15 +36,18 @@
 
 @media screen and (max-width: 699px) {
   .sorting {
-    display: block;
     padding-left: 10px;
-
-    .rating, .price {
-      margin-bottom: 12px;
-    }
 
     .rating, .price span, .title span {
       font-size: 16px;
+    }
+
+    .price {
+      width: auto;
+    }
+
+    .title {
+      display: none;
     }
   }
 }
