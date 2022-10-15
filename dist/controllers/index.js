@@ -23,6 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProductController = void 0;
+exports.ProductController = exports.UserController = void 0;
+exports.UserController = __importStar(require("./UserController"));
 exports.ProductController = __importStar(require("./ProductController"));
 //# sourceMappingURL=index.js.map

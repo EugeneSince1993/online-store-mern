@@ -63,6 +63,111 @@ export const getOne = async (req, res) => {
   }
 };
 
+export const create = async (req, res) => {
+  try {
+    const doc = new ProductModel({
+      user: req.userId,
+      _id: req.body._id,
+      imageUrl: req.body.imageUrl,
+      images: req.body.images,
+      brand: req.body.brand,
+      name: req.body.name,
+      price: req.body.price,
+      memory: req.body.memory,
+      ram: req.body.ram,
+      cpuCores: req.body.cpuCores,
+      screenSize: req.body.sreenSize,
+      batteryCapacity: req.body.batteryCapacity,
+      color: req.body.color,
+      productCode: req.body.productCode,
+      description: req.body.description,
+      shortDesc: req.body.shortDesc,
+    });
+
+    const product = await doc.save();
+
+    res.json(product);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: 'Не удалось создать товар',
+    });
+  }
+};
+
+export const update = async (req, res) => {
+  try {
+    const productId = req.params.id;
+
+    await ProductModel.updateOne(
+      {
+        _id: productId
+      },
+      {
+        user: req.userId,
+        imageUrl: req.body.imageUrl,
+        images: req.body.images,
+        brand: req.body.brand,
+        name: req.body.name,
+        price: req.body.price,
+        memory: req.body.memory,
+        ram: req.body.ram,
+        cpuCores: req.body.cpuCores,
+        screenSize: req.body.sreenSize,
+        batteryCapacity: req.body.batteryCapacity,
+        color: req.body.color,
+        productCode: req.body.productCode,
+        description: req.body.description,
+        shortDesc: req.body.shortDesc,
+      }
+    );
+
+    res.json({
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: 'Не удалось обновить товар',
+    });
+  }
+};
+
+export const remove = async (req, res) => {
+  try {
+    const productId = req.params.id;
+
+    ProductModel.findOneAndDelete(
+      {
+        _id: productId,
+      },
+      (err, doc) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            message: 'Не удалось удалить товар',
+          });
+        }
+
+        if (!doc) {
+          return res.status(404).json({
+            message: 'Товар не найден',
+          });
+        }
+
+        res.json({
+          success: true,
+        });
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: 'Не удалось получить товары',
+    })
+  }
+};
+
 export const getRangeExtremes = async (req, res) => {
   try {
     const minPriceRaw = await ProductModel

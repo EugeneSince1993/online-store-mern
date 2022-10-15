@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRangeExtremes = exports.getOne = exports.getAll = void 0;
+exports.getRangeExtremes = exports.remove = exports.update = exports.create = exports.getOne = exports.getAll = void 0;
 const Product_1 = __importDefault(require("../models/Product"));
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -72,6 +72,101 @@ const getOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getOne = getOne;
+const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const doc = new Product_1.default({
+            user: req.userId,
+            _id: req.body._id,
+            imageUrl: req.body.imageUrl,
+            images: req.body.images,
+            brand: req.body.brand,
+            name: req.body.name,
+            price: req.body.price,
+            memory: req.body.memory,
+            ram: req.body.ram,
+            cpuCores: req.body.cpuCores,
+            screenSize: req.body.sreenSize,
+            batteryCapacity: req.body.batteryCapacity,
+            color: req.body.color,
+            productCode: req.body.productCode,
+            description: req.body.description,
+            shortDesc: req.body.shortDesc,
+        });
+        const product = yield doc.save();
+        res.json(product);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'Не удалось создать товар',
+        });
+    }
+});
+exports.create = create;
+const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const productId = req.params.id;
+        yield Product_1.default.updateOne({
+            _id: productId
+        }, {
+            user: req.userId,
+            imageUrl: req.body.imageUrl,
+            images: req.body.images,
+            brand: req.body.brand,
+            name: req.body.name,
+            price: req.body.price,
+            memory: req.body.memory,
+            ram: req.body.ram,
+            cpuCores: req.body.cpuCores,
+            screenSize: req.body.sreenSize,
+            batteryCapacity: req.body.batteryCapacity,
+            color: req.body.color,
+            productCode: req.body.productCode,
+            description: req.body.description,
+            shortDesc: req.body.shortDesc,
+        });
+        res.json({
+            success: true,
+        });
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'Не удалось обновить товар',
+        });
+    }
+});
+exports.update = update;
+const remove = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const productId = req.params.id;
+        Product_1.default.findOneAndDelete({
+            _id: productId,
+        }, (err, doc) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({
+                    message: 'Не удалось удалить товар',
+                });
+            }
+            if (!doc) {
+                return res.status(404).json({
+                    message: 'Товар не найден',
+                });
+            }
+            res.json({
+                success: true,
+            });
+        });
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'Не удалось получить товары',
+        });
+    }
+});
+exports.remove = remove;
 const getRangeExtremes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const minPriceRaw = yield Product_1.default

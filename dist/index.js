@@ -37,11 +37,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-const mongoose_1 = __importDefault(require("mongoose"));
 const express_1 = __importDefault(require("express"));
+const fs_1 = __importDefault(require("fs"));
+const multer_1 = __importDefault(require("multer"));
 const cors_1 = __importDefault(require("cors"));
+const mongoose_1 = __importDefault(require("mongoose"));
 const path = require('path');
 const index_1 = require("./controllers/index");
+const validations_1 = require("./validations");
+const utils_1 = require("./utils");
 const url = process.env.MONGO_URI;
 let port = process.env.PORT || 5000;
 function main() {
@@ -51,10 +55,34 @@ function main() {
             .then(() => console.log('DB ok'))
             .catch((err) => console.log('DB error', err));
         const app = (0, express_1.default)();
+        const storage = multer_1.default.diskStorage({
+            destination: (_, __, cb) => {
+                if (!fs_1.default.existsSync('uploads')) {
+                    fs_1.default.mkdirSync('uploads');
+                }
+                cb(null, 'uploads');
+            },
+            filename: (_, file, cb) => {
+                cb(null, file.originalname);
+            },
+        });
+        const upload = (0, multer_1.default)({ storage });
         app.use(express_1.default.json());
         app.use((0, cors_1.default)());
+        app.use('/uploads', express_1.default.static('uploads'));
+        app.post('/auth/login', validations_1.loginValidation, utils_1.handleValidationErrors, index_1.UserController.login);
+        app.post('/auth/register', validations_1.registerValidation, utils_1.handleValidationErrors, index_1.UserController.register);
+        app.get('/auth/me', utils_1.checkAuth, index_1.UserController.getMe);
+        app.post('/upload', utils_1.checkAuth, upload.single('image'), (req, res) => {
+            res.json({
+                url: `/uploads/${req.file.originalname}`,
+            });
+        });
         app.get('/products', index_1.ProductController.getAll);
         app.get('/products/:id', index_1.ProductController.getOne);
+        app.post('/products', utils_1.checkAuth, validations_1.productCreateValidation, utils_1.handleValidationErrors, index_1.ProductController.create);
+        app.delete('/products/:id', utils_1.checkAuth, index_1.ProductController.remove);
+        app.patch('/products/:id', utils_1.checkAuth, validations_1.productCreateValidation, utils_1.handleValidationErrors, index_1.ProductController.update);
         app.get('/get-range-extremes', index_1.ProductController.getRangeExtremes);
         if (process.env.NODE_ENV === 'production') {
             app.use(express_1.default.static('client/build'));
@@ -68,5 +96,4 @@ function main() {
     });
 }
 main().catch(err => console.log(err));
-exports.port = port;
 //# sourceMappingURL=index.js.map
