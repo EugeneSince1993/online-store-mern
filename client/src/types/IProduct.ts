@@ -1,5 +1,3 @@
-import { ISpec } from "./ISpec";
-
 export interface IProduct {
   id: string;
   imageUrl: string;
@@ -16,7 +14,6 @@ export interface IProduct {
   batteryCapacity: number;
   color: string;
   productCode: number;
-  specifications: ISpec[];
   description: string;
   shortDesc: string;
 }

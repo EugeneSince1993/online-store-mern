@@ -20,7 +20,6 @@ const ProductSchema = new mongoose_1.default.Schema({
     batteryCapacity: Number,
     color: String,
     productCode: Number,
-    specifications: Array,
     description: String,
     shortDesc: String,
 }, {

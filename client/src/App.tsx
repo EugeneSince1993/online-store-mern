@@ -3,6 +3,7 @@ import { Header, Footer } from "./components";
 import { Home, Product, Cart, Favorites, CartEmpty, FavoritesEmpty } from "./pages";
 
 function App() {
+
   return (
     <>
       <Header />

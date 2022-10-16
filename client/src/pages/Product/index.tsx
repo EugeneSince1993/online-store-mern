@@ -46,9 +46,47 @@ export const Product: FC = () => {
     );
   });
 
-  const specs = currentProductIsNotEmpty && currentProduct.specifications;
+  let productColor: string;
 
-  const specList = specs && specs.map((el: any, i: number) => {
+  switch (currentProduct.color) {
+    case "white":
+      productColor = "белый";
+      break;
+    case "black":
+      productColor = "черный";
+      break;
+    case "gray":
+      productColor = "серый";
+      break;
+    case "blue":
+      productColor = "синий";
+      break;
+    case "red":
+      productColor = "красный";
+      break;
+    case "pink":
+      productColor = "розовый";
+      break;
+    case "green":
+      productColor = "зеленый";
+      break;
+    case "yellow":
+      productColor = "желтый";
+      break;
+    default:
+      productColor = "белый";
+  }
+
+  const specs = [
+    { "Диагональ экрана, дюйм": currentProduct.screenSize },
+    { "Объем встроенной памяти, Гб": currentProduct.memory },
+    { "Объем оперативной памяти, Гб": currentProduct.ram },
+    { "Количество ядер": currentProduct.cpuCores },
+    { "Ёмкость аккумулятора, мАч": currentProduct.batteryCapacity },
+    { "Цвет": productColor },
+  ];
+
+  const specList = currentProductIsNotEmpty && specs.map((el: any, i: number) => {
     let specKeys = Object.keys(el);
 
     return (

@@ -39,8 +39,44 @@ const Product = () => {
     const divsWithGalImgs = galleryImages && galleryImages.map((el, i) => {
         return ((0, jsx_runtime_1.jsx)("div", Object.assign({ onClick: () => setIsOpen(true) }, { children: (0, jsx_runtime_1.jsx)("img", { src: galleryImages[i] }) }), i));
     });
-    const specs = currentProductIsNotEmpty && currentProduct.specifications;
-    const specList = specs && specs.map((el, i) => {
+    let productColor;
+    switch (currentProduct.color) {
+        case "white":
+            productColor = "белый";
+            break;
+        case "black":
+            productColor = "черный";
+            break;
+        case "gray":
+            productColor = "серый";
+            break;
+        case "blue":
+            productColor = "синий";
+            break;
+        case "red":
+            productColor = "красный";
+            break;
+        case "pink":
+            productColor = "розовый";
+            break;
+        case "green":
+            productColor = "зеленый";
+            break;
+        case "yellow":
+            productColor = "желтый";
+            break;
+        default:
+            productColor = "белый";
+    }
+    const specs = [
+        { "Диагональ экрана, дюйм": currentProduct.screenSize },
+        { "Объем встроенной памяти, Гб": currentProduct.memory },
+        { "Объем оперативной памяти, Гб": currentProduct.ram },
+        { "Количество ядер": currentProduct.cpuCores },
+        { "Ёмкость аккумулятора, мАч": currentProduct.batteryCapacity },
+        { "Цвет": productColor },
+    ];
+    const specList = currentProductIsNotEmpty && specs.map((el, i) => {
         let specKeys = Object.keys(el);
         return ((0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Product_module_scss_1.default.spec }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: Product_module_scss_1.default.specName }, { children: specKeys[0] })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: Product_module_scss_1.default.specValue }, { children: el[specKeys[0]] }))] }), i));
     });
