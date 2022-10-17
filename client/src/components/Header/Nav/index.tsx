@@ -55,7 +55,7 @@ export const Nav: FC<INavProps> = ({ cartTotal, favoritesTotal }) => {
               </div>
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <a onClick={() => setVisibility(true)}>
               <div className={classNames(styles.linkInner, styles.login)}>
                 <div className={styles.linkGroup}>
@@ -78,10 +78,10 @@ export const Nav: FC<INavProps> = ({ cartTotal, favoritesTotal }) => {
                 </div>
               </div>
             </a>
-          </li>
+          </li> */}
         </ul>
       </nav>
-      <Popup 
+      {/* <Popup 
         onClose={popupCloseHandler}
         toShow={visibility}
         title="Popup Title"
@@ -89,7 +89,7 @@ export const Nav: FC<INavProps> = ({ cartTotal, favoritesTotal }) => {
         <div>
           <Login />
         </div>
-      </Popup>
+      </Popup> */}
     </div>
   );
 };
