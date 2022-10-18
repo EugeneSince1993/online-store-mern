@@ -1,38 +1,70 @@
 import { FC } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import styles from "./Login.module.scss";
+import * as Yup from 'yup';
+import classNames from "classnames";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { fetchAuth } from "../../../redux/auth/asyncActions";
+import { useNavigate } from "react-router-dom";
+import { selectIsAuth } from "../../../redux/auth/selectors";
 
-export const Login: FC = () => {
-  const emailRegEx: any = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+interface IProps {
+  onClose: (e: any) => any;
+}
+
+export const Login: FC<IProps> = ({ onClose }) => {
+  const dispatch = useAppDispatch();
+  const isAuth = useAppSelector(selectIsAuth);
+  const navigate = useNavigate();
 
   return (
-    <div className={styles.loginForm}>
+    <div className={styles.form}>
       <Formik
         initialValues={{ email: '', password: '' }}
-        validate={values => {
-          const errors: any = {};
-          if (!values.email) {
-            errors.email = 'Required';
-          } else if (!emailRegEx.test(values.email)) {
-            errors.email = 'Invalid email address';
+        validationSchema={Yup.object({
+          email: Yup.string().email('Неверный email').required('Обязательное поле'),
+          password: Yup.string().min(5, 'Минимальная длина пароля 5 символов').required('Обязательное поле'),
+        })}
+        onSubmit={ async (values, { setSubmitting }) => {
+          const data: any = await dispatch(fetchAuth(values));
+
+          if (!data.payload) {
+            return alert('Не удалось авторизоваться');
           }
-          return errors;
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+          if ('token' in data.payload) {
+            window.localStorage.setItem('token', data.payload.token);
+          }
+
+          onClose(false); 
+          navigate('/account');
+          setSubmitting(false);
         }}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, touched, errors }) => (
           <Form>
-            <Field type="email" name="email" />
+            <label htmlFor="email">Email</label>
+            <Field 
+              id="email" 
+              name="email" 
+              type="email" 
+              placeholder="test@test.com"
+              className={classNames(
+                { [styles.borderRed]: touched.email && errors.email }
+              )}
+            />
             <ErrorMessage name="email" component="div" />
-            <Field type="password" name="password" />
+            <label htmlFor="password">Пароль</label>
+            <Field 
+              id="password"
+              type="password" 
+              name="password" 
+              className={classNames(
+                { [styles.borderRed]: touched.password && errors.password }
+              )}
+            />
             <ErrorMessage name="password" component="div" />
             <button type="submit" disabled={isSubmitting}>
-              Submit
+              Войти
             </button>
           </Form>
         )}

@@ -9,6 +9,7 @@ const react_redux_1 = require("react-redux");
 const productSlice_1 = __importDefault(require("./product/productSlice"));
 const filterSlice_1 = __importDefault(require("./filter/filterSlice"));
 const cartSlice_1 = __importDefault(require("./cart/cartSlice"));
+const authSlice_1 = __importDefault(require("./auth/authSlice"));
 const favoriteSlice_1 = __importDefault(require("./favorites/favoriteSlice"));
 const query_1 = require("@reduxjs/toolkit/query");
 exports.store = (0, toolkit_1.configureStore)({
@@ -17,6 +18,7 @@ exports.store = (0, toolkit_1.configureStore)({
         filter: filterSlice_1.default,
         cart: cartSlice_1.default,
         favorites: favoriteSlice_1.default,
+        auth: authSlice_1.default,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

@@ -7,3 +7,4 @@ export { Pagination } from "./Pagination";
 export { CartItem } from './CartItem';
 export { FavoriteItem } from './FavoriteItem';
 export { Collapse } from './Collapse';
+export { AppRouter } from './AppRouter';

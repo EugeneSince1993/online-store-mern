@@ -1,21 +1,20 @@
-import { Routes, Route } from "react-router-dom";
-import { Header, Footer } from "./components";
-import { Home, Product, Cart, Favorites, CartEmpty, FavoritesEmpty } from "./pages";
+import { useEffect } from "react";
+import { Header, Footer, AppRouter } from "./components";
+import { fetchAuthMe } from "./redux/auth/asyncActions";
+import { useAppDispatch } from "./redux/hooks";
 
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAuthMe());
+  }, []);
 
   return (
     <>
       <Header />
       <div className="app-container app-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/products/:id" element={<Product />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/empty-cart" element={<CartEmpty />} />
-          <Route path="/favorites" element={<Favorites />} />
-          <Route path="/empty-favorites" element={<FavoritesEmpty />} />
-        </Routes>
+        <AppRouter />
       </div>
       <Footer />
     </>

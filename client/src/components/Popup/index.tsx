@@ -50,7 +50,7 @@ export const Popup: FC<IPopupProps> = ({
         className={styles.popup}
         ref={myRef}
       >
-        <h2>{title}</h2>
+        <h3>{title}</h3>
         <div className={styles.close} onClick={closeHandler}>
           &times;
         </div>

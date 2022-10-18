@@ -31,7 +31,7 @@ const Popup = ({ toShow, title, onClose, children }) => {
     return ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: Popup_module_scss_1.default.overlay, style: {
             visibility: show ? "visible" : "hidden",
             opacity: show ? "1" : "0"
-        } }, { children: (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Popup_module_scss_1.default.popup, ref: myRef }, { children: [(0, jsx_runtime_1.jsx)("h2", { children: title }), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: Popup_module_scss_1.default.close, onClick: closeHandler }, { children: "\u00D7" })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: Popup_module_scss_1.default.content }, { children: children }))] })) })));
+        } }, { children: (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: Popup_module_scss_1.default.popup, ref: myRef }, { children: [(0, jsx_runtime_1.jsx)("h3", { children: title }), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: Popup_module_scss_1.default.close, onClick: closeHandler }, { children: "\u00D7" })), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: Popup_module_scss_1.default.content }, { children: children }))] })) })));
 };
 exports.Popup = Popup;
 //# sourceMappingURL=index.js.map

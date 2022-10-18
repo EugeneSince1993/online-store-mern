@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios from '../../axios';
 import { IProduct } from '../../types/IProduct';
 import { IObjWithAnyData, SearchProductParams } from './types';
 import pickBy from 'lodash/pickBy';
@@ -9,7 +9,7 @@ export const fetchProducts = createAsyncThunk<IProduct[], SearchProductParams>(
   'product/fetchProducts',
   async (params) => {
     const { sortBy, order } = params;
-    const { data } = await axios.get<IProduct[]>('/products', {
+    const { data } = await axios.get<IProduct[]>('products', {
       params: pickBy({
           sortBy,
           order,
@@ -25,7 +25,7 @@ export const fetchProducts = createAsyncThunk<IProduct[], SearchProductParams>(
 export const fetchProductById = createAsyncThunk<IObjWithAnyData, any>(
   'product/fetchProductById',
   async (id) => {
-    const { data } = await axios.get<IObjWithAnyData>(`/products/${id}`);
+    const { data } = await axios.get<IObjWithAnyData>(`products/${id}`);
     return data;
   }
 );
