@@ -1,0 +1,46 @@
+.form {
+  width: 400px;
+  
+  form {
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      padding: 7px;
+      margin-bottom: 10px;
+      border: 1px solid #000;
+      border-radius: 5px;
+      font-size: 14px;
+
+      &.borderRed {
+        border-color: #ed3636;
+      }
+    }
+
+    div {
+      margin-bottom: 10px;
+      color: #ed3636;
+    }
+
+    button {
+      font-size: 14px;
+      background-color: #2d7dff;
+      border-style: none;
+      border-radius: 5px;
+      padding: 7px 15px;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+
+      &:hover {
+        background-color: #5c9aff;
+      }
+    }
+  }
+}

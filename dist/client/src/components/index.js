@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Collapse = exports.FavoriteItem = exports.CartItem = exports.Pagination = exports.Button = exports.Sorting = exports.Filters = exports.Footer = exports.Header = void 0;
+exports.AppRouter = exports.Collapse = exports.FavoriteItem = exports.CartItem = exports.Pagination = exports.Button = exports.Sorting = exports.Filters = exports.Footer = exports.Header = void 0;
 var Header_1 = require("./Header");
 Object.defineProperty(exports, "Header", { enumerable: true, get: function () { return Header_1.Header; } });
 var Footer_1 = require("./Footer");
@@ -19,4 +19,6 @@ var FavoriteItem_1 = require("./FavoriteItem");
 Object.defineProperty(exports, "FavoriteItem", { enumerable: true, get: function () { return FavoriteItem_1.FavoriteItem; } });
 var Collapse_1 = require("./Collapse");
 Object.defineProperty(exports, "Collapse", { enumerable: true, get: function () { return Collapse_1.Collapse; } });
+var AppRouter_1 = require("./AppRouter");
+Object.defineProperty(exports, "AppRouter", { enumerable: true, get: function () { return AppRouter_1.AppRouter; } });
 //# sourceMappingURL=index.js.map
