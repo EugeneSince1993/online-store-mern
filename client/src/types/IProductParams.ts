@@ -1,11 +1,8 @@
-export interface IProduct {
-  _id: string;
+export interface IProductParams {
   imageUrl: string;
-  images: string[];
+  images: string;
   name: string;
   price: number;
-  rating: number;
-  testimonials: number;
   brand: string;
   memory: number;
   ram: number;

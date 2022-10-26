@@ -8,6 +8,7 @@ const initialState = {
     currentProduct: {},
     isLoading: false,
     error: '',
+    successMsg: ''
 };
 const productSlice = (0, toolkit_1.createSlice)({
     name: 'product',
@@ -18,7 +19,7 @@ const productSlice = (0, toolkit_1.createSlice)({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(asyncActions_1.fetchProducts.pending, (state, action) => {
+        builder.addCase(asyncActions_1.fetchProducts.pending, (state) => {
             state.isLoading = true;
         });
         builder.addCase(asyncActions_1.fetchProducts.fulfilled, (state, action) => {
@@ -31,7 +32,7 @@ const productSlice = (0, toolkit_1.createSlice)({
             state.error = action.payload;
             state.products = [];
         });
-        builder.addCase(asyncActions_1.fetchProductById.pending, (state, action) => {
+        builder.addCase(asyncActions_1.fetchProductById.pending, (state) => {
             state.isLoading = true;
         });
         builder.addCase(asyncActions_1.fetchProductById.fulfilled, (state, action) => {
@@ -43,6 +44,19 @@ const productSlice = (0, toolkit_1.createSlice)({
             state.isLoading = false;
             state.error = action.payload;
             state.currentProduct = {};
+        });
+        builder.addCase(asyncActions_1.createProduct.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(asyncActions_1.createProduct.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.error = '';
+            state.successMsg = `Добавлен товар: ${action.payload.name}`;
+        });
+        builder.addCase(asyncActions_1.createProduct.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+            state.successMsg = '';
         });
     }
 });

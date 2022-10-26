@@ -1,7 +1,7 @@
 import { IProduct } from './../../types/IProduct';
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { fetchProductById, fetchProducts } from './asyncActions';
+import { createProduct, fetchProductById, fetchProducts } from './asyncActions';
 import { IObjWithAnyData } from './types';
 
 interface ProductState {
@@ -9,6 +9,7 @@ interface ProductState {
   currentProduct: IObjWithAnyData,
   isLoading: boolean;
   error: string;
+  successMsg: string;
 }
 
 const initialState: ProductState = {
@@ -16,6 +17,7 @@ const initialState: ProductState = {
   currentProduct: {},
   isLoading: false,
   error: '',
+  successMsg: ''
 }
 
 const productSlice = createSlice({
@@ -27,7 +29,7 @@ const productSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchProducts.pending, (state, action) => {
+    builder.addCase(fetchProducts.pending, (state) => {
       state.isLoading = true;
     });
 
@@ -45,7 +47,7 @@ const productSlice = createSlice({
       state.products = [];
     });
 
-    builder.addCase(fetchProductById.pending, (state, action) => {
+    builder.addCase(fetchProductById.pending, (state) => {
       state.isLoading = true;
     });
 
@@ -61,6 +63,24 @@ const productSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
       state.currentProduct = {};
+    });
+
+    builder.addCase(createProduct.pending, (state) => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(createProduct.fulfilled, 
+      (state, action: PayloadAction<IProduct>) => {
+      state.isLoading = false;
+      state.error = '';
+      state.successMsg = `Добавлен товар: ${action.payload.name}`;
+    });
+
+    builder.addCase(createProduct.rejected, 
+      (state, action: any) => {
+      state.isLoading = false;
+      state.error = action.payload;
+      state.successMsg = '';
     });
   }
 });

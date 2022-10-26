@@ -1,5 +1,5 @@
 import { FC, useEffect, useMemo } from "react";
-import { CartItem, Pagination, Sorting } from "../../components";
+import { Pagination, Sorting } from "../../components";
 import { selectAuth, selectIsAuth } from "../../redux/auth/selectors";
 import { setCurrentPage } from "../../redux/filter/filterSlice";
 import { selectFilter } from "../../redux/filter/selectors";

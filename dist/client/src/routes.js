@@ -7,6 +7,10 @@ exports.authRoutes = [
     {
         path: consts_1.ACCOUNT,
         Component: pages_1.Account,
+    },
+    {
+        path: consts_1.CREATE_PRODUCT,
+        Component: pages_1.CreateProduct,
     }
 ];
 exports.publicRoutes = [

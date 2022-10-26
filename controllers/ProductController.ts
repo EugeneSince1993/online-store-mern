@@ -1,4 +1,6 @@
 import ProductModel from '../models/Product';
+const mongoose = require('mongoose');
+const newId = mongoose.Types.ObjectId();
 
 export const getAll = async (req, res) => {
   try {
@@ -67,9 +69,9 @@ export const create = async (req, res) => {
   try {
     const doc = new ProductModel({
       user: req.userId,
-      _id: req.body._id,
+      _id: newId,
       imageUrl: req.body.imageUrl,
-      images: req.body.images,
+      images: req.body.images.split(' '),
       brand: req.body.brand,
       name: req.body.name,
       price: req.body.price,

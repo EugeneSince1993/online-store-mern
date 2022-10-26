@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchProductById = exports.fetchProducts = void 0;
+exports.createProduct = exports.fetchProductById = exports.fetchProducts = void 0;
 const toolkit_1 = require("@reduxjs/toolkit");
 const axios_1 = __importDefault(require("../../axios"));
 const pickBy_1 = __importDefault(require("lodash/pickBy"));
@@ -27,8 +27,12 @@ exports.fetchProducts = (0, toolkit_1.createAsyncThunk)('product/fetchProducts',
     });
     return data;
 }));
-exports.fetchProductById = (0, toolkit_1.createAsyncThunk)('product/fetchProductById', (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const { data } = yield axios_1.default.get(`products/${id}`);
+exports.fetchProductById = (0, toolkit_1.createAsyncThunk)('product/fetchProductById', (_id) => __awaiter(void 0, void 0, void 0, function* () {
+    const { data } = yield axios_1.default.get(`products/${_id}`);
+    return data;
+}));
+exports.createProduct = (0, toolkit_1.createAsyncThunk)('product/createProduct', (paramsObj) => __awaiter(void 0, void 0, void 0, function* () {
+    const { data } = yield axios_1.default.post('products', Object.assign({}, paramsObj));
     return data;
 }));
 //# sourceMappingURL=asyncActions.js.map

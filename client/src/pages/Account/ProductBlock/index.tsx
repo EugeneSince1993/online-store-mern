@@ -7,7 +7,7 @@ import styles from './ProductBlock.module.scss';
 import { useAppDispatch } from "../../../redux/hooks";
 
 interface IProductBlockProps {
-  id: string;
+  _id: string;
   name: string;
   price: number;
   imageUrl: string;
@@ -17,7 +17,7 @@ interface IProductBlockProps {
 };
 
 export const ProductBlock: FC<IProductBlockProps> = ({
-  id,
+  _id,
   name,
   price,
   imageUrl,
@@ -29,18 +29,18 @@ export const ProductBlock: FC<IProductBlockProps> = ({
 
   const onClickRemove = () => {
     if (window.confirm('Вы действительно хотите удалить товар?')) {
-      dispatch(removeItem(id));
+      dispatch(removeItem(_id));
     }
   };
 
   return (
     <div className={styles.productItem}>
-      <NavLink to={`/products/${id}`} className={styles.thumbnail}>
+      <NavLink to={`/products/${_id}`} className={styles.thumbnail}>
         <img src={imageUrl} />
       </NavLink>
       <div className={styles.dataContainer}>
         <div className={styles.productInfo}>
-          <NavLink to={`/products/${id}`} className={styles.productName}>
+          <NavLink to={`/products/${_id}`} className={styles.productName}>
             {name}
           </NavLink>
           <div className={styles.productCode}>

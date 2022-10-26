@@ -14,6 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getRangeExtremes = exports.remove = exports.update = exports.create = exports.getOne = exports.getAll = void 0;
 const Product_1 = __importDefault(require("../models/Product"));
+const mongoose = require('mongoose');
+const newId = mongoose.Types.ObjectId();
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const sortQuery = req.query.order;
@@ -74,11 +76,21 @@ const getOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getOne = getOne;
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        // const maxIdRaw = await ProductModel
+        //   .find({})
+        //   .sort({_id: 'desc'})
+        //   .limit(1)
+        //   .select('_id')
+        //   .exec();
+        // let maxId = Number(maxIdRaw[0]["_id"]);
+        // console.log(maxId);
+        // let newId: number | string = maxId++;
+        // newId = newId.toString();
         const doc = new Product_1.default({
             user: req.userId,
-            _id: req.body._id,
+            _id: newId,
             imageUrl: req.body.imageUrl,
-            images: req.body.images,
+            images: req.body.images.split(' '),
             brand: req.body.brand,
             name: req.body.name,
             price: req.body.price,
