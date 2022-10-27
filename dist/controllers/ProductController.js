@@ -76,16 +76,6 @@ const getOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getOne = getOne;
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // const maxIdRaw = await ProductModel
-        //   .find({})
-        //   .sort({_id: 'desc'})
-        //   .limit(1)
-        //   .select('_id')
-        //   .exec();
-        // let maxId = Number(maxIdRaw[0]["_id"]);
-        // console.log(maxId);
-        // let newId: number | string = maxId++;
-        // newId = newId.toString();
         const doc = new Product_1.default({
             user: req.userId,
             _id: newId,

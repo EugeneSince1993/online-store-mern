@@ -26,14 +26,14 @@ export const CreateProduct: FC = () => {
             imageUrl: '',
             images: '',
             brand: '', 
-            price: 0,
-            memory: 0,
-            ram: 0,
-            cpuCores: 0,
-            screenSize: 0,
-            batteryCapacity: 0,
+            price: '',
+            memory: '',
+            ram: '',
+            cpuCores: '',
+            screenSize: '',
+            batteryCapacity: '',
             color: '',
-            productCode: 0,
+            productCode: '',
             shortDesc: '',
             description: '',
           }}
@@ -106,10 +106,10 @@ export const CreateProduct: FC = () => {
                     [styles.borderRed]: touched.name && errors.name
                   })}
                 />
-                <ErrorMessage name="name" component="div" />
+                <ErrorMessage className={styles.errorMsg} name="name" component="div" />
               </div>
               <div className={styles.inputGroup}>
-                <label htmlFor="imageUrl">Изображение товара</label>
+                <label htmlFor="imageUrl">Миниатюра изображения товара</label>
                 <Field 
                   id="imageUrl" 
                   name="imageUrl" 
@@ -119,10 +119,10 @@ export const CreateProduct: FC = () => {
                     [styles.borderRed]: touched.imageUrl && errors.imageUrl 
                   })}
                 />
-                <ErrorMessage name="avatarUrl" component="div" />
+                <ErrorMessage className={styles.errorMsg} name="avatarUrl" component="div" />
               </div>
-              <div className={styles.inputGroup}>
-                <label htmlFor="images">Галерея товаров</label>
+              <div className={classNames(styles.inputGroup, styles.productImages)}>
+                <label htmlFor="images">Изображения товара</label>
                 <Field 
                   as="textarea"
                   id="images" 
@@ -132,7 +132,7 @@ export const CreateProduct: FC = () => {
                     [styles.borderRed]: touched.images && errors.images 
                   })}
                 />
-                <ErrorMessage name="images" component="div" />
+                <ErrorMessage className={styles.errorMsg} name="images" component="div" />
               </div>
               <div className={styles.inputGroup}>
                 <label htmlFor="brand">Бренд</label>
@@ -144,80 +144,80 @@ export const CreateProduct: FC = () => {
                     [styles.borderRed]: touched.brand && errors.brand
                   })}
                 />
-                <ErrorMessage name="brand" component="div" />
+                <ErrorMessage className={styles.errorMsg} name="brand" component="div" />
               </div>
               <div className={styles.inputGroup}>
                 <label htmlFor="price">Цена, руб.</label>
                 <Field 
                   id="price" 
                   name="price" 
-                  type="number" 
+                  type="text" 
                   className={classNames({
                     [styles.borderRed]: touched.price && errors.price
                   })}
                 />
-                <ErrorMessage name="price" component="div" />
+                <ErrorMessage className={styles.errorMsg} name="price" component="div" />
               </div>
               <div className={styles.inputGroup}>
                 <label htmlFor="memory">Объем встроенной памяти, Гб</label>
                 <Field 
                   id="memory" 
                   name="memory" 
-                  type="number" 
+                  type="text" 
                   className={classNames({
                     [styles.borderRed]: touched.memory && errors.memory
                   })}
                 />
-                <ErrorMessage name="memory" component="div" />
+                <ErrorMessage className={styles.errorMsg} name="memory" component="div" />
               </div>
               <div className={styles.inputGroup}>
                 <label htmlFor="ram">Объем оперативной памяти, Гб</label>
                 <Field 
                   id="ram" 
                   name="ram" 
-                  type="number" 
+                  type="text" 
                   className={classNames({
                     [styles.borderRed]: touched.ram && errors.ram
                   })}
                 />
-                <ErrorMessage name="ram" component="div" />
+                <ErrorMessage className={styles.errorMsg} name="ram" component="div" />
               </div>
               <div className={styles.inputGroup}>
                 <label htmlFor="cpuCores">Количество ядер</label>
                 <Field 
                   id="cpuCores" 
                   name="cpuCores" 
-                  type="number" 
+                  type="text" 
                   className={classNames({
                     [styles.borderRed]: touched.cpuCores && errors.cpuCores
                   })}
                 />
-                <ErrorMessage name="cpuCores" component="div" />
+                <ErrorMessage className={styles.errorMsg} name="cpuCores" component="div" />
               </div>
               <div className={styles.inputGroup}>
                 <label htmlFor="screenSize">Диагональ экрана, дюйм</label>
                 <Field 
                   id="screenSize" 
                   name="screenSize" 
-                  type="number" 
+                  type="text" 
                   className={classNames({
                     [styles.borderRed]: touched.screenSize && errors.screenSize
                   })}
                 />
-                <ErrorMessage name="screenSize" component="div" />
+                <ErrorMessage className={styles.errorMsg} name="screenSize" component="div" />
               </div>
               <div className={styles.inputGroup}>
                 <label htmlFor="batteryCapacity">Ёмкость аккумулятора, мАч</label>
                 <Field 
                   id="batteryCapacity" 
                   name="batteryCapacity" 
-                  type="number" 
+                  type="text" 
                   placeholder=""
                   className={classNames({
                     [styles.borderRed]: touched.batteryCapacity && errors.batteryCapacity
                   })}
                 />
-                <ErrorMessage name="batteryCapacity" component="div" />
+                <ErrorMessage className={styles.errorMsg} name="batteryCapacity" component="div" />
               </div>
               <div className={styles.inputGroup}>
                 <label htmlFor="color">Цвет товара</label>
@@ -229,21 +229,21 @@ export const CreateProduct: FC = () => {
                     [styles.borderRed]: touched.color && errors.color
                   })}
                 />
-                <ErrorMessage name="color" component="div" />
+                <ErrorMessage className={styles.errorMsg} name="color" component="div" />
               </div>
               <div className={styles.inputGroup}>
                 <label htmlFor="productCode">Артикул товара</label>
                 <Field 
                   id="productCode" 
                   name="productCode" 
-                  type="number" 
+                  type="text" 
                   className={classNames({
                     [styles.borderRed]: touched.productCode && errors.productCode
                   })}
                 />
-                <ErrorMessage name="productCode" component="div" />
+                <ErrorMessage className={styles.errorMsg} name="productCode" component="div" />
               </div>
-              <div className={styles.inputGroup}>
+              <div className={classNames(styles.inputGroup, styles.shortDesc)}>
                 <label htmlFor="shortDesc">Краткое описание</label>
                 <Field 
                   as="textarea"
@@ -253,9 +253,9 @@ export const CreateProduct: FC = () => {
                     [styles.borderRed]: touched.shortDesc && errors.shortDesc 
                   })}
                 />
-                <ErrorMessage name="shortDesc" component="div" />
+                <ErrorMessage className={styles.errorMsg} name="shortDesc" component="div" />
               </div>
-              <div className={styles.inputGroup}>
+              <div className={classNames(styles.inputGroup, styles.description)}>
                 <label htmlFor="description">Описание</label>
                 <Field 
                   as="textarea"
@@ -265,7 +265,7 @@ export const CreateProduct: FC = () => {
                     [styles.borderRed]: touched.description && errors.description 
                   })}
                 />
-                <ErrorMessage name="description" component="div" />
+                <ErrorMessage className={styles.errorMsg} name="description" component="div" />
               </div>
               <button type="submit" disabled={isSubmitting}>
                 Создать товар
