@@ -10,14 +10,14 @@ const favoriteSlice = (0, toolkit_1.createSlice)({
     initialState,
     reducers: {
         addFavoriteItem(state, action) {
-            const findItem = state.items.find((obj) => obj.id === action.payload.id);
+            const findItem = state.items.find((obj) => obj._id === action.payload._id);
             if (!findItem) {
                 state.items.push(Object.assign(Object.assign({}, action.payload), { count: 1 }));
             }
         },
         removeFavoriteItem(state, action) {
             state.items = state.items.filter((obj) => {
-                return obj.id !== action.payload;
+                return obj._id !== action.payload;
             });
         },
         clearFavoriteItems(state) {

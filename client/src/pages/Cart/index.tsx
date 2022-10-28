@@ -8,6 +8,7 @@ import { clearItems } from '../../redux/cart/cartSlice';
 import { CartItem, Button } from '../../components';
 import styles from './Cart.module.scss';
 import { CartEmpty } from '../CartEmpty';
+import { ICartItem } from '../../redux/cart/types';
 
 export const Cart: FC = () => {
   const dispatch = useAppDispatch();
@@ -30,8 +31,8 @@ export const Cart: FC = () => {
       <h1>Корзина</h1>
       <div className={styles.cartContainer}>
         <div className={styles.productList}>
-          {items.map((item: any) => (
-            <CartItem key={item.id} {...item} />
+          {items.map((item: ICartItem) => (
+            <CartItem key={item._id} {...item} />
           ))}
         </div>
         <div className={styles.summary}>

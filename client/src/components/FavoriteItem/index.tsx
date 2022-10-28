@@ -5,19 +5,12 @@ import { NavLink } from "react-router-dom";
 import classNames from 'classnames';
 import styles from './FavoriteItem.module.scss';
 import { removeFavoriteItem } from "../../redux/favorites/favoriteSlice";
-import { CartItem } from "../../redux/cart/types";
+import { ICartItem } from "../../redux/cart/types";
 import { addItem } from "../../redux/cart/cartSlice";
+import { IFavoriteItem } from "../../redux/favorites/types";
 
-interface IFavoriteItemProps {
-  id: string;
-  name: string;
-  price: number;
-  imageUrl: string;
-  productCode: number;
-};
-
-export const FavoriteItem: FC<IFavoriteItemProps> = ({
-  id,
+export const FavoriteItem: FC<IFavoriteItem> = ({
+  _id,
   name,
   price,
   imageUrl,
@@ -27,17 +20,17 @@ export const FavoriteItem: FC<IFavoriteItemProps> = ({
 
   const onClickRemove = () => {
     if (window.confirm('Вы действительно хотите удалить товар?')) {
-      dispatch(removeFavoriteItem(id));
+      dispatch(removeFavoriteItem(_id));
     }
   };
 
   const onClickAddToCart = () => {
-    const item: CartItem = {
-      id: id,
-      name: name,
-      price: price,
-      imageUrl: imageUrl,
-      productCode: productCode,
+    const item: ICartItem = {
+      _id,
+      name,
+      price,
+      imageUrl,
+      productCode,
       count: 0,
     };
     dispatch(addItem(item));
@@ -45,12 +38,12 @@ export const FavoriteItem: FC<IFavoriteItemProps> = ({
 
   return (
     <div className={styles.productItem}>
-      <NavLink to={`/products/${id}`} className={styles.thumbnail}>
+      <NavLink to={`/products/${_id}`} className={styles.thumbnail}>
         <img src={imageUrl} />
       </NavLink>
       <div className={styles.dataContainer}>
         <div className={styles.productInfo}>
-          <NavLink to={`/products/${id}`} className={styles.productName}>
+          <NavLink to={`/products/${_id}`} className={styles.productName}>
             {name}
           </NavLink>
         </div>

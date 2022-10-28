@@ -5,25 +5,17 @@ import classNames from 'classnames';
 import { removeItem } from "../../../redux/cart/cartSlice";
 import styles from './ProductBlock.module.scss';
 import { useAppDispatch } from "../../../redux/hooks";
+import { IProduct } from "../../../types/IProduct";
 
-interface IProductBlockProps {
-  _id: string;
-  name: string;
-  price: number;
-  imageUrl: string;
-  productCode: number;
-  rating: number;
-  testimonials: number;
-};
-
-export const ProductBlock: FC<IProductBlockProps> = ({
+export const ProductBlock: FC<IProduct> = ({
   _id,
   name,
   price,
   imageUrl,
   productCode,
   rating,
-  testimonials
+  testimonials,
+  ...productBlockProps
 }) => {
   const dispatch = useAppDispatch();
 

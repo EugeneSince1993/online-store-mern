@@ -2,10 +2,10 @@ import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import NumberFormat from 'react-number-format';
 import styles from './ProductItem.module.scss';
-import { CartItem } from '../../redux/cart/types';
+import { ICartItem } from '../../redux/cart/types';
 import { useAppDispatch } from '../../redux/hooks';
 import { addItem } from '../../redux/cart/cartSlice';
-import { FavoriteItem } from '../../redux/favorites/types';
+import { IFavoriteItem } from '../../redux/favorites/types';
 import { addFavoriteItem } from '../../redux/favorites/favoriteSlice';
 
 interface Props {
@@ -30,8 +30,8 @@ export const ProductItem = ({
   const dispatch = useAppDispatch();
 
   const onClickAddToCart = () => {
-    const item: CartItem = {
-      id: productId,
+    const item: ICartItem = {
+      _id: productId,
       name: productName,
       price: priceValue,
       imageUrl: phoneImage,
@@ -42,11 +42,12 @@ export const ProductItem = ({
   };
 
   const onClickAddToFavorites = () => {
-    const item: FavoriteItem = {
-      id: productId,
+    const item: IFavoriteItem = {
+      _id: productId,
       name: productName,
       price: priceValue,
       imageUrl: phoneImage,
+      productCode,
       count: 0,
     };
     dispatch(addFavoriteItem(item));

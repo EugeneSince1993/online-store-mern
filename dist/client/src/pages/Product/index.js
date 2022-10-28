@@ -82,7 +82,7 @@ const Product = () => {
     });
     const onClickAddToCart = () => {
         const item = {
-            id: currentProduct._id,
+            _id: currentProduct._id,
             name: currentProduct.name,
             price: currentProduct.price,
             imageUrl: currentProduct.imageUrl,
@@ -93,10 +93,11 @@ const Product = () => {
     };
     const onClickAddToFavorites = () => {
         const item = {
-            id: currentProduct._id,
+            _id: currentProduct._id,
             name: currentProduct.name,
             price: currentProduct.price,
             imageUrl: currentProduct.imageUrl,
+            productCode: currentProduct.productCode,
             count: 0,
         };
         dispatch((0, favoriteSlice_1.addFavoriteItem)(item));

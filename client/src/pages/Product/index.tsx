@@ -10,10 +10,10 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import parse from 'html-react-parser';
 import styles from './Product.module.scss';
-import { CartItem } from '../../redux/cart/types';
+import { ICartItem } from '../../redux/cart/types';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addItem } from '../../redux/cart/cartSlice';
-import { FavoriteItem } from '../../redux/favorites/types';
+import { IFavoriteItem } from '../../redux/favorites/types';
 import { addFavoriteItem } from '../../redux/favorites/favoriteSlice';
 import { fetchProductById } from '../../redux/product/asyncActions';
 import { selectProduct } from '../../redux/product/selectors';
@@ -98,8 +98,8 @@ export const Product: FC = () => {
   });
 
   const onClickAddToCart = () => {
-    const item: CartItem = {
-      id: currentProduct._id,
+    const item: ICartItem = {
+      _id: currentProduct._id,
       name: currentProduct.name,
       price: currentProduct.price,
       imageUrl: currentProduct.imageUrl,
@@ -110,11 +110,12 @@ export const Product: FC = () => {
   };
 
   const onClickAddToFavorites = () => {
-    const item: FavoriteItem = {
-      id: currentProduct._id,
+    const item: IFavoriteItem = {
+      _id: currentProduct._id,
       name: currentProduct.name,
       price: currentProduct.price,
       imageUrl: currentProduct.imageUrl,
+      productCode: currentProduct.productCode,
       count: 0,
     };
     dispatch(addFavoriteItem(item));

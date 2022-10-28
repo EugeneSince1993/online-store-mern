@@ -1,5 +1,5 @@
-export interface CartItem {
-  id: string;
+export interface ICartItem {
+  _id: string;
   name: string;
   price: number;
   imageUrl: string;
@@ -7,7 +7,7 @@ export interface CartItem {
   productCode: number;
 }
 
-export interface CartSliceState {
+export interface ICartSliceState {
   totalPrice: number;
-  items: CartItem[];
+  items: ICartItem[];
 }

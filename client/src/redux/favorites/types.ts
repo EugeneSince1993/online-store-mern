@@ -1,12 +1,12 @@
-export interface FavoriteItem {
-  id: string;
+export interface IFavoriteItem {
+  _id: string;
   name: string;
   price: number;
   imageUrl: string;
   count: number;
-  productCode?: number;
+  productCode: number;
 }
 
-export interface FavoriteSliceState {
-  items: FavoriteItem[];
+export interface IFavoriteSliceState {
+  items: IFavoriteItem[];
 }

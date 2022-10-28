@@ -4,20 +4,11 @@ import { useAppDispatch } from "../../redux/hooks";
 import { NavLink } from "react-router-dom";
 import classNames from 'classnames';
 import { addItem, subtractItem, removeItem } from "../../redux/cart/cartSlice";
-import { CartItem as CartItemType } from "../../redux/cart/types";
+import { ICartItem } from "../../redux/cart/types";
 import styles from './CartItem.module.scss';
 
-interface CartItemProps {
-  id: string;
-  name: string;
-  price: number;
-  imageUrl: string;
-  count: number;
-  productCode: number;
-};
-
-export const CartItem: FC<CartItemProps> = ({
-  id,
+export const CartItem: FC<ICartItem> = ({
+  _id,
   name,
   price,
   imageUrl,
@@ -28,28 +19,28 @@ export const CartItem: FC<CartItemProps> = ({
 
   const onClickAdd = () => {
     dispatch(addItem({
-      id,
-    } as CartItemType));
+      _id,
+    } as ICartItem));
   };
 
   const onClickSubtract = () => {
-    dispatch(subtractItem(id));
+    dispatch(subtractItem(_id));
   };
 
   const onClickRemove = () => {
     if (window.confirm('Вы действительно хотите удалить товар?')) {
-      dispatch(removeItem(id));
+      dispatch(removeItem(_id));
     }
   };
 
   return (
     <div className={styles.productItem}>
-      <NavLink to={`/products/${id}`} className={styles.thumbnail}>
+      <NavLink to={`/products/${_id}`} className={styles.thumbnail}>
         <img src={imageUrl} />
       </NavLink>
       <div className={styles.dataContainer}>
         <div className={styles.productInfo}>
-          <NavLink to={`/products/${id}`} className={styles.productName}>
+          <NavLink to={`/products/${_id}`} className={styles.productName}>
             {name}
           </NavLink>
           <div className={styles.productCode}>
