@@ -87,7 +87,7 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             memory: req.body.memory,
             ram: req.body.ram,
             cpuCores: req.body.cpuCores,
-            screenSize: req.body.sreenSize,
+            screenSize: req.body.screenSize,
             batteryCapacity: req.body.batteryCapacity,
             color: req.body.color,
             productCode: req.body.productCode,

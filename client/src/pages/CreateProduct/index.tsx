@@ -43,9 +43,11 @@ export const CreateProduct: FC = () => {
               .required('Обязательное поле'),
             imageUrl: Yup.string()
               .url('Неверный URL')
-              .min(20, 'Минимум 20 символов'),
+              .min(20, 'Минимум 20 символов')
+              .required('Обязательное поле'),
             images: Yup.string()
-              .matches(imagesRegex, 'Введите URL-адреса, разделенные пробелом'),
+              .matches(imagesRegex, 'Введите URL-адреса, разделенные пробелом')
+              .required('Обязательное поле'),
             brand: Yup.string()
               .min(3, 'Минимум 3 символа')
               .required('Обязательное поле'), 
@@ -101,7 +103,6 @@ export const CreateProduct: FC = () => {
                   id="name" 
                   name="name" 
                   type="text" 
-                  placeholder="Иван Иванов"
                   className={classNames({
                     [styles.borderRed]: touched.name && errors.name
                   })}
@@ -119,7 +120,7 @@ export const CreateProduct: FC = () => {
                     [styles.borderRed]: touched.imageUrl && errors.imageUrl 
                   })}
                 />
-                <ErrorMessage className={styles.errorMsg} name="avatarUrl" component="div" />
+                <ErrorMessage className={styles.errorMsg} name="imageUrl" component="div" />
               </div>
               <div className={classNames(styles.inputGroup, styles.productImages)}>
                 <label htmlFor="images">Изображения товара</label>
@@ -222,13 +223,23 @@ export const CreateProduct: FC = () => {
               <div className={styles.inputGroup}>
                 <label htmlFor="color">Цвет товара</label>
                 <Field 
+                  as="select"
                   id="color" 
                   name="color" 
-                  type="text" 
                   className={classNames({
                     [styles.borderRed]: touched.color && errors.color
                   })}
-                />
+                >
+                  <option value="">выберите цвет</option>
+                  <option value="white">белый</option>
+                  <option value="black">черный</option>
+                  <option value="gray">серый</option>
+                  <option value="blue">синий</option>
+                  <option value="red">красный</option>
+                  <option value="pink">розовый</option>
+                  <option value="green">зеленый</option>
+                  <option value="yellow">желтый</option>
+                </Field>
                 <ErrorMessage className={styles.errorMsg} name="color" component="div" />
               </div>
               <div className={styles.inputGroup}>

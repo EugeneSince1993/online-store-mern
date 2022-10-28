@@ -78,7 +78,7 @@ export const create = async (req, res) => {
       memory: req.body.memory,
       ram: req.body.ram,
       cpuCores: req.body.cpuCores,
-      screenSize: req.body.sreenSize,
+      screenSize: req.body.screenSize,
       batteryCapacity: req.body.batteryCapacity,
       color: req.body.color,
       productCode: req.body.productCode,
