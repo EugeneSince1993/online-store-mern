@@ -47,8 +47,11 @@ const asyncActions_1 = require("../../redux/product/asyncActions");
 const CreateProduct = () => {
     const dispatch = (0, hooks_1.useAppDispatch)();
     const navigate = (0, react_router_dom_1.useNavigate)();
-    const imagesExp = /((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))\s+){1,5}(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))/;
+    const imagesExp = /([-a-zA-Z0-9@:%._\+~#=\/]{1,256}\n){1,5}[-a-zA-Z0-9@:%._\+~#=\/]{1,256}/;
     const imagesRegex = new RegExp(imagesExp);
+    const goToAccount = () => {
+        navigate('/account');
+    };
     return ((0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("h3", { children: "\u0414\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430" }), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: CreateProduct_module_scss_1.default.form }, { children: (0, jsx_runtime_1.jsx)(formik_1.Formik, Object.assign({ initialValues: {
                         name: '',
                         imageUrl: '',
@@ -69,11 +72,11 @@ const CreateProduct = () => {
                             .min(3, 'Минимум 3 символа')
                             .required('Обязательное поле'),
                         imageUrl: Yup.string()
-                            .url('Неверный URL')
                             .min(20, 'Минимум 20 символов')
                             .required('Обязательное поле'),
                         images: Yup.string()
-                            .matches(imagesRegex, 'Введите URL-адреса, разделенные пробелом')
+                            .matches(imagesRegex, 'Введите адреса, каждый с новой строки')
+                            .min(20, 'Минимум 20 символов')
                             .required('Обязательное поле'),
                         brand: Yup.string()
                             .min(3, 'Минимум 3 символа')
@@ -118,11 +121,11 @@ const CreateProduct = () => {
                         }
                         navigate('/account');
                         setSubmitting(false);
-                    }) }, { children: ({ isSubmitting, touched, errors }) => ((0, jsx_runtime_1.jsxs)(formik_1.Form, { children: [(0, jsx_runtime_1.jsxs)("div", Object.assign({ className: CreateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "name" }, { children: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { id: "name", name: "name", type: "text", className: (0, classnames_1.default)({
+                    }) }, { children: ({ isSubmitting, touched, errors, isValid, dirty }) => ((0, jsx_runtime_1.jsxs)(formik_1.Form, { children: [(0, jsx_runtime_1.jsxs)("div", Object.assign({ className: CreateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "name" }, { children: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { id: "name", name: "name", type: "text", className: (0, classnames_1.default)({
                                             [CreateProduct_module_scss_1.default.borderRed]: touched.name && errors.name
                                         }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: CreateProduct_module_scss_1.default.errorMsg, name: "name", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: CreateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "imageUrl" }, { children: "\u041C\u0438\u043D\u0438\u0430\u0442\u044E\u0440\u0430 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { id: "imageUrl", name: "imageUrl", type: "text", placeholder: "https://test.com/image123.jpg", className: (0, classnames_1.default)({
                                             [CreateProduct_module_scss_1.default.borderRed]: touched.imageUrl && errors.imageUrl
-                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: CreateProduct_module_scss_1.default.errorMsg, name: "imageUrl", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(CreateProduct_module_scss_1.default.inputGroup, CreateProduct_module_scss_1.default.productImages) }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "images" }, { children: "\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { as: "textarea", id: "images", name: "images", placeholder: "https://test.com/image123.jpg https://test.com/image123.jpg https://test.com/image123.jpg", className: (0, classnames_1.default)({
+                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: CreateProduct_module_scss_1.default.errorMsg, name: "imageUrl", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(CreateProduct_module_scss_1.default.inputGroup, CreateProduct_module_scss_1.default.productImages) }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "images" }, { children: "\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { as: "textarea", id: "images", name: "images", placeholder: "https://test.com/image123.jpg\r\n                  https://test.com/image123.jpg\r\n                  https://test.com/image123.jpg", className: (0, classnames_1.default)({
                                             [CreateProduct_module_scss_1.default.borderRed]: touched.images && errors.images
                                         }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: CreateProduct_module_scss_1.default.errorMsg, name: "images", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: CreateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "brand" }, { children: "\u0411\u0440\u0435\u043D\u0434" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { id: "brand", name: "brand", type: "text", className: (0, classnames_1.default)({
                                             [CreateProduct_module_scss_1.default.borderRed]: touched.brand && errors.brand
@@ -146,7 +149,11 @@ const CreateProduct = () => {
                                             [CreateProduct_module_scss_1.default.borderRed]: touched.shortDesc && errors.shortDesc
                                         }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: CreateProduct_module_scss_1.default.errorMsg, name: "shortDesc", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(CreateProduct_module_scss_1.default.inputGroup, CreateProduct_module_scss_1.default.description) }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "description" }, { children: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { as: "textarea", id: "description", name: "description", className: (0, classnames_1.default)({
                                             [CreateProduct_module_scss_1.default.borderRed]: touched.description && errors.description
-                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: CreateProduct_module_scss_1.default.errorMsg, name: "description", component: "div" })] })), (0, jsx_runtime_1.jsx)("button", Object.assign({ type: "submit", disabled: isSubmitting }, { children: "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0442\u043E\u0432\u0430\u0440" }))] })) })) }))] }));
+                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: CreateProduct_module_scss_1.default.errorMsg, name: "description", component: "div" })] })), (0, jsx_runtime_1.jsx)("button", Object.assign({ type: "submit", disabled: !isValid || !dirty || isSubmitting, className: (0, classnames_1.default)(CreateProduct_module_scss_1.default.submit, {
+                                    [CreateProduct_module_scss_1.default.disabled]: !isValid || !dirty || isSubmitting
+                                }) }, { children: "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0442\u043E\u0432\u0430\u0440" })), (0, jsx_runtime_1.jsx)("button", Object.assign({ type: "button", disabled: isSubmitting, className: (0, classnames_1.default)(CreateProduct_module_scss_1.default.cancel, {
+                                    [CreateProduct_module_scss_1.default.disabled]: isSubmitting
+                                }), onClick: goToAccount }, { children: "\u041E\u0442\u043C\u0435\u043D\u0430" }))] })) })) }))] }));
 };
 exports.CreateProduct = CreateProduct;
 //# sourceMappingURL=index.js.map

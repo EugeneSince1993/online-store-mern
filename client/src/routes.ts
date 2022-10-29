@@ -1,5 +1,5 @@
-import { ACCOUNT, CART, CREATE_PRODUCT, EMPTY_CART, EMPTY_FAVORITES, FAVORITES, HOME, PRODUCTS } from './utils/routes/consts';
-import { Account, Cart, CartEmpty, CreateProduct, Favorites, FavoritesEmpty, Home, Product } from './pages';
+import { ACCOUNT, CART, CREATE_PRODUCT, EMPTY_CART, EMPTY_FAVORITES, FAVORITES, HOME, PRODUCTS, UPDATE_PRODUCT } from './utils/routes/consts';
+import { Account, Cart, CartEmpty, CreateProduct, Favorites, FavoritesEmpty, Home, Product, UpdateProduct } from './pages';
 
 
 export const authRoutes = [
@@ -10,6 +10,10 @@ export const authRoutes = [
   {
     path: CREATE_PRODUCT,
     Component: CreateProduct,
+  },
+  {
+    path: UPDATE_PRODUCT + '/:id',
+    Component: UpdateProduct,
   }
 ];
 

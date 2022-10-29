@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateProduct = exports.Account = exports.CartEmpty = exports.FavoritesEmpty = exports.Favorites = exports.Cart = exports.Product = exports.Home = void 0;
+exports.UpdateProduct = exports.CreateProduct = exports.Account = exports.CartEmpty = exports.FavoritesEmpty = exports.Favorites = exports.Cart = exports.Product = exports.Home = void 0;
 var Home_1 = require("./Home");
 Object.defineProperty(exports, "Home", { enumerable: true, get: function () { return Home_1.Home; } });
 var Product_1 = require("./Product");
@@ -17,4 +17,6 @@ var Account_1 = require("./Account");
 Object.defineProperty(exports, "Account", { enumerable: true, get: function () { return Account_1.Account; } });
 var CreateProduct_1 = require("./CreateProduct");
 Object.defineProperty(exports, "CreateProduct", { enumerable: true, get: function () { return CreateProduct_1.CreateProduct; } });
+var UpdateProduct_1 = require("./UpdateProduct");
+Object.defineProperty(exports, "UpdateProduct", { enumerable: true, get: function () { return UpdateProduct_1.UpdateProduct; } });
 //# sourceMappingURL=index.js.map

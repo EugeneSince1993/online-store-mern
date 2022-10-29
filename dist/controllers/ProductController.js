@@ -16,6 +16,8 @@ exports.getRangeExtremes = exports.remove = exports.update = exports.create = ex
 const Product_1 = __importDefault(require("../models/Product"));
 const mongoose = require('mongoose');
 const newId = mongoose.Types.ObjectId();
+const newLine = /\n{1}/;
+const newLineRegex = new RegExp(newLine);
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const sortQuery = req.query.order;
@@ -80,7 +82,7 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             user: req.userId,
             _id: newId,
             imageUrl: req.body.imageUrl,
-            images: req.body.images.split(' '),
+            images: req.body.images.split(newLineRegex),
             brand: req.body.brand,
             name: req.body.name,
             price: req.body.price,
@@ -113,7 +115,7 @@ const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }, {
             user: req.userId,
             imageUrl: req.body.imageUrl,
-            images: req.body.images,
+            images: req.body.images.split(newLineRegex),
             brand: req.body.brand,
             name: req.body.name,
             price: req.body.price,

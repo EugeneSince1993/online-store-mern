@@ -6,3 +6,4 @@ export { FavoritesEmpty } from './FavoritesEmpty';
 export { CartEmpty } from './CartEmpty';
 export { Account } from './Account';
 export { CreateProduct } from './CreateProduct';
+export { UpdateProduct } from './UpdateProduct';

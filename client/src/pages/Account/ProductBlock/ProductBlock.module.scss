@@ -106,7 +106,7 @@
           display: flex;
           align-items: center;
 
-          .cartIcon {
+          .changeIcon {
             display: inline-block;
             margin-right: 7px;
             
@@ -116,10 +116,13 @@
             }
           }
 
-          .toCart {
+          .toChange {
             display: inline-block;
-            color: #fff;
-            font-size: 16px;
+
+            a {
+              color: #fff;
+              font-size: 16px;
+            }
           }
         }
       }

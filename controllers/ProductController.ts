@@ -2,6 +2,9 @@ import ProductModel from '../models/Product';
 const mongoose = require('mongoose');
 const newId = mongoose.Types.ObjectId();
 
+const newLine = /\n{1}/;
+const newLineRegex = new RegExp(newLine);
+
 export const getAll = async (req, res) => {
   try {
     const sortQuery = req.query.order;
@@ -71,7 +74,7 @@ export const create = async (req, res) => {
       user: req.userId,
       _id: newId,
       imageUrl: req.body.imageUrl,
-      images: req.body.images.split(' '),
+      images: req.body.images.split(newLineRegex),
       brand: req.body.brand,
       name: req.body.name,
       price: req.body.price,
@@ -108,7 +111,7 @@ export const update = async (req, res) => {
       {
         user: req.userId,
         imageUrl: req.body.imageUrl,
-        images: req.body.images,
+        images: req.body.images.split(newLineRegex),
         brand: req.body.brand,
         name: req.body.name,
         price: req.body.price,

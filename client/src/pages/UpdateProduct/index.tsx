@@ -1,20 +1,42 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup';
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../redux/hooks";
-import styles from "./CreateProduct.module.scss";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import styles from "./UpdateProduct.module.scss";
 import classNames from "classnames";
-import { createProduct } from "../../redux/product/asyncActions";
+import { fetchProductById, updateProductById } from "../../redux/product/asyncActions";
+import { selectProduct } from "../../redux/product/selectors";
+import { IProductParamsId } from "../../types/IProductParamsId";
 import { IProductParams } from "../../types/IProductParams";
 
-export const CreateProduct: FC = () => {
+export const UpdateProduct: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const { currentProduct } = useAppSelector(selectProduct);
+  let { id } = useParams();
+
+  useEffect(() => {
+    dispatch(fetchProductById(id));
+    window.scrollTo(0, 0);
+  }, []);
 
   const imagesExp = /([-a-zA-Z0-9@:%._\+~#=\/]{1,256}\n){1,5}[-a-zA-Z0-9@:%._\+~#=\/]{1,256}/;
 
   const imagesRegex = new RegExp(imagesExp);
+
+  const objIsNotEmpty = (obj: any) => {
+    return Object.keys(obj).length !== 0;
+  };
+
+  const currentProductIsNotEmpty = objIsNotEmpty(currentProduct);
+
+  const productImages = currentProductIsNotEmpty && currentProduct.images;
+
+  const productImagesStr = productImages && productImages.reduce((previousValue: string, currentValue: string) => {
+    return previousValue + "\n" + currentValue;
+  });
 
   const goToAccount = () => {
     navigate('/account');
@@ -22,24 +44,25 @@ export const CreateProduct: FC = () => {
 
   return (
     <div>
-      <h3>Добавление товара</h3>
+      <h3>Изменение товара</h3>
       <div className={styles.form}>
         <Formik
+          enableReinitialize={true}
           initialValues={{ 
-            name: '',
-            imageUrl: '',
-            images: '',
-            brand: '', 
-            price: '',
-            memory: '',
-            ram: '',
-            cpuCores: '',
-            screenSize: '',
-            batteryCapacity: '',
-            color: '',
-            productCode: '',
-            shortDesc: '',
-            description: '',
+            name: currentProductIsNotEmpty ? currentProduct.name : '',
+            imageUrl: currentProductIsNotEmpty ? currentProduct.imageUrl : '',
+            images: currentProductIsNotEmpty ? productImagesStr : '',
+            brand: currentProductIsNotEmpty ? currentProduct.brand : '', 
+            price: currentProductIsNotEmpty ? currentProduct.price : '',
+            memory: currentProductIsNotEmpty ? currentProduct.memory : '',
+            ram: currentProductIsNotEmpty ? currentProduct.ram : '',
+            cpuCores: currentProductIsNotEmpty ? currentProduct.cpuCores : '',
+            screenSize: currentProductIsNotEmpty ? currentProduct.screenSize : '',
+            batteryCapacity: currentProductIsNotEmpty ? currentProduct.batteryCapacity : '',
+            color: currentProductIsNotEmpty ? currentProduct.color : '',
+            productCode: currentProductIsNotEmpty ? currentProduct.productCode : '',
+            shortDesc: currentProductIsNotEmpty ? currentProduct.shortDesc : '',
+            description: currentProductIsNotEmpty ? currentProduct.description : '',
           }}
           validationSchema={Yup.object({
             name: Yup.string()
@@ -87,19 +110,21 @@ export const CreateProduct: FC = () => {
               .required('Обязательное поле'),
           })}
           onSubmit={async (values: IProductParams, { setSubmitting }) => {
-            const data: any = await dispatch(createProduct(values));
+            const dataForUpdating: IProductParamsId = { ...values, id };
 
-            if (!data.payload) {
-              return alert('Не удалось создать товар');
+            const data: any = await dispatch(updateProductById(dataForUpdating));
+
+            if (!data.payload.success) {
+              return alert('Не удалось обновить товар');
             } else {
-              alert(`Товар "${data.payload.name}" добавлен`);
+              alert(`Товар "${values.name}" изменен`);
             }
 
             navigate('/account');
             setSubmitting(false);
           }}
         >
-          {({ isSubmitting, touched, errors, isValid, dirty }) => (
+          {({ isSubmitting, touched, errors, isValid, dirty}) => (
             <Form>
               <div className={styles.inputGroup}>
                 <label htmlFor="name">Название товара</label>
@@ -291,7 +316,7 @@ export const CreateProduct: FC = () => {
                   [styles.disabled]: !isValid || !dirty || isSubmitting 
                 })}
               >
-                Создать товар
+                Изменить товар
               </button>
               <button 
                 type="button" 

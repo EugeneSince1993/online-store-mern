@@ -62,10 +62,14 @@ export const ProductBlock: FC<IProduct> = ({
         <div className={styles.changeProduct}>
           <button>
             <div>
-              <span className={styles.cartIcon}>
+              <span className={styles.changeIcon}>
                 <i className="fa-solid fa-gear"></i>
               </span>
-              <span className={styles.toCart}>Изменить</span>
+              <span className={styles.toChange}>
+                <NavLink to={`/update-product/${_id}`}>
+                  Изменить
+                </NavLink>
+              </span>
             </div>
           </button>
         </div>

@@ -25,6 +25,6 @@ export const productCreateValidation = [
   body('productCode', 'Введите артикул').isNumeric(),
   body('description', 'Введите описание товара').isLength({ min: 30 }),
   body('shortDesc', 'Введите краткое описание товара').isLength({ min: 10 }),
-  body('imageUrl', 'Неверная ссылка на изображение товара').isURL(),
-  body('images', 'Добавьте ссылки на изображения товара').isLength({ min: 10 }),
+  body('imageUrl', 'Добавьте ссылку на изображение товара').isLength({ min: 10 }),
+  body('images', 'Добавьте ссылки на изображения товара').isLength({ min: 20 }),
 ];

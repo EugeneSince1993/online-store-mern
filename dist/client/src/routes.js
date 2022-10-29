@@ -11,6 +11,10 @@ exports.authRoutes = [
     {
         path: consts_1.CREATE_PRODUCT,
         Component: pages_1.CreateProduct,
+    },
+    {
+        path: consts_1.UPDATE_PRODUCT + '/:id',
+        Component: pages_1.UpdateProduct,
     }
 ];
 exports.publicRoutes = [

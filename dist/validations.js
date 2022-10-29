@@ -25,7 +25,7 @@ exports.productCreateValidation = [
     (0, express_validator_1.body)('productCode', 'Введите артикул').isNumeric(),
     (0, express_validator_1.body)('description', 'Введите описание товара').isLength({ min: 30 }),
     (0, express_validator_1.body)('shortDesc', 'Введите краткое описание товара').isLength({ min: 10 }),
-    (0, express_validator_1.body)('imageUrl', 'Неверная ссылка на изображение товара').isURL(),
-    (0, express_validator_1.body)('images', 'Добавьте ссылки на изображения товара').isLength({ min: 10 }),
+    (0, express_validator_1.body)('imageUrl', 'Добавьте ссылку на изображение товара').isLength({ min: 10 }),
+    (0, express_validator_1.body)('images', 'Добавьте ссылки на изображения товара').isLength({ min: 20 }),
 ];
 //# sourceMappingURL=validations.js.map
