@@ -50,6 +50,26 @@ h3 {
           height: 200px;
         }
       }
+
+      &.productThumbnail {
+
+        input.inputFileImage {
+          display: none;
+        }
+
+        .imageContainer {
+          margin-top: 20px;
+          display: flex;
+
+          .image {
+            width: 70px;
+
+            img {
+              width: 100%;
+            }
+          }
+        }
+      }
   
       .errorMsg {
         margin-top: 10px;

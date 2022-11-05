@@ -8,7 +8,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const classnames_1 = __importDefault(require("classnames"));
 const react_router_dom_1 = require("react-router-dom");
 const Button_module_scss_1 = __importDefault(require("./Button.module.scss"));
-const Button = ({ display = "inline-block", variant, link = "/", justifyContentCenter = false, onClickFunc, children, }) => {
+const Button = ({ display = "inline-block", variant = "solid", link = "", justifyContentCenter = false, onClickFunc, children }) => {
     return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [display === "block" && ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: (0, classnames_1.default)({
                     [Button_module_scss_1.default.buttonContainer]: true,
                     [Button_module_scss_1.default.justifyContentCenter]: justifyContentCenter,

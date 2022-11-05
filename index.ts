@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
-import fs from 'fs';
+import fs from 'fs-extra';
 import multer from 'multer';
 import cors from 'cors';
 import mongoose from 'mongoose';
@@ -21,32 +21,50 @@ async function main() {
   
     const app = express();
 
-    const storage = multer.diskStorage({
-      destination: (_, __, cb) => {
-        if (!fs.existsSync('uploads')) {
-          fs.mkdirSync('uploads');
-        }
-        cb(null, 'uploads');
-      },
-      filename: (_, file, cb) => {
-        cb(null, file.originalname);
-      },
-    });
+    const uploadFunc = (dest: string) => {
+      const storage = multer.diskStorage({
+        destination: (req, file, callback) => {
+          const path = `./uploads/${dest}`;
+          if (!fs.existsSync(path)) {
+            fs.mkdirSync(path);
+          }
+          callback(null, path);
+        },
+        filename: (req, file, callback) => {
+          callback(null, file.originalname);
+        },
+      });
 
-    const upload = multer({ storage });
+      const upload = multer({ storage });
+      return upload;
+    };
     
     app.use(express.json());
     app.use(cors());
-    app.use('/uploads', express.static('uploads'));
+    app.use('/uploads/thumbnail', express.static('uploads/thumbnail'));
+    app.use('/uploads/images', express.static('uploads/images'));
 
     app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login);
     app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
     app.get('/auth/me', checkAuth, UserController.getMe);
 
-    app.post('/upload', checkAuth, upload.single('image'), (req: any, res) => {
-      res.json({
-        url: `/uploads/${req.file.originalname}`,
-      });
+    app.post(
+      '/uploads/thumbnail', 
+      checkAuth, 
+      uploadFunc('thumbnail').single('inputFile'), 
+      (req: any, res) => {
+        res.json({
+          url: `/uploads/thumbnail/${req.file.originalname}`
+        });
+    });
+    app.post(
+      '/uploads/images', 
+      checkAuth, 
+      uploadFunc('images').fields([{ name: 'inputFiles', maxCount: 5 }]), 
+      (req: any, res) => {
+        res.json({
+          files: req.files['inputFiles']
+        });
     });
 
     app.get('/products', ProductController.getAll);

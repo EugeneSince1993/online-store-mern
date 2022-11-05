@@ -46,16 +46,20 @@ const UpdateProduct_module_scss_1 = __importDefault(require("./UpdateProduct.mod
 const classnames_1 = __importDefault(require("classnames"));
 const asyncActions_1 = require("../../redux/product/asyncActions");
 const selectors_1 = require("../../redux/product/selectors");
+const components_1 = require("../../components");
+const axios_1 = __importDefault(require("../../axios"));
 const UpdateProduct = () => {
     const dispatch = (0, hooks_1.useAppDispatch)();
     const navigate = (0, react_router_dom_1.useNavigate)();
     const { currentProduct } = (0, hooks_1.useAppSelector)(selectors_1.selectProduct);
     let { id } = (0, react_router_dom_1.useParams)();
+    const inputFileRef = (0, react_1.useRef)(null);
+    const [productThumbnail, setProductThumbnail] = (0, react_1.useState)('');
     (0, react_1.useEffect)(() => {
         dispatch((0, asyncActions_1.fetchProductById)(id));
         window.scrollTo(0, 0);
     }, []);
-    const imagesExp = /([-a-zA-Z0-9@:%._\+~#=\/]{1,256}\s+){1,5}[-a-zA-Z0-9@:%._\+~#=\/]{1,256}/;
+    const imagesExp = /([-a-zA-Z0-9@:%._\+~#=\/]{1,256}\n){1,5}[-a-zA-Z0-9@:%._\+~#=\/]{1,256}/;
     const imagesRegex = new RegExp(imagesExp);
     const objIsNotEmpty = (obj) => {
         return Object.keys(obj).length !== 0;
@@ -63,10 +67,33 @@ const UpdateProduct = () => {
     const currentProductIsNotEmpty = objIsNotEmpty(currentProduct);
     const productImages = currentProductIsNotEmpty && currentProduct.images;
     const productImagesStr = productImages && productImages.reduce((previousValue, currentValue) => {
-        return previousValue + ' ' + currentValue;
+        return previousValue + "\n" + currentValue;
     });
     const goToAccount = () => {
         navigate('/account');
+    };
+    const handleChangeFile = (event) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            if (event.target.files) {
+                const formData = new FormData();
+                const file = event.target.files[0];
+                formData.append('image', file);
+                const { data } = yield axios_1.default.post('/upload', formData);
+                setProductThumbnail(data.url);
+            }
+            else {
+                throw "files array is empty";
+            }
+        }
+        catch (err) {
+            console.warn(err);
+            alert('Ошибка при загрузке файла!');
+        }
+    });
+    const handleClickInputFile = () => {
+        if (inputFileRef.current) {
+            inputFileRef.current.click();
+        }
     };
     return ((0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("h3", { children: "\u0418\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430" }), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.form }, { children: (0, jsx_runtime_1.jsx)(formik_1.Formik, Object.assign({ enableReinitialize: true, initialValues: {
                         name: currentProductIsNotEmpty ? currentProduct.name : '',
@@ -91,7 +118,7 @@ const UpdateProduct = () => {
                             .min(20, 'Минимум 20 символов')
                             .required('Обязательное поле'),
                         images: Yup.string()
-                            .matches(imagesRegex, 'Введите адреса, разделенные пробелом')
+                            .matches(imagesRegex, 'Введите адреса, каждый с новой строки')
                             .min(20, 'Минимум 20 символов')
                             .required('Обязательное поле'),
                         brand: Yup.string()
@@ -140,9 +167,7 @@ const UpdateProduct = () => {
                         setSubmitting(false);
                     }) }, { children: ({ isSubmitting, touched, errors, isValid, dirty }) => ((0, jsx_runtime_1.jsxs)(formik_1.Form, { children: [(0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "name" }, { children: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { id: "name", name: "name", type: "text", className: (0, classnames_1.default)({
                                             [UpdateProduct_module_scss_1.default.borderRed]: touched.name && errors.name
-                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "name", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "imageUrl" }, { children: "\u041C\u0438\u043D\u0438\u0430\u0442\u044E\u0440\u0430 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { id: "imageUrl", name: "imageUrl", type: "text", placeholder: "https://test.com/image123.jpg", className: (0, classnames_1.default)({
-                                            [UpdateProduct_module_scss_1.default.borderRed]: touched.imageUrl && errors.imageUrl
-                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "imageUrl", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.inputGroup, UpdateProduct_module_scss_1.default.productImages) }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "images" }, { children: "\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { as: "textarea", id: "images", name: "images", placeholder: "https://test.com/image123.jpg https://test.com/image123.jpg https://test.com/image123.jpg", className: (0, classnames_1.default)({
+                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "name", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.inputGroup, UpdateProduct_module_scss_1.default.productThumbnail) }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "imageUrl" }, { children: "\u041C\u0438\u043D\u0438\u0430\u0442\u044E\u0440\u0430 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)(components_1.Button, Object.assign({ variant: "outlined", onClickFunc: handleClickInputFile, link: "" }, { children: "\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C" })), (0, jsx_runtime_1.jsx)("input", { ref: inputFileRef, id: "imageUrl", name: "imageUrl", type: "file", onChange: handleChangeFile, className: UpdateProduct_module_scss_1.default.inputFileImage }), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.imageContainer }, { children: (0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.image }, { children: productThumbnail && ((0, jsx_runtime_1.jsx)("img", { src: productThumbnail, alt: "product-thumbnail" })) })) })), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "imageUrl", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.inputGroup, UpdateProduct_module_scss_1.default.productImages) }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "images" }, { children: "\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { as: "textarea", id: "images", name: "images", placeholder: "https://test.com/image123.jpg\r\n                  https://test.com/image123.jpg\r\n                  https://test.com/image123.jpg", className: (0, classnames_1.default)({
                                             [UpdateProduct_module_scss_1.default.borderRed]: touched.images && errors.images
                                         }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "images", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "brand" }, { children: "\u0411\u0440\u0435\u043D\u0434" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { id: "brand", name: "brand", type: "text", className: (0, classnames_1.default)({
                                             [UpdateProduct_module_scss_1.default.borderRed]: touched.brand && errors.brand

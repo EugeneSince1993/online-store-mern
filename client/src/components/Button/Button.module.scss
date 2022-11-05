@@ -17,8 +17,8 @@
 
   &.outlined {
     background-color: #fff;
-    border: 2px solid #a0a0a0;
-    color: #a0a0a0;
+    border: 1px solid #000;
+    color: #000;
 
     &:hover {
       color: #2d7dff;
@@ -29,12 +29,10 @@
   &.solid {
     background-color: #2d7dff;
     color: #fff;
-    border: 2px solid #2d7dff;
+    border-style: none;
 
     &:hover {
-      background-color: #fff;
-      color: #2d7dff;
-      border: 2px solid #2d7dff;
+      background-color: #5c9aff;
     }
   }
 

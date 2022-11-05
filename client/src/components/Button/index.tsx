@@ -4,21 +4,21 @@ import { NavLink } from "react-router-dom";
 import styles from "./Button.module.scss";
 
 interface IButtonProps {
-  display: string;
-  variant: string;
+  display?: string;
+  variant?: string;
   link?: string;
   justifyContentCenter?: boolean;
-  onClickFunc?: () => any;
+  onClickFunc?: (param: any) => any | void;
   children: ReactNode;
 }
 
 export const Button: FC<IButtonProps> = ({
   display = "inline-block",
-  variant,
-  link = "/",
+  variant = "solid",
+  link = "",
   justifyContentCenter = false,
   onClickFunc,
-  children,
+  children
 }) => {
   return (
     <>

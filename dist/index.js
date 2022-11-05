@@ -38,7 +38,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const express_1 = __importDefault(require("express"));
-const fs_1 = __importDefault(require("fs"));
+const fs_extra_1 = __importDefault(require("fs-extra"));
 const multer_1 = __importDefault(require("multer"));
 const cors_1 = __importDefault(require("cors"));
 const mongoose_1 = __importDefault(require("mongoose"));
@@ -55,27 +55,37 @@ function main() {
             .then(() => console.log('DB ok'))
             .catch((err) => console.log('DB error', err));
         const app = (0, express_1.default)();
-        const storage = multer_1.default.diskStorage({
-            destination: (_, __, cb) => {
-                if (!fs_1.default.existsSync('uploads')) {
-                    fs_1.default.mkdirSync('uploads');
-                }
-                cb(null, 'uploads');
-            },
-            filename: (_, file, cb) => {
-                cb(null, file.originalname);
-            },
-        });
-        const upload = (0, multer_1.default)({ storage });
+        const uploadFunc = (dest) => {
+            const storage = multer_1.default.diskStorage({
+                destination: (req, file, callback) => {
+                    const path = `./uploads/${dest}`;
+                    if (!fs_extra_1.default.existsSync(path)) {
+                        fs_extra_1.default.mkdirSync(path);
+                    }
+                    callback(null, path);
+                },
+                filename: (req, file, callback) => {
+                    callback(null, file.originalname);
+                },
+            });
+            const upload = (0, multer_1.default)({ storage });
+            return upload;
+        };
         app.use(express_1.default.json());
         app.use((0, cors_1.default)());
-        app.use('/uploads', express_1.default.static('uploads'));
+        app.use('/uploads/thumbnail', express_1.default.static('uploads/thumbnail'));
+        app.use('/uploads/images', express_1.default.static('uploads/images'));
         app.post('/auth/login', validations_1.loginValidation, utils_1.handleValidationErrors, index_1.UserController.login);
         app.post('/auth/register', validations_1.registerValidation, utils_1.handleValidationErrors, index_1.UserController.register);
         app.get('/auth/me', utils_1.checkAuth, index_1.UserController.getMe);
-        app.post('/upload', utils_1.checkAuth, upload.single('image'), (req, res) => {
+        app.post('/uploads/thumbnail', utils_1.checkAuth, uploadFunc('thumbnail').single('inputFile'), (req, res) => {
             res.json({
-                url: `/uploads/${req.file.originalname}`,
+                url: `/uploads/thumbnail/${req.file.originalname}`
+            });
+        });
+        app.post('/uploads/images', utils_1.checkAuth, uploadFunc('images').fields([{ name: 'inputFiles', maxCount: 5 }]), (req, res) => {
+            res.json({
+                files: req.files['inputFiles']
             });
         });
         app.get('/products', index_1.ProductController.getAll);

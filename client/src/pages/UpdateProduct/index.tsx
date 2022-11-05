@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup';
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,13 +9,17 @@ import { fetchProductById, updateProductById } from "../../redux/product/asyncAc
 import { selectProduct } from "../../redux/product/selectors";
 import { IProductParamsId } from "../../types/IProductParamsId";
 import { IProductParams } from "../../types/IProductParams";
+import { Button } from "../../components";
+import axios from "../../axios";
 
 export const UpdateProduct: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
   const { currentProduct } = useAppSelector(selectProduct);
   let { id } = useParams();
+
+  const inputFileRef = useRef<HTMLInputElement>(null);
+  const [productThumbnail, setProductThumbnail] = useState<string>('');
 
   useEffect(() => {
     dispatch(fetchProductById(id));
@@ -23,23 +27,43 @@ export const UpdateProduct: FC = () => {
   }, []);
 
   const imagesExp = /([-a-zA-Z0-9@:%._\+~#=\/]{1,256}\n){1,5}[-a-zA-Z0-9@:%._\+~#=\/]{1,256}/;
-
   const imagesRegex = new RegExp(imagesExp);
 
   const objIsNotEmpty = (obj: any) => {
     return Object.keys(obj).length !== 0;
   };
-
   const currentProductIsNotEmpty = objIsNotEmpty(currentProduct);
 
   const productImages = currentProductIsNotEmpty && currentProduct.images;
-
   const productImagesStr = productImages && productImages.reduce((previousValue: string, currentValue: string) => {
     return previousValue + "\n" + currentValue;
   });
 
   const goToAccount = () => {
     navigate('/account');
+  };
+
+  const handleChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
+    try {
+      if (event.target.files) {
+        const formData = new FormData();
+        const file = event.target.files[0];
+        formData.append('image', file);
+        const { data } = await axios.post('/upload', formData);
+        setProductThumbnail(data.url);
+      } else {
+        throw "files array is empty";
+      }
+    } catch (err) {
+      console.warn(err);
+      alert('Ошибка при загрузке файла!');
+    }
+  };
+
+  const handleClickInputFile = () => {
+    if (inputFileRef.current) {
+      inputFileRef.current.click();
+    }
   };
 
   return (
@@ -138,17 +162,30 @@ export const UpdateProduct: FC = () => {
                 />
                 <ErrorMessage className={styles.errorMsg} name="name" component="div" />
               </div>
-              <div className={styles.inputGroup}>
+              <div className={classNames(styles.inputGroup, styles.productThumbnail)}>
                 <label htmlFor="imageUrl">Миниатюра изображения товара</label>
-                <Field 
+                <Button 
+                  variant="outlined"
+                  onClickFunc={handleClickInputFile} 
+                  link=""
+                >
+                  Загрузить
+                </Button>
+                <input 
+                  ref={inputFileRef}
                   id="imageUrl" 
                   name="imageUrl" 
-                  type="text" 
-                  placeholder="https://test.com/image123.jpg"
-                  className={classNames({ 
-                    [styles.borderRed]: touched.imageUrl && errors.imageUrl 
-                  })}
+                  type="file"
+                  onChange={handleChangeFile} 
+                  className={styles.inputFileImage}
                 />
+                <div className={styles.imageContainer}>
+                  <div className={styles.image}>
+                    {productThumbnail && (
+                      <img src={productThumbnail} alt="product-thumbnail" />
+                    )}
+                  </div>
+                </div>
                 <ErrorMessage className={styles.errorMsg} name="imageUrl" component="div" />
               </div>
               <div className={classNames(styles.inputGroup, styles.productImages)}>
