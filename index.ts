@@ -66,6 +66,11 @@ async function main() {
           files: req.files['inputFiles']
         });
     });
+    app.delete(
+      '/uploads',
+      checkAuth,
+      ProductController.deleteImage
+    );
 
     app.get('/products', ProductController.getAll);
     app.get('/products/:id', ProductController.getOne);

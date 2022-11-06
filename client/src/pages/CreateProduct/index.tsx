@@ -20,9 +20,6 @@ export const CreateProduct: FC = () => {
   const [productImages, setProductImages] = useState<string[]>([]);
   const productImagesStr = productImages.join(' ');
 
-  const imagesExp = /([-a-zA-Z0-9@:%._\+~#=\/]{1,256}\n){1,5}[-a-zA-Z0-9@:%._\+~#=\/]{1,256}/;
-  const imagesRegex = new RegExp(imagesExp);
-
   const formik = useFormik({
     initialValues: { 
       name: '',
@@ -45,12 +42,9 @@ export const CreateProduct: FC = () => {
         .min(3, 'Минимум 3 символа')
         .required('Обязательное поле'),
       imageUrl: Yup.string()
-        .min(10, 'Добавьте миниатюру изображения товара')
-        .required('Обязательное поле'),
+        .required('Добавьте миниатюру изображения товара'),
       images: Yup.string()
-        .matches(imagesRegex, 'Введите адреса, каждый с новой строки')
-        .min(20, 'Минимум 20 символов')
-        .required('Обязательное поле'),
+        .required('Добавьте изображения товара'),
       brand: Yup.string()
         .min(3, 'Минимум 3 символа')
         .required('Обязательное поле'), 
@@ -100,19 +94,12 @@ export const CreateProduct: FC = () => {
   });
 
   const goToAccount = () => {
-    // navigate('/account');
-    console.log(formik);
+    navigate('/account');
   };
 
   const handleClickInputFile = () => {
     if (inputFileRef.current) {
       inputFileRef.current.click();
-    }
-  };
-
-  const handleClickInputFiles = () => {
-    if (inputFilesRef.current) {
-      inputFilesRef.current.click();
     }
   };
 
@@ -141,9 +128,16 @@ export const CreateProduct: FC = () => {
     delete formik.errors.imageUrl;
   }
 
-  const onClickRemoveImage = () => {
+  const onClickRemoveImage = async () => {
     setProductThumbnail('');
+    await axios.delete('/uploads', { data: { imagePath: `.${productThumbnail}` } });
   }; 
+
+  const handleClickInputFiles = () => {
+    if (inputFilesRef.current) {
+      inputFilesRef.current.click();
+    }
+  };
 
   const handleChangeFiles = async (event: ChangeEvent<HTMLInputElement>) => {
     try {
@@ -171,12 +165,18 @@ export const CreateProduct: FC = () => {
     }
   };
 
-  const onClickRemoveImageItem = (imageUrl: string) => {
+  if (formik.values.images) {
+    delete formik.errors.images;
+  }
+
+  const onClickRemoveImageItem = async (imageUrl: string) => {
     setProductImages((prevState: string[]) => {
       return prevState.filter((image: string) => {
         return image !== imageUrl;
       });
     });
+
+    await axios.delete('/uploads', { data: { imagePath: `.${imageUrl}` } });
   };
 
   useEffect(() => {

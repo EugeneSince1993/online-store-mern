@@ -88,6 +88,7 @@ function main() {
                 files: req.files['inputFiles']
             });
         });
+        app.delete('/uploads', utils_1.checkAuth, index_1.ProductController.deleteImage);
         app.get('/products', index_1.ProductController.getAll);
         app.get('/products/:id', index_1.ProductController.getOne);
         app.post('/products', utils_1.checkAuth, validations_1.productCreateValidation, utils_1.handleValidationErrors, index_1.ProductController.create);

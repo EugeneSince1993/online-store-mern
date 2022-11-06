@@ -64,14 +64,17 @@ h3 {
 
         .imageContainer {
           display: flex;
+          margin-top: 15px;
           margin-bottom: 15px;
 
           .image {
-            margin-top: 15px;
             width: 70px;
+            height: 105px;
+            overflow: hidden;
 
             img {
-              width: 100%;
+              max-width: 100%;
+              max-height: 100%;
             }
           }
         }
@@ -89,18 +92,20 @@ h3 {
 
         .imagesContainer {
           display: flex;
-          padding-top: 15px;
-          margin-bottom: 15px;
+          margin-top: 15px;
 
           .imageContainer {
 
             .image {
               margin-right: 20px;
+              margin-bottom: 15px;
               width: 70px;
-              height: 115px;
+              height: 105px;
+              overflow: hidden;
   
               img {
-                width: 100%;
+                max-width: 100%;
+                max-height: 100%;
               }
             }
           }

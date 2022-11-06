@@ -55,8 +55,6 @@ const CreateProduct = () => {
     const [productThumbnail, setProductThumbnail] = (0, react_1.useState)('');
     const [productImages, setProductImages] = (0, react_1.useState)([]);
     const productImagesStr = productImages.join(' ');
-    const imagesExp = /([-a-zA-Z0-9@:%._\+~#=\/]{1,256}\n){1,5}[-a-zA-Z0-9@:%._\+~#=\/]{1,256}/;
-    const imagesRegex = new RegExp(imagesExp);
     const formik = (0, formik_1.useFormik)({
         initialValues: {
             name: '',
@@ -79,12 +77,9 @@ const CreateProduct = () => {
                 .min(3, 'Минимум 3 символа')
                 .required('Обязательное поле'),
             imageUrl: Yup.string()
-                .min(10, 'Добавьте миниатюру изображения товара')
-                .required('Обязательное поле'),
+                .required('Добавьте миниатюру изображения товара'),
             images: Yup.string()
-                .matches(imagesRegex, 'Введите адреса, каждый с новой строки')
-                .min(20, 'Минимум 20 символов')
-                .required('Обязательное поле'),
+                .required('Добавьте изображения товара'),
             brand: Yup.string()
                 .min(3, 'Минимум 3 символа')
                 .required('Обязательное поле'),
@@ -170,9 +165,13 @@ const CreateProduct = () => {
     if (formik.values.imageUrl) {
         delete formik.errors.imageUrl;
     }
-    const onClickRemoveImage = () => {
+    if (formik.values.images) {
+        delete formik.errors.images;
+    }
+    const onClickRemoveImage = () => __awaiter(void 0, void 0, void 0, function* () {
         setProductThumbnail('');
-    };
+        yield axios_1.default.delete('/uploads', { data: { imagePath: `.${productThumbnail}` } });
+    });
     const handleChangeFiles = (event) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             if (event.target.files) {
@@ -200,13 +199,14 @@ const CreateProduct = () => {
             alert('Ошибка при загрузке файла!');
         }
     });
-    const onClickRemoveImageItem = (imageUrl) => {
+    const onClickRemoveImageItem = (imageUrl) => __awaiter(void 0, void 0, void 0, function* () {
         setProductImages((prevState) => {
             return prevState.filter((image) => {
                 return image !== imageUrl;
             });
         });
-    };
+        yield axios_1.default.delete('/uploads', { data: { imagePath: `.${imageUrl}` } });
+    });
     (0, react_1.useEffect)(() => {
         formik.setFieldValue('imageUrl', productThumbnail);
     }, [productThumbnail]);

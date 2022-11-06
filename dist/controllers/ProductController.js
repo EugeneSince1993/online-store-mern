@@ -12,10 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRangeExtremes = exports.remove = exports.update = exports.create = exports.getOne = exports.getAll = void 0;
+exports.getRangeExtremes = exports.deleteImage = exports.remove = exports.update = exports.create = exports.getOne = exports.getAll = void 0;
 const Product_1 = __importDefault(require("../models/Product"));
 const mongoose = require('mongoose');
 const newId = mongoose.Types.ObjectId();
+const fs_1 = __importDefault(require("fs"));
 const newLine = /\n{1}/;
 const newLineRegex = new RegExp(newLine);
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -82,7 +83,7 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             user: req.userId,
             _id: newId,
             imageUrl: req.body.imageUrl,
-            images: req.body.images.split(newLineRegex),
+            images: req.body.images.split(' '),
             brand: req.body.brand,
             name: req.body.name,
             price: req.body.price,
@@ -171,6 +172,22 @@ const remove = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.remove = remove;
+const deleteImage = (req, res) => {
+    try {
+        let filePath = req.body.imagePath;
+        fs_1.default.unlinkSync(filePath);
+        res.json({
+            success: true,
+        });
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'Не удалось удалить изображение',
+        });
+    }
+};
+exports.deleteImage = deleteImage;
 const getRangeExtremes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const minPriceRaw = yield Product_1.default

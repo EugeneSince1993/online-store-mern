@@ -1,6 +1,7 @@
 import ProductModel from '../models/Product';
 const mongoose = require('mongoose');
 const newId = mongoose.Types.ObjectId();
+import fs from 'fs';
 
 const newLine = /\n{1}/;
 const newLineRegex = new RegExp(newLine);
@@ -74,7 +75,7 @@ export const create = async (req, res) => {
       user: req.userId,
       _id: newId,
       imageUrl: req.body.imageUrl,
-      images: req.body.images.split(newLineRegex),
+      images: req.body.images.split(' '),
       brand: req.body.brand,
       name: req.body.name,
       price: req.body.price,
@@ -169,7 +170,23 @@ export const remove = async (req, res) => {
     console.log(err);
     res.status(500).json({
       message: 'Не удалось получить товары',
-    })
+    });
+  }
+};
+
+export const deleteImage = (req, res) => {
+  try {
+    let filePath = req.body.imagePath;
+    fs.unlinkSync(filePath);
+
+    res.json({
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: 'Не удалось удалить изображение',
+    });
   }
 };
 
