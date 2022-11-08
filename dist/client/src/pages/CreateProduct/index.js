@@ -127,17 +127,11 @@ const CreateProduct = () => {
         }),
     });
     const goToAccount = () => {
-        // navigate('/account');
-        console.log(formik);
+        navigate('/account');
     };
     const handleClickInputFile = () => {
         if (inputFileRef.current) {
             inputFileRef.current.click();
-        }
-    };
-    const handleClickInputFiles = () => {
-        if (inputFilesRef.current) {
-            inputFilesRef.current.click();
         }
     };
     const handleChangeFile = (event) => __awaiter(void 0, void 0, void 0, function* () {
@@ -165,13 +159,15 @@ const CreateProduct = () => {
     if (formik.values.imageUrl) {
         delete formik.errors.imageUrl;
     }
-    if (formik.values.images) {
-        delete formik.errors.images;
-    }
     const onClickRemoveImage = () => __awaiter(void 0, void 0, void 0, function* () {
         setProductThumbnail('');
         yield axios_1.default.delete('/uploads', { data: { imagePath: `.${productThumbnail}` } });
     });
+    const handleClickInputFiles = () => {
+        if (inputFilesRef.current) {
+            inputFilesRef.current.click();
+        }
+    };
     const handleChangeFiles = (event) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             if (event.target.files) {
@@ -199,6 +195,9 @@ const CreateProduct = () => {
             alert('Ошибка при загрузке файла!');
         }
     });
+    if (formik.values.images) {
+        delete formik.errors.images;
+    }
     const onClickRemoveImageItem = (imageUrl) => __awaiter(void 0, void 0, void 0, function* () {
         setProductImages((prevState) => {
             return prevState.filter((image) => {
