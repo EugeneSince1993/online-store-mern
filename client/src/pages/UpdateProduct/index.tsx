@@ -18,24 +18,31 @@ export const UpdateProduct: FC = () => {
   const { currentProduct } = useAppSelector(selectProduct);
   let { id } = useParams();
 
-  const inputFileRef = useRef<HTMLInputElement>(null);
-  const inputFilesRef = useRef<HTMLInputElement>(null);
-  const [productThumbnail, setProductThumbnail] = useState<string>('');
-  const [productImages, setProductImages] = useState<string[]>([]);
-  const productImagesStr = productImages.join(' ');
+  const goToAccount = () => {
+    navigate('/account');
+  };
 
   const objIsNotEmpty = (obj: any) => {
     return Object.keys(obj).length !== 0;
   };
   const currentProductIsNotEmpty = objIsNotEmpty(currentProduct);
-  // const productImages = currentProductIsNotEmpty && currentProduct.images;
+
+  const inputFileRef = useRef<HTMLInputElement>(null);
+  const inputFilesRef = useRef<HTMLInputElement>(null);
+  const [productThumbnail, setProductThumbnail] = useState<string>(
+    currentProductIsNotEmpty ? currentProduct.imageUrl : ''
+  );
+  const [productImages, setProductImages] = useState<any>(
+    currentProductIsNotEmpty ? currentProduct.images : []
+  );
+  const productImagesStr = productImages.join(' ');
 
   const formik = useFormik({
     initialValues: { 
       name: currentProductIsNotEmpty ? currentProduct.name : '',
       imageUrl: currentProductIsNotEmpty ? currentProduct.imageUrl : '',
       images: currentProductIsNotEmpty ? productImagesStr : '',
-      brand: currentProductIsNotEmpty ? currentProduct.brand : '', 
+      brand: currentProductIsNotEmpty ? currentProduct.brand : '',
       price: currentProductIsNotEmpty ? currentProduct.price : '',
       memory: currentProductIsNotEmpty ? currentProduct.memory : '',
       ram: currentProductIsNotEmpty ? currentProduct.ram : '',
@@ -100,7 +107,7 @@ export const UpdateProduct: FC = () => {
         alert(`Товар "${values.name}" изменен`);
       }
 
-      navigate('/account');
+      goToAccount();
       setSubmitting(false);
     },
   });  
@@ -109,10 +116,6 @@ export const UpdateProduct: FC = () => {
     dispatch(fetchProductById(id));
     window.scrollTo(0, 0);
   }, []);
-
-  const goToAccount = () => {
-    navigate('/account');
-  };
 
   const handleClickInputFile = () => {
     if (inputFileRef.current) {
@@ -204,6 +207,26 @@ export const UpdateProduct: FC = () => {
     formik.setFieldValue('images', productImagesStr);
   }, [productImages]);
 
+  useEffect(() => {
+    setProductThumbnail(currentProductIsNotEmpty ? currentProduct.imageUrl : '');
+    setProductImages(currentProductIsNotEmpty ? currentProduct.images : []);
+
+    formik.setFieldValue('imageUrl', currentProductIsNotEmpty ? productThumbnail : '');
+    formik.setFieldValue('images', currentProductIsNotEmpty ? productImagesStr : '');
+    formik.setFieldValue('name', currentProductIsNotEmpty ? currentProduct.name : '');
+    formik.setFieldValue('price', currentProductIsNotEmpty ? currentProduct.price : '');
+    formik.setFieldValue('brand', currentProductIsNotEmpty ? currentProduct.brand : '');
+    formik.setFieldValue('memory', currentProductIsNotEmpty ? currentProduct.memory : '');
+    formik.setFieldValue('ram', currentProductIsNotEmpty ? currentProduct.ram : '');
+    formik.setFieldValue('cpuCores', currentProductIsNotEmpty ? currentProduct.cpuCores : '');
+    formik.setFieldValue('screenSize', currentProductIsNotEmpty ? currentProduct.screenSize : '');
+    formik.setFieldValue('batteryCapacity', currentProductIsNotEmpty ? currentProduct.batteryCapacity : '');
+    formik.setFieldValue('color', currentProductIsNotEmpty ? currentProduct.color : '');
+    formik.setFieldValue('productCode', currentProductIsNotEmpty ? currentProduct.productCode : '');
+    formik.setFieldValue('description', currentProductIsNotEmpty ? currentProduct.description : '');
+    formik.setFieldValue('shortDesc', currentProductIsNotEmpty ? currentProduct.shortDesc : '');
+  }, [currentProduct]);
+
   return (
     <div>
       <h3>Изменение товара</h3>
@@ -223,142 +246,225 @@ export const UpdateProduct: FC = () => {
               })}
             />
             {formik.touched.name && formik.errors.name ? (
-              <div className={styles.errorMsg}>{formik.errors.name}</div>
+              <div className={styles.errorMsg}><>{formik.errors.name}</></div>
             ) : null}
           </div>
           <div className={classNames(styles.inputGroup, styles.productThumbnail)}>
-            {/* stopped here, changing Formik components to native inputs */}
-            <label htmlFor="imageUrl">Миниатюра изображения товара</label>
+            <div className={styles.inputHeading}>Миниатюра изображения товара</div>
             <Button 
               variant="outlined"
               onClickFunc={handleClickInputFile} 
-              link=""
             >
               Загрузить
             </Button>
             <input 
               ref={inputFileRef}
-              id="imageUrl" 
-              name="imageUrl" 
               type="file"
+              name="inputFile"
               onChange={handleChangeFile} 
               className={styles.inputFileImage}
             />
-            <div className={styles.imageContainer}>
-              <div className={styles.image}>
-                {productThumbnail && (
-                  <img src={productThumbnail} alt="product-thumbnail" />
-                )}
-              </div>
-            </div>
-            <ErrorMessage className={styles.errorMsg} name="imageUrl" component="div" />
+            {productThumbnail && (
+              <>
+                <div className={styles.imageContainer}>
+                  <div className={styles.image}>
+                    <img src={productThumbnail} alt="product-thumbnail" />
+                  </div>
+                </div>
+                <Button 
+                  variant="outlined"
+                  onClickFunc={onClickRemoveImage}
+                >
+                  Удалить
+                </Button>
+              </>
+            )}
+            <input 
+              name="imageUrl" 
+              type="text" 
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.imageUrl}
+              className={styles.imageUrl}
+            />
+            {formik.touched.imageUrl && formik.errors.imageUrl ? (
+              <div className={styles.errorMsg}><>{formik.errors.imageUrl}</></div>
+            ) : null}
           </div>
           <div className={classNames(styles.inputGroup, styles.productImages)}>
-            <label htmlFor="images">Изображения товара</label>
-            <Field 
-              as="textarea"
-              id="images" 
-              name="images" 
-              placeholder="https://test.com/image123.jpg
-              https://test.com/image123.jpg
-              https://test.com/image123.jpg"
-              className={classNames({ 
-                [styles.borderRed]: formik.touched.images && formik.errors.images 
-              })}
+            <div className={styles.inputHeading}>Изображения товара</div>
+            <Button 
+              variant="outlined"
+              onClickFunc={handleClickInputFiles} 
+            >
+              Загрузить
+            </Button>
+            <input 
+              ref={inputFilesRef}
+              type="file"
+              multiple
+              name="inputFiles"
+              onChange={handleChangeFiles} 
+              className={styles.inputFilesImages}
             />
-            <ErrorMessage className={styles.errorMsg} name="images" component="div" />
+            {productImages && (
+              <div className={styles.imagesContainer}>
+                {productImages.map((imageUrl: string, idx: number) => {
+                  return (
+                    <div className={styles.imageContainer} key={idx}>
+                      <div className={styles.image}>
+                        <img src={imageUrl} alt="product-image" />
+                      </div>
+                      <Button 
+                        variant="outlined"
+                        onClickFunc={() => onClickRemoveImageItem(imageUrl)}
+                      >
+                        Удалить
+                      </Button>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+            <input
+              name="images" 
+              type="text"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.images}
+              className={styles.images} 
+            />
+            {formik.touched.images && formik.errors.images ? (
+              <div className={styles.errorMsg}><>{formik.errors.images}</></div>
+            ) : null}
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="brand">Бренд</label>
-            <Field 
+            <input 
               id="brand" 
               name="brand" 
               type="text" 
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.brand}
               className={classNames({
                 [styles.borderRed]: formik.touched.brand && formik.errors.brand
               })}
             />
-            <ErrorMessage className={styles.errorMsg} name="brand" component="div" />
+            {formik.touched.brand && formik.errors.brand ? (
+              <div className={styles.errorMsg}><>{formik.errors.brand}</></div>
+            ) : null}
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="price">Цена, руб.</label>
-            <Field 
+            <input 
               id="price" 
               name="price" 
               type="text" 
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.price}
               className={classNames({
                 [styles.borderRed]: formik.touched.price && formik.errors.price
               })}
             />
-            <ErrorMessage className={styles.errorMsg} name="price" component="div" />
+            {formik.touched.price && formik.errors.price ? (
+              <div className={styles.errorMsg}><>{formik.errors.price}</></div>
+            ) : null}
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="memory">Объем встроенной памяти, Гб</label>
-            <Field 
+            <input 
               id="memory" 
               name="memory" 
               type="text" 
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.memory}
               className={classNames({
                 [styles.borderRed]: formik.touched.memory && formik.errors.memory
               })}
             />
-            <ErrorMessage className={styles.errorMsg} name="memory" component="div" />
+            {formik.touched.memory && formik.errors.memory ? (
+              <div className={styles.errorMsg}><>{formik.errors.memory}</></div>
+            ) : null}
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="ram">Объем оперативной памяти, Гб</label>
-            <Field 
+            <input 
               id="ram" 
               name="ram" 
               type="text" 
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.ram}
               className={classNames({
                 [styles.borderRed]: formik.touched.ram && formik.errors.ram
               })}
             />
-            <ErrorMessage className={styles.errorMsg} name="ram" component="div" />
+            {formik.touched.ram && formik.errors.ram ? (
+              <div className={styles.errorMsg}><>{formik.errors.ram}</></div>
+            ) : null}
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="cpuCores">Количество ядер</label>
-            <Field 
+            <input 
               id="cpuCores" 
               name="cpuCores" 
               type="text" 
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.cpuCores}
               className={classNames({
                 [styles.borderRed]: formik.touched.cpuCores && formik.errors.cpuCores
               })}
             />
-            <ErrorMessage className={styles.errorMsg} name="cpuCores" component="div" />
+            {formik.touched.cpuCores && formik.errors.cpuCores ? (
+              <div className={styles.errorMsg}><>{formik.errors.cpuCores}</></div>
+            ) : null}
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="screenSize">Диагональ экрана, дюйм</label>
-            <Field 
+            <input 
               id="screenSize" 
               name="screenSize" 
               type="text" 
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.screenSize}
               className={classNames({
                 [styles.borderRed]: formik.touched.screenSize && formik.errors.screenSize
               })}
             />
-            <ErrorMessage className={styles.errorMsg} name="screenSize" component="div" />
+            {formik.touched.screenSize && formik.errors.screenSize ? (
+              <div className={styles.errorMsg}><>{formik.errors.screenSize}</></div>
+            ) : null}
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="batteryCapacity">Ёмкость аккумулятора, мАч</label>
-            <Field 
+            <input 
               id="batteryCapacity" 
               name="batteryCapacity" 
               type="text" 
-              placeholder=""
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.batteryCapacity}
               className={classNames({
                 [styles.borderRed]: formik.touched.batteryCapacity && formik.errors.batteryCapacity
               })}
             />
-            <ErrorMessage className={styles.errorMsg} name="batteryCapacity" component="div" />
+            {formik.touched.batteryCapacity && formik.errors.batteryCapacity ? (
+              <div className={styles.errorMsg}><>{formik.errors.batteryCapacity}</></div>
+            ) : null}
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="color">Цвет товара</label>
-            <Field 
-              as="select"
+            <select
               id="color" 
               name="color" 
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.color}
               className={classNames({
                 [styles.borderRed]: formik.touched.color && formik.errors.color
               })}
@@ -372,50 +478,65 @@ export const UpdateProduct: FC = () => {
               <option value="pink">розовый</option>
               <option value="green">зеленый</option>
               <option value="yellow">желтый</option>
-            </Field>
-            <ErrorMessage className={styles.errorMsg} name="color" component="div" />
+            </select>
+            {formik.touched.color && formik.errors.color ? (
+              <div className={styles.errorMsg}><>{formik.errors.color}</></div>
+            ) : null}
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="productCode">Артикул товара</label>
-            <Field 
+            <input 
               id="productCode" 
               name="productCode" 
               type="text" 
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.productCode}
               className={classNames({
                 [styles.borderRed]: formik.touched.productCode && formik.errors.productCode
               })}
             />
-            <ErrorMessage className={styles.errorMsg} name="productCode" component="div" />
+            {formik.touched.productCode && formik.errors.productCode ? (
+              <div className={styles.errorMsg}><>{formik.errors.productCode}</></div>
+            ) : null}
           </div>
           <div className={classNames(styles.inputGroup, styles.shortDesc)}>
             <label htmlFor="shortDesc">Краткое описание</label>
-            <Field 
-              as="textarea"
+            <textarea
               id="shortDesc" 
               name="shortDesc" 
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.shortDesc}
               className={classNames({ 
                 [styles.borderRed]: formik.touched.shortDesc && formik.errors.shortDesc 
               })}
-            />
-            <ErrorMessage className={styles.errorMsg} name="shortDesc" component="div" />
+            ></textarea>
+            {formik.touched.shortDesc && formik.errors.shortDesc ? (
+              <div className={styles.errorMsg}><>{formik.errors.shortDesc}</></div>
+            ) : null}
           </div>
           <div className={classNames(styles.inputGroup, styles.description)}>
             <label htmlFor="description">Описание</label>
-            <Field 
-              as="textarea"
+            <textarea
               id="description" 
               name="description" 
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.description}
               className={classNames({ 
                 [styles.borderRed]: formik.touched.description && formik.errors.description 
               })}
-            />
-            <ErrorMessage className={styles.errorMsg} name="description" component="div" />
+            ></textarea>
+            {formik.touched.description && formik.errors.description ? (
+              <div className={styles.errorMsg}><>{formik.errors.description}</></div>
+            ) : null}
           </div>
           <button 
             type="submit" 
-            disabled={!formik.isValid || !formik.dirty || formik.isSubmitting}
+            disabled={formik.isSubmitting || !formik.dirty || !objIsNotEmpty(formik.touched)}
             className={classNames(styles.submit, { 
-              [styles.disabled]: !formik.isValid || !formik.dirty || formik.isSubmitting 
+              [styles.disabled]: formik.isSubmitting || !formik.dirty || !objIsNotEmpty(formik.touched)
             })}
           >
             Изменить товар

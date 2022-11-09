@@ -53,32 +53,110 @@ const UpdateProduct = () => {
     const navigate = (0, react_router_dom_1.useNavigate)();
     const { currentProduct } = (0, hooks_1.useAppSelector)(selectors_1.selectProduct);
     let { id } = (0, react_router_dom_1.useParams)();
-    const inputFileRef = (0, react_1.useRef)(null);
-    const [productThumbnail, setProductThumbnail] = (0, react_1.useState)('');
-    (0, react_1.useEffect)(() => {
-        dispatch((0, asyncActions_1.fetchProductById)(id));
-        window.scrollTo(0, 0);
-    }, []);
-    const imagesExp = /([-a-zA-Z0-9@:%._\+~#=\/]{1,256}\n){1,5}[-a-zA-Z0-9@:%._\+~#=\/]{1,256}/;
-    const imagesRegex = new RegExp(imagesExp);
+    const goToAccount = () => {
+        navigate('/account');
+    };
     const objIsNotEmpty = (obj) => {
         return Object.keys(obj).length !== 0;
     };
     const currentProductIsNotEmpty = objIsNotEmpty(currentProduct);
-    const productImages = currentProductIsNotEmpty && currentProduct.images;
-    const productImagesStr = productImages && productImages.reduce((previousValue, currentValue) => {
-        return previousValue + "\n" + currentValue;
+    const inputFileRef = (0, react_1.useRef)(null);
+    const inputFilesRef = (0, react_1.useRef)(null);
+    const [productThumbnail, setProductThumbnail] = (0, react_1.useState)(currentProductIsNotEmpty ? currentProduct.imageUrl : '');
+    const [productImages, setProductImages] = (0, react_1.useState)(currentProductIsNotEmpty ? currentProduct.images : []);
+    const productImagesStr = productImages.join(' ');
+    const formik = (0, formik_1.useFormik)({
+        initialValues: {
+            name: currentProductIsNotEmpty ? currentProduct.name : '',
+            imageUrl: currentProductIsNotEmpty ? currentProduct.imageUrl : '',
+            images: currentProductIsNotEmpty ? productImagesStr : '',
+            brand: currentProductIsNotEmpty ? currentProduct.brand : '',
+            price: currentProductIsNotEmpty ? currentProduct.price : '',
+            memory: currentProductIsNotEmpty ? currentProduct.memory : '',
+            ram: currentProductIsNotEmpty ? currentProduct.ram : '',
+            cpuCores: currentProductIsNotEmpty ? currentProduct.cpuCores : '',
+            screenSize: currentProductIsNotEmpty ? currentProduct.screenSize : '',
+            batteryCapacity: currentProductIsNotEmpty ? currentProduct.batteryCapacity : '',
+            color: currentProductIsNotEmpty ? currentProduct.color : '',
+            productCode: currentProductIsNotEmpty ? currentProduct.productCode : '',
+            shortDesc: currentProductIsNotEmpty ? currentProduct.shortDesc : '',
+            description: currentProductIsNotEmpty ? currentProduct.description : '',
+        },
+        validationSchema: Yup.object({
+            name: Yup.string()
+                .min(3, 'Минимум 3 символа')
+                .required('Обязательное поле'),
+            imageUrl: Yup.string()
+                .required('Добавьте миниатюру изображения товара'),
+            images: Yup.string()
+                .required('Добавьте изображения товара'),
+            brand: Yup.string()
+                .min(3, 'Минимум 3 символа')
+                .required('Обязательное поле'),
+            price: Yup.number()
+                .min(4, 'Минимум 4 символа')
+                .required('Обязательное поле'),
+            memory: Yup.number()
+                .min(1, 'Минимум 1 символ')
+                .required('Обязательное поле'),
+            ram: Yup.number()
+                .min(1, 'Минимум 1 символ')
+                .required('Обязательное поле'),
+            cpuCores: Yup.number()
+                .min(1, 'Минимум 1 символ')
+                .required('Обязательное поле'),
+            screenSize: Yup.number()
+                .min(1, 'Минимум 1 символ')
+                .required('Обязательное поле'),
+            batteryCapacity: Yup.number()
+                .min(4, 'Минимум 4 символа')
+                .required('Обязательное поле'),
+            color: Yup.string()
+                .min(3, 'Минимум 3 символа')
+                .required('Обязательное поле'),
+            productCode: Yup.number()
+                .min(5, 'Минимум 5 символов')
+                .required('Обязательное поле'),
+            shortDesc: Yup.string()
+                .min(10, 'Минимум 10 символов')
+                .required('Обязательное поле'),
+            description: Yup.string()
+                .min(30, 'Минимум 30 символов')
+                .required('Обязательное поле'),
+        }),
+        onSubmit: (values, { setSubmitting }) => __awaiter(void 0, void 0, void 0, function* () {
+            const dataForUpdating = Object.assign(Object.assign({}, values), { id });
+            const data = yield dispatch((0, asyncActions_1.updateProductById)(dataForUpdating));
+            if (!data.payload.success) {
+                return alert('Не удалось обновить товар');
+            }
+            else {
+                alert(`Товар "${values.name}" изменен`);
+            }
+            goToAccount();
+            setSubmitting(false);
+        }),
     });
-    const goToAccount = () => {
-        navigate('/account');
+    (0, react_1.useEffect)(() => {
+        dispatch((0, asyncActions_1.fetchProductById)(id));
+        window.scrollTo(0, 0);
+    }, []);
+    const handleClickInputFile = () => {
+        if (inputFileRef.current) {
+            inputFileRef.current.click();
+        }
     };
     const handleChangeFile = (event) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             if (event.target.files) {
                 const formData = new FormData();
                 const file = event.target.files[0];
-                formData.append('image', file);
-                const { data } = yield axios_1.default.post('/upload', formData);
+                formData.append('inputFile', file);
+                const { data } = yield axios_1.default.post('/uploads/thumbnail', formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                });
                 setProductThumbnail(data.url);
             }
             else {
@@ -90,112 +168,93 @@ const UpdateProduct = () => {
             alert('Ошибка при загрузке файла!');
         }
     });
-    const handleClickInputFile = () => {
-        if (inputFileRef.current) {
-            inputFileRef.current.click();
+    if (formik.values.imageUrl) {
+        delete formik.errors.imageUrl;
+    }
+    const onClickRemoveImage = () => __awaiter(void 0, void 0, void 0, function* () {
+        setProductThumbnail('');
+        yield axios_1.default.delete('/uploads', { data: { imagePath: `.${productThumbnail}` } });
+    });
+    const handleClickInputFiles = () => {
+        if (inputFilesRef.current) {
+            inputFilesRef.current.click();
         }
     };
-    return ((0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("h3", { children: "\u0418\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430" }), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.form }, { children: (0, jsx_runtime_1.jsx)(formik_1.Formik, Object.assign({ enableReinitialize: true, initialValues: {
-                        name: currentProductIsNotEmpty ? currentProduct.name : '',
-                        imageUrl: currentProductIsNotEmpty ? currentProduct.imageUrl : '',
-                        images: currentProductIsNotEmpty ? productImagesStr : '',
-                        brand: currentProductIsNotEmpty ? currentProduct.brand : '',
-                        price: currentProductIsNotEmpty ? currentProduct.price : '',
-                        memory: currentProductIsNotEmpty ? currentProduct.memory : '',
-                        ram: currentProductIsNotEmpty ? currentProduct.ram : '',
-                        cpuCores: currentProductIsNotEmpty ? currentProduct.cpuCores : '',
-                        screenSize: currentProductIsNotEmpty ? currentProduct.screenSize : '',
-                        batteryCapacity: currentProductIsNotEmpty ? currentProduct.batteryCapacity : '',
-                        color: currentProductIsNotEmpty ? currentProduct.color : '',
-                        productCode: currentProductIsNotEmpty ? currentProduct.productCode : '',
-                        shortDesc: currentProductIsNotEmpty ? currentProduct.shortDesc : '',
-                        description: currentProductIsNotEmpty ? currentProduct.description : '',
-                    }, validationSchema: Yup.object({
-                        name: Yup.string()
-                            .min(3, 'Минимум 3 символа')
-                            .required('Обязательное поле'),
-                        imageUrl: Yup.string()
-                            .min(20, 'Минимум 20 символов')
-                            .required('Обязательное поле'),
-                        images: Yup.string()
-                            .matches(imagesRegex, 'Введите адреса, каждый с новой строки')
-                            .min(20, 'Минимум 20 символов')
-                            .required('Обязательное поле'),
-                        brand: Yup.string()
-                            .min(3, 'Минимум 3 символа')
-                            .required('Обязательное поле'),
-                        price: Yup.number()
-                            .min(4, 'Минимум 4 символа')
-                            .required('Обязательное поле'),
-                        memory: Yup.number()
-                            .min(1, 'Минимум 1 символ')
-                            .required('Обязательное поле'),
-                        ram: Yup.number()
-                            .min(1, 'Минимум 1 символ')
-                            .required('Обязательное поле'),
-                        cpuCores: Yup.number()
-                            .min(1, 'Минимум 1 символ')
-                            .required('Обязательное поле'),
-                        screenSize: Yup.number()
-                            .min(1, 'Минимум 1 символ')
-                            .required('Обязательное поле'),
-                        batteryCapacity: Yup.number()
-                            .min(4, 'Минимум 4 символа')
-                            .required('Обязательное поле'),
-                        color: Yup.string()
-                            .min(3, 'Минимум 3 символа')
-                            .required('Обязательное поле'),
-                        productCode: Yup.number()
-                            .min(5, 'Минимум 5 символов')
-                            .required('Обязательное поле'),
-                        shortDesc: Yup.string()
-                            .min(10, 'Минимум 10 символов')
-                            .required('Обязательное поле'),
-                        description: Yup.string()
-                            .min(30, 'Минимум 30 символов')
-                            .required('Обязательное поле'),
-                    }), onSubmit: (values, { setSubmitting }) => __awaiter(void 0, void 0, void 0, function* () {
-                        const dataForUpdating = Object.assign(Object.assign({}, values), { id });
-                        const data = yield dispatch((0, asyncActions_1.updateProductById)(dataForUpdating));
-                        if (!data.payload.success) {
-                            return alert('Не удалось обновить товар');
-                        }
-                        else {
-                            alert(`Товар "${values.name}" изменен`);
-                        }
-                        navigate('/account');
-                        setSubmitting(false);
-                    }) }, { children: ({ isSubmitting, touched, errors, isValid, dirty }) => ((0, jsx_runtime_1.jsxs)(formik_1.Form, { children: [(0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "name" }, { children: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { id: "name", name: "name", type: "text", className: (0, classnames_1.default)({
-                                            [UpdateProduct_module_scss_1.default.borderRed]: touched.name && errors.name
-                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "name", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.inputGroup, UpdateProduct_module_scss_1.default.productThumbnail) }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "imageUrl" }, { children: "\u041C\u0438\u043D\u0438\u0430\u0442\u044E\u0440\u0430 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)(components_1.Button, Object.assign({ variant: "outlined", onClickFunc: handleClickInputFile, link: "" }, { children: "\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C" })), (0, jsx_runtime_1.jsx)("input", { ref: inputFileRef, id: "imageUrl", name: "imageUrl", type: "file", onChange: handleChangeFile, className: UpdateProduct_module_scss_1.default.inputFileImage }), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.imageContainer }, { children: (0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.image }, { children: productThumbnail && ((0, jsx_runtime_1.jsx)("img", { src: productThumbnail, alt: "product-thumbnail" })) })) })), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "imageUrl", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.inputGroup, UpdateProduct_module_scss_1.default.productImages) }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "images" }, { children: "\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { as: "textarea", id: "images", name: "images", placeholder: "https://test.com/image123.jpg\r\n                  https://test.com/image123.jpg\r\n                  https://test.com/image123.jpg", className: (0, classnames_1.default)({
-                                            [UpdateProduct_module_scss_1.default.borderRed]: touched.images && errors.images
-                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "images", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "brand" }, { children: "\u0411\u0440\u0435\u043D\u0434" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { id: "brand", name: "brand", type: "text", className: (0, classnames_1.default)({
-                                            [UpdateProduct_module_scss_1.default.borderRed]: touched.brand && errors.brand
-                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "brand", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "price" }, { children: "\u0426\u0435\u043D\u0430, \u0440\u0443\u0431." })), (0, jsx_runtime_1.jsx)(formik_1.Field, { id: "price", name: "price", type: "text", className: (0, classnames_1.default)({
-                                            [UpdateProduct_module_scss_1.default.borderRed]: touched.price && errors.price
-                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "price", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "memory" }, { children: "\u041E\u0431\u044A\u0435\u043C \u0432\u0441\u0442\u0440\u043E\u0435\u043D\u043D\u043E\u0439 \u043F\u0430\u043C\u044F\u0442\u0438, \u0413\u0431" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { id: "memory", name: "memory", type: "text", className: (0, classnames_1.default)({
-                                            [UpdateProduct_module_scss_1.default.borderRed]: touched.memory && errors.memory
-                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "memory", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "ram" }, { children: "\u041E\u0431\u044A\u0435\u043C \u043E\u043F\u0435\u0440\u0430\u0442\u0438\u0432\u043D\u043E\u0439 \u043F\u0430\u043C\u044F\u0442\u0438, \u0413\u0431" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { id: "ram", name: "ram", type: "text", className: (0, classnames_1.default)({
-                                            [UpdateProduct_module_scss_1.default.borderRed]: touched.ram && errors.ram
-                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "ram", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "cpuCores" }, { children: "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u044F\u0434\u0435\u0440" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { id: "cpuCores", name: "cpuCores", type: "text", className: (0, classnames_1.default)({
-                                            [UpdateProduct_module_scss_1.default.borderRed]: touched.cpuCores && errors.cpuCores
-                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "cpuCores", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "screenSize" }, { children: "\u0414\u0438\u0430\u0433\u043E\u043D\u0430\u043B\u044C \u044D\u043A\u0440\u0430\u043D\u0430, \u0434\u044E\u0439\u043C" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { id: "screenSize", name: "screenSize", type: "text", className: (0, classnames_1.default)({
-                                            [UpdateProduct_module_scss_1.default.borderRed]: touched.screenSize && errors.screenSize
-                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "screenSize", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "batteryCapacity" }, { children: "\u0401\u043C\u043A\u043E\u0441\u0442\u044C \u0430\u043A\u043A\u0443\u043C\u0443\u043B\u044F\u0442\u043E\u0440\u0430, \u043C\u0410\u0447" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { id: "batteryCapacity", name: "batteryCapacity", type: "text", placeholder: "", className: (0, classnames_1.default)({
-                                            [UpdateProduct_module_scss_1.default.borderRed]: touched.batteryCapacity && errors.batteryCapacity
-                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "batteryCapacity", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "color" }, { children: "\u0426\u0432\u0435\u0442 \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsxs)(formik_1.Field, Object.assign({ as: "select", id: "color", name: "color", className: (0, classnames_1.default)({
-                                            [UpdateProduct_module_scss_1.default.borderRed]: touched.color && errors.color
-                                        }) }, { children: [(0, jsx_runtime_1.jsx)("option", Object.assign({ value: "" }, { children: "\u0432\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0446\u0432\u0435\u0442" })), (0, jsx_runtime_1.jsx)("option", Object.assign({ value: "white" }, { children: "\u0431\u0435\u043B\u044B\u0439" })), (0, jsx_runtime_1.jsx)("option", Object.assign({ value: "black" }, { children: "\u0447\u0435\u0440\u043D\u044B\u0439" })), (0, jsx_runtime_1.jsx)("option", Object.assign({ value: "gray" }, { children: "\u0441\u0435\u0440\u044B\u0439" })), (0, jsx_runtime_1.jsx)("option", Object.assign({ value: "blue" }, { children: "\u0441\u0438\u043D\u0438\u0439" })), (0, jsx_runtime_1.jsx)("option", Object.assign({ value: "red" }, { children: "\u043A\u0440\u0430\u0441\u043D\u044B\u0439" })), (0, jsx_runtime_1.jsx)("option", Object.assign({ value: "pink" }, { children: "\u0440\u043E\u0437\u043E\u0432\u044B\u0439" })), (0, jsx_runtime_1.jsx)("option", Object.assign({ value: "green" }, { children: "\u0437\u0435\u043B\u0435\u043D\u044B\u0439" })), (0, jsx_runtime_1.jsx)("option", Object.assign({ value: "yellow" }, { children: "\u0436\u0435\u043B\u0442\u044B\u0439" }))] })), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "color", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "productCode" }, { children: "\u0410\u0440\u0442\u0438\u043A\u0443\u043B \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { id: "productCode", name: "productCode", type: "text", className: (0, classnames_1.default)({
-                                            [UpdateProduct_module_scss_1.default.borderRed]: touched.productCode && errors.productCode
-                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "productCode", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.inputGroup, UpdateProduct_module_scss_1.default.shortDesc) }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "shortDesc" }, { children: "\u041A\u0440\u0430\u0442\u043A\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { as: "textarea", id: "shortDesc", name: "shortDesc", className: (0, classnames_1.default)({
-                                            [UpdateProduct_module_scss_1.default.borderRed]: touched.shortDesc && errors.shortDesc
-                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "shortDesc", component: "div" })] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.inputGroup, UpdateProduct_module_scss_1.default.description) }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "description" }, { children: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435" })), (0, jsx_runtime_1.jsx)(formik_1.Field, { as: "textarea", id: "description", name: "description", className: (0, classnames_1.default)({
-                                            [UpdateProduct_module_scss_1.default.borderRed]: touched.description && errors.description
-                                        }) }), (0, jsx_runtime_1.jsx)(formik_1.ErrorMessage, { className: UpdateProduct_module_scss_1.default.errorMsg, name: "description", component: "div" })] })), (0, jsx_runtime_1.jsx)("button", Object.assign({ type: "submit", disabled: !isValid || !dirty || isSubmitting, className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.submit, {
-                                    [UpdateProduct_module_scss_1.default.disabled]: !isValid || !dirty || isSubmitting
-                                }) }, { children: "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u0442\u043E\u0432\u0430\u0440" })), (0, jsx_runtime_1.jsx)("button", Object.assign({ type: "button", disabled: isSubmitting, className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.cancel, {
-                                    [UpdateProduct_module_scss_1.default.disabled]: isSubmitting
-                                }), onClick: goToAccount }, { children: "\u041E\u0442\u043C\u0435\u043D\u0430" }))] })) })) }))] }));
+    const handleChangeFiles = (event) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            if (event.target.files) {
+                const formData = new FormData();
+                const files = event.target.files;
+                for (let i = 0; i < files.length; i++) {
+                    formData.append('inputFiles', files[i]);
+                }
+                const { data } = yield axios_1.default.post('/uploads/images', formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                });
+                const imageUrlsArr = data.files.map((file) => {
+                    return `/uploads/images/${file.originalname}`;
+                });
+                setProductImages(imageUrlsArr);
+            }
+            else {
+                throw "files array is empty";
+            }
+        }
+        catch (err) {
+            console.warn(err);
+            alert('Ошибка при загрузке файла!');
+        }
+    });
+    if (formik.values.images) {
+        delete formik.errors.images;
+    }
+    const onClickRemoveImageItem = (imageUrl) => __awaiter(void 0, void 0, void 0, function* () {
+        setProductImages((prevState) => {
+            return prevState.filter((image) => {
+                return image !== imageUrl;
+            });
+        });
+        yield axios_1.default.delete('/uploads', { data: { imagePath: `.${imageUrl}` } });
+    });
+    (0, react_1.useEffect)(() => {
+        formik.setFieldValue('imageUrl', productThumbnail);
+    }, [productThumbnail]);
+    (0, react_1.useEffect)(() => {
+        formik.setFieldValue('images', productImagesStr);
+    }, [productImages]);
+    return ((0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("h3", { children: "\u0418\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430" }), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.form }, { children: (0, jsx_runtime_1.jsxs)("form", Object.assign({ onSubmit: formik.handleSubmit }, { children: [(0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "name" }, { children: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)("input", { id: "name", name: "name", type: "text", onChange: formik.handleChange, onBlur: formik.handleBlur, value: formik.values.name, className: (0, classnames_1.default)({
+                                        [UpdateProduct_module_scss_1.default.borderRed]: formik.touched.name && formik.errors.name
+                                    }) }), formik.touched.name && formik.errors.name ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.errorMsg }, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: formik.errors.name }) }))) : null] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.inputGroup, UpdateProduct_module_scss_1.default.productThumbnail) }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputHeading }, { children: "\u041C\u0438\u043D\u0438\u0430\u0442\u044E\u0440\u0430 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)(components_1.Button, Object.assign({ variant: "outlined", onClickFunc: handleClickInputFile }, { children: "\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C" })), (0, jsx_runtime_1.jsx)("input", { ref: inputFileRef, type: "file", name: "inputFile", onChange: handleChangeFile, className: UpdateProduct_module_scss_1.default.inputFileImage }), productThumbnail && ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.imageContainer }, { children: (0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.image }, { children: (0, jsx_runtime_1.jsx)("img", { src: productThumbnail, alt: "product-thumbnail" }) })) })), (0, jsx_runtime_1.jsx)(components_1.Button, Object.assign({ variant: "outlined", onClickFunc: onClickRemoveImage }, { children: "\u0423\u0434\u0430\u043B\u0438\u0442\u044C" }))] })), (0, jsx_runtime_1.jsx)("input", { name: "imageUrl", type: "text", onChange: formik.handleChange, onBlur: formik.handleBlur, value: formik.values.imageUrl, className: UpdateProduct_module_scss_1.default.imageUrl }), formik.touched.imageUrl && formik.errors.imageUrl ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.errorMsg }, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: formik.errors.imageUrl }) }))) : null] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.inputGroup, UpdateProduct_module_scss_1.default.productImages) }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputHeading }, { children: "\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)(components_1.Button, Object.assign({ variant: "outlined", onClickFunc: handleClickInputFiles }, { children: "\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C" })), (0, jsx_runtime_1.jsx)("input", { ref: inputFilesRef, type: "file", multiple: true, name: "inputFiles", onChange: handleChangeFiles, className: UpdateProduct_module_scss_1.default.inputFilesImages }), productImages && ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.imagesContainer }, { children: productImages.map((imageUrl, idx) => {
+                                        return ((0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.imageContainer }, { children: [(0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.image }, { children: (0, jsx_runtime_1.jsx)("img", { src: imageUrl, alt: "product-image" }) })), (0, jsx_runtime_1.jsx)(components_1.Button, Object.assign({ variant: "outlined", onClickFunc: () => onClickRemoveImageItem(imageUrl) }, { children: "\u0423\u0434\u0430\u043B\u0438\u0442\u044C" }))] }), idx));
+                                    }) }))), (0, jsx_runtime_1.jsx)("input", { name: "images", type: "text", onChange: formik.handleChange, onBlur: formik.handleBlur, value: formik.values.images, className: UpdateProduct_module_scss_1.default.images }), formik.touched.images && formik.errors.images ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.errorMsg }, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: formik.errors.images }) }))) : null] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "brand" }, { children: "\u0411\u0440\u0435\u043D\u0434" })), (0, jsx_runtime_1.jsx)("input", { id: "brand", name: "brand", type: "text", onChange: formik.handleChange, onBlur: formik.handleBlur, value: formik.values.brand, className: (0, classnames_1.default)({
+                                        [UpdateProduct_module_scss_1.default.borderRed]: formik.touched.brand && formik.errors.brand
+                                    }) }), formik.touched.brand && formik.errors.brand ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.errorMsg }, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: formik.errors.brand }) }))) : null] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "price" }, { children: "\u0426\u0435\u043D\u0430, \u0440\u0443\u0431." })), (0, jsx_runtime_1.jsx)("input", { id: "price", name: "price", type: "text", onChange: formik.handleChange, onBlur: formik.handleBlur, value: formik.values.price, className: (0, classnames_1.default)({
+                                        [UpdateProduct_module_scss_1.default.borderRed]: formik.touched.price && formik.errors.price
+                                    }) }), formik.touched.price && formik.errors.price ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.errorMsg }, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: formik.errors.price }) }))) : null] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "memory" }, { children: "\u041E\u0431\u044A\u0435\u043C \u0432\u0441\u0442\u0440\u043E\u0435\u043D\u043D\u043E\u0439 \u043F\u0430\u043C\u044F\u0442\u0438, \u0413\u0431" })), (0, jsx_runtime_1.jsx)("input", { id: "memory", name: "memory", type: "text", onChange: formik.handleChange, onBlur: formik.handleBlur, value: formik.values.memory, className: (0, classnames_1.default)({
+                                        [UpdateProduct_module_scss_1.default.borderRed]: formik.touched.memory && formik.errors.memory
+                                    }) }), formik.touched.memory && formik.errors.memory ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.errorMsg }, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: formik.errors.memory }) }))) : null] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "ram" }, { children: "\u041E\u0431\u044A\u0435\u043C \u043E\u043F\u0435\u0440\u0430\u0442\u0438\u0432\u043D\u043E\u0439 \u043F\u0430\u043C\u044F\u0442\u0438, \u0413\u0431" })), (0, jsx_runtime_1.jsx)("input", { id: "ram", name: "ram", type: "text", onChange: formik.handleChange, onBlur: formik.handleBlur, value: formik.values.ram, className: (0, classnames_1.default)({
+                                        [UpdateProduct_module_scss_1.default.borderRed]: formik.touched.ram && formik.errors.ram
+                                    }) }), formik.touched.ram && formik.errors.ram ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.errorMsg }, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: formik.errors.ram }) }))) : null] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "cpuCores" }, { children: "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u044F\u0434\u0435\u0440" })), (0, jsx_runtime_1.jsx)("input", { id: "cpuCores", name: "cpuCores", type: "text", onChange: formik.handleChange, onBlur: formik.handleBlur, value: formik.values.cpuCores, className: (0, classnames_1.default)({
+                                        [UpdateProduct_module_scss_1.default.borderRed]: formik.touched.cpuCores && formik.errors.cpuCores
+                                    }) }), formik.touched.cpuCores && formik.errors.cpuCores ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.errorMsg }, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: formik.errors.cpuCores }) }))) : null] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "screenSize" }, { children: "\u0414\u0438\u0430\u0433\u043E\u043D\u0430\u043B\u044C \u044D\u043A\u0440\u0430\u043D\u0430, \u0434\u044E\u0439\u043C" })), (0, jsx_runtime_1.jsx)("input", { id: "screenSize", name: "screenSize", type: "text", onChange: formik.handleChange, onBlur: formik.handleBlur, value: formik.values.screenSize, className: (0, classnames_1.default)({
+                                        [UpdateProduct_module_scss_1.default.borderRed]: formik.touched.screenSize && formik.errors.screenSize
+                                    }) }), formik.touched.screenSize && formik.errors.screenSize ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.errorMsg }, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: formik.errors.screenSize }) }))) : null] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "batteryCapacity" }, { children: "\u0401\u043C\u043A\u043E\u0441\u0442\u044C \u0430\u043A\u043A\u0443\u043C\u0443\u043B\u044F\u0442\u043E\u0440\u0430, \u043C\u0410\u0447" })), (0, jsx_runtime_1.jsx)("input", { id: "batteryCapacity", name: "batteryCapacity", type: "text", onChange: formik.handleChange, onBlur: formik.handleBlur, value: formik.values.batteryCapacity, className: (0, classnames_1.default)({
+                                        [UpdateProduct_module_scss_1.default.borderRed]: formik.touched.batteryCapacity && formik.errors.batteryCapacity
+                                    }) }), formik.touched.batteryCapacity && formik.errors.batteryCapacity ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.errorMsg }, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: formik.errors.batteryCapacity }) }))) : null] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "color" }, { children: "\u0426\u0432\u0435\u0442 \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsxs)("select", Object.assign({ id: "color", name: "color", onChange: formik.handleChange, onBlur: formik.handleBlur, value: formik.values.color, className: (0, classnames_1.default)({
+                                        [UpdateProduct_module_scss_1.default.borderRed]: formik.touched.color && formik.errors.color
+                                    }) }, { children: [(0, jsx_runtime_1.jsx)("option", Object.assign({ value: "" }, { children: "\u0432\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0446\u0432\u0435\u0442" })), (0, jsx_runtime_1.jsx)("option", Object.assign({ value: "white" }, { children: "\u0431\u0435\u043B\u044B\u0439" })), (0, jsx_runtime_1.jsx)("option", Object.assign({ value: "black" }, { children: "\u0447\u0435\u0440\u043D\u044B\u0439" })), (0, jsx_runtime_1.jsx)("option", Object.assign({ value: "gray" }, { children: "\u0441\u0435\u0440\u044B\u0439" })), (0, jsx_runtime_1.jsx)("option", Object.assign({ value: "blue" }, { children: "\u0441\u0438\u043D\u0438\u0439" })), (0, jsx_runtime_1.jsx)("option", Object.assign({ value: "red" }, { children: "\u043A\u0440\u0430\u0441\u043D\u044B\u0439" })), (0, jsx_runtime_1.jsx)("option", Object.assign({ value: "pink" }, { children: "\u0440\u043E\u0437\u043E\u0432\u044B\u0439" })), (0, jsx_runtime_1.jsx)("option", Object.assign({ value: "green" }, { children: "\u0437\u0435\u043B\u0435\u043D\u044B\u0439" })), (0, jsx_runtime_1.jsx)("option", Object.assign({ value: "yellow" }, { children: "\u0436\u0435\u043B\u0442\u044B\u0439" }))] })), formik.touched.color && formik.errors.color ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.errorMsg }, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: formik.errors.color }) }))) : null] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.inputGroup }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "productCode" }, { children: "\u0410\u0440\u0442\u0438\u043A\u0443\u043B \u0442\u043E\u0432\u0430\u0440\u0430" })), (0, jsx_runtime_1.jsx)("input", { id: "productCode", name: "productCode", type: "text", onChange: formik.handleChange, onBlur: formik.handleBlur, value: formik.values.productCode, className: (0, classnames_1.default)({
+                                        [UpdateProduct_module_scss_1.default.borderRed]: formik.touched.productCode && formik.errors.productCode
+                                    }) }), formik.touched.productCode && formik.errors.productCode ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.errorMsg }, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: formik.errors.productCode }) }))) : null] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.inputGroup, UpdateProduct_module_scss_1.default.shortDesc) }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "shortDesc" }, { children: "\u041A\u0440\u0430\u0442\u043A\u043E\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435" })), (0, jsx_runtime_1.jsx)("textarea", { id: "shortDesc", name: "shortDesc", onChange: formik.handleChange, onBlur: formik.handleBlur, value: formik.values.shortDesc, className: (0, classnames_1.default)({
+                                        [UpdateProduct_module_scss_1.default.borderRed]: formik.touched.shortDesc && formik.errors.shortDesc
+                                    }) }), formik.touched.shortDesc && formik.errors.shortDesc ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.errorMsg }, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: formik.errors.shortDesc }) }))) : null] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.inputGroup, UpdateProduct_module_scss_1.default.description) }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "description" }, { children: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435" })), (0, jsx_runtime_1.jsx)("textarea", { id: "description", name: "description", onChange: formik.handleChange, onBlur: formik.handleBlur, value: formik.values.description, className: (0, classnames_1.default)({
+                                        [UpdateProduct_module_scss_1.default.borderRed]: formik.touched.description && formik.errors.description
+                                    }) }), formik.touched.description && formik.errors.description ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.errorMsg }, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: formik.errors.description }) }))) : null] })), (0, jsx_runtime_1.jsx)("button", Object.assign({ type: "submit", disabled: formik.isSubmitting || !formik.dirty, className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.submit, {
+                                [UpdateProduct_module_scss_1.default.disabled]: formik.isSubmitting || !formik.dirty
+                            }) }, { children: "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u0442\u043E\u0432\u0430\u0440" })), (0, jsx_runtime_1.jsx)("button", Object.assign({ type: "button", disabled: formik.isSubmitting, className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.cancel, {
+                                [UpdateProduct_module_scss_1.default.disabled]: formik.isSubmitting
+                            }), onClick: goToAccount }, { children: "\u041E\u0442\u043C\u0435\u043D\u0430" }))] })) }))] }));
 };
 exports.UpdateProduct = UpdateProduct;
 //# sourceMappingURL=index.js.map

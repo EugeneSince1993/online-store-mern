@@ -50,6 +50,9 @@ const components_1 = require("../../components");
 const CreateProduct = () => {
     const dispatch = (0, hooks_1.useAppDispatch)();
     const navigate = (0, react_router_dom_1.useNavigate)();
+    const goToAccount = () => {
+        navigate('/account');
+    };
     const inputFileRef = (0, react_1.useRef)(null);
     const inputFilesRef = (0, react_1.useRef)(null);
     const [productThumbnail, setProductThumbnail] = (0, react_1.useState)('');
@@ -122,13 +125,10 @@ const CreateProduct = () => {
             else {
                 alert(`Товар "${data.payload.name}" добавлен`);
             }
-            navigate('/account');
+            goToAccount();
             setSubmitting(false);
         }),
     });
-    const goToAccount = () => {
-        navigate('/account');
-    };
     const handleClickInputFile = () => {
         if (inputFileRef.current) {
             inputFileRef.current.click();

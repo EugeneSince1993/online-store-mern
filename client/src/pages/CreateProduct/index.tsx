@@ -14,6 +14,10 @@ export const CreateProduct: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const goToAccount = () => {
+    navigate('/account');
+  };
+
   const inputFileRef = useRef<HTMLInputElement>(null);
   const inputFilesRef = useRef<HTMLInputElement>(null);
   const [productThumbnail, setProductThumbnail] = useState<string>('');
@@ -88,14 +92,10 @@ export const CreateProduct: FC = () => {
         alert(`Товар "${data.payload.name}" добавлен`);
       }
 
-      navigate('/account');
+      goToAccount();
       setSubmitting(false);
     },
   });
-
-  const goToAccount = () => {
-    navigate('/account');
-  };
 
   const handleClickInputFile = () => {
     if (inputFileRef.current) {

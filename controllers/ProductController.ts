@@ -3,9 +3,6 @@ const mongoose = require('mongoose');
 const newId = mongoose.Types.ObjectId();
 import fs from 'fs';
 
-const newLine = /\n{1}/;
-const newLineRegex = new RegExp(newLine);
-
 export const getAll = async (req, res) => {
   try {
     const sortQuery = req.query.order;
@@ -112,7 +109,7 @@ export const update = async (req, res) => {
       {
         user: req.userId,
         imageUrl: req.body.imageUrl,
-        images: req.body.images.split(newLineRegex),
+        images: req.body.images.split(' '),
         brand: req.body.brand,
         name: req.body.name,
         price: req.body.price,
