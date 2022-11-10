@@ -135,6 +135,7 @@ export const UpdateProduct: FC = () => {
           }
         });
         setProductThumbnail(data.url);
+        formik.touched.imageUrl = true;
       } else {
         throw "files array is empty";
       }
@@ -151,6 +152,7 @@ export const UpdateProduct: FC = () => {
   const onClickRemoveImage = async () => {
     setProductThumbnail('');
     await axios.delete('/uploads', { data: { imagePath: `.${productThumbnail}` } });
+    formik.touched.imageUrl = true;
   }; 
 
   const handleClickInputFiles = () => {
@@ -176,6 +178,7 @@ export const UpdateProduct: FC = () => {
           return `/uploads/images/${file.originalname}`;
         });
         setProductImages(imageUrlsArr);
+        formik.touched.images = true;
       } else {
         throw "files array is empty";
       }
@@ -197,6 +200,7 @@ export const UpdateProduct: FC = () => {
     });
 
     await axios.delete('/uploads', { data: { imagePath: `.${imageUrl}` } });
+    formik.touched.images = true;
   };
 
   useEffect(() => {
@@ -534,9 +538,9 @@ export const UpdateProduct: FC = () => {
           </div>
           <button 
             type="submit" 
-            disabled={formik.isSubmitting || !formik.dirty || !objIsNotEmpty(formik.touched)}
+            disabled={formik.isSubmitting || !objIsNotEmpty(formik.touched) || !formik.isValid}
             className={classNames(styles.submit, { 
-              [styles.disabled]: formik.isSubmitting || !formik.dirty || !objIsNotEmpty(formik.touched)
+              [styles.disabled]: formik.isSubmitting || !objIsNotEmpty(formik.touched) || !formik.isValid
             })}
           >
             Изменить товар

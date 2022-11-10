@@ -494,9 +494,9 @@ export const CreateProduct: FC = () => {
           </div>
           <button 
             type="submit" 
-            disabled={formik.isSubmitting}
+            disabled={formik.isSubmitting || !formik.isValid}
             className={classNames(styles.submit, { 
-              [styles.disabled]: formik.isSubmitting
+              [styles.disabled]: formik.isSubmitting || !formik.isValid
             })}
           >
             Создать товар
