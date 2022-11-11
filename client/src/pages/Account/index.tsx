@@ -75,7 +75,7 @@ export const Account: FC = () => {
                   <div className={styles.productListWrapper}>
                     <div className={styles.productList}>
                       {currentData.map((item: IProduct, index: number) => (
-                        <ProductBlock key={index} {...item} />
+                        <ProductBlock key={index} getProducts={getProducts} {...item} />
                       ))}
                     </div>
                   </div>

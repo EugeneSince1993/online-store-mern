@@ -54,8 +54,7 @@ const UpdateProduct = () => {
     const { currentProduct } = (0, hooks_1.useAppSelector)(selectors_1.selectProduct);
     let { id } = (0, react_router_dom_1.useParams)();
     const goToAccount = () => {
-        // navigate('/account');
-        console.log(formik);
+        navigate('/account');
     };
     const objIsNotEmpty = (obj) => {
         return Object.keys(obj).length !== 0;
@@ -273,8 +272,8 @@ const UpdateProduct = () => {
                                         [UpdateProduct_module_scss_1.default.borderRed]: formik.touched.shortDesc && formik.errors.shortDesc
                                     }) }), formik.touched.shortDesc && formik.errors.shortDesc ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.errorMsg }, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: formik.errors.shortDesc }) }))) : null] })), (0, jsx_runtime_1.jsxs)("div", Object.assign({ className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.inputGroup, UpdateProduct_module_scss_1.default.description) }, { children: [(0, jsx_runtime_1.jsx)("label", Object.assign({ htmlFor: "description" }, { children: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435" })), (0, jsx_runtime_1.jsx)("textarea", { id: "description", name: "description", onChange: formik.handleChange, onBlur: formik.handleBlur, value: formik.values.description, className: (0, classnames_1.default)({
                                         [UpdateProduct_module_scss_1.default.borderRed]: formik.touched.description && formik.errors.description
-                                    }) }), formik.touched.description && formik.errors.description ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.errorMsg }, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: formik.errors.description }) }))) : null] })), (0, jsx_runtime_1.jsx)("button", Object.assign({ type: "submit", disabled: formik.isSubmitting || !objIsNotEmpty(formik.touched), className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.submit, {
-                                [UpdateProduct_module_scss_1.default.disabled]: formik.isSubmitting || !objIsNotEmpty(formik.touched)
+                                    }) }), formik.touched.description && formik.errors.description ? ((0, jsx_runtime_1.jsx)("div", Object.assign({ className: UpdateProduct_module_scss_1.default.errorMsg }, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: formik.errors.description }) }))) : null] })), (0, jsx_runtime_1.jsx)("button", Object.assign({ type: "submit", disabled: formik.isSubmitting || !objIsNotEmpty(formik.touched) || !formik.isValid, className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.submit, {
+                                [UpdateProduct_module_scss_1.default.disabled]: formik.isSubmitting || !objIsNotEmpty(formik.touched) || !formik.isValid
                             }) }, { children: "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u0442\u043E\u0432\u0430\u0440" })), (0, jsx_runtime_1.jsx)("button", Object.assign({ type: "button", disabled: formik.isSubmitting, className: (0, classnames_1.default)(UpdateProduct_module_scss_1.default.cancel, {
                                 [UpdateProduct_module_scss_1.default.disabled]: formik.isSubmitting
                             }), onClick: goToAccount }, { children: "\u041E\u0442\u043C\u0435\u043D\u0430" }))] })) }))] }));

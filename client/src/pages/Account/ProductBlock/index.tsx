@@ -2,12 +2,32 @@ import { FC } from "react";
 import NumberFormat from "react-number-format";
 import { NavLink } from "react-router-dom";
 import classNames from 'classnames';
-import { removeItem } from "../../../redux/cart/cartSlice";
 import styles from './ProductBlock.module.scss';
 import { useAppDispatch } from "../../../redux/hooks";
-import { IProduct } from "../../../types/IProduct";
+import { deleteProductById } from "../../../redux/product/asyncActions";
 
-export const ProductBlock: FC<IProduct> = ({
+interface Props {
+  _id: string;
+  imageUrl: string;
+  images: string[];
+  name: string;
+  price: number;
+  rating: number;
+  testimonials: number;
+  brand: string;
+  memory: number;
+  ram: number;
+  cpuCores: number;
+  screenSize: number;
+  batteryCapacity: number;
+  color: string;
+  productCode: number;
+  description: string;
+  shortDesc: string;
+  getProducts: () => void;
+}
+
+export const ProductBlock: FC<Props> = ({
   _id,
   name,
   price,
@@ -15,13 +35,20 @@ export const ProductBlock: FC<IProduct> = ({
   productCode,
   rating,
   testimonials,
-  ...productBlockProps
+  getProducts,
+  ...otherProps
 }) => {
   const dispatch = useAppDispatch();
 
-  const onClickRemove = () => {
+  const onClickRemove = async () => {
     if (window.confirm('Вы действительно хотите удалить товар?')) {
-      dispatch(removeItem(_id));
+      const data = await dispatch(deleteProductById(_id));
+      if (!data.payload) {
+        alert('Не получилось удалить товар');
+      } else {
+        alert('Товар удален');
+        getProducts();
+      }
     }
   };
 

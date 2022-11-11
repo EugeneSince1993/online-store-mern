@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateProductById = exports.createProduct = exports.fetchProductById = exports.fetchProducts = void 0;
+exports.deleteProductById = exports.updateProductById = exports.createProduct = exports.fetchProductById = exports.fetchProducts = void 0;
 const toolkit_1 = require("@reduxjs/toolkit");
 const axios_1 = __importDefault(require("../../axios"));
 const pickBy_1 = __importDefault(require("lodash/pickBy"));
@@ -37,6 +37,10 @@ exports.createProduct = (0, toolkit_1.createAsyncThunk)('product/createProduct',
 }));
 exports.updateProductById = (0, toolkit_1.createAsyncThunk)('product/updateProductById', (paramsObj) => __awaiter(void 0, void 0, void 0, function* () {
     const { data } = yield axios_1.default.patch(`products/${paramsObj.id}`, Object.assign({}, paramsObj));
+    return data;
+}));
+exports.deleteProductById = (0, toolkit_1.createAsyncThunk)('product/deleteProductById', (productId) => __awaiter(void 0, void 0, void 0, function* () {
+    const { data } = yield axios_1.default.delete(`products/${productId}`);
     return data;
 }));
 //# sourceMappingURL=asyncActions.js.map

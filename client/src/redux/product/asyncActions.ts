@@ -47,3 +47,11 @@ export const updateProductById = createAsyncThunk<IProduct, IProductParamsId>(
     return data;
   }
 );
+
+export const deleteProductById = createAsyncThunk<any, string>(
+  'product/deleteProductById',
+  async (productId: string) => {
+    const { data } = await axios.delete<any>(`products/${productId}`);
+    return data;
+  }
+);
