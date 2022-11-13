@@ -12,7 +12,7 @@
     padding-right: 30px;
 
     .productListContainer {
-      max-width: 1100px;
+      max-width: 890px;
 
       .loadingBlock {
         height: 500px;
@@ -29,6 +29,12 @@
       .productList {
         display: flex;
         flex-wrap: wrap;
+
+        .productSkeleton {
+          flex-basis: 25%;
+          padding-right: 20px;
+          margin-bottom: 20px;
+        }
       }
       
       .productsPagination {
@@ -133,7 +139,7 @@
   }
 }
 
-@media screen and (min-width: 1200px) and (max-width: 1499px) {
+@media screen and (min-width: 1200px) {
   .homeContainer {
   
     .productsColumn {
@@ -142,21 +148,6 @@
 
         .productListWrapper {
           height: 673px;
-        }
-      }
-    }
-  }
-}
-
-@media screen and (min-width: 1500px) {
-  .homeContainer {
-  
-    .productsColumn {
-
-      .productListContainer {
-
-        .productListWrapper {
-          height: 750px;
         }
       }
     }

@@ -4,6 +4,8 @@ export { Filters } from "./Filters";
 export { Sorting } from "./Sorting";
 export { Button } from "./Button";
 export { Pagination } from "./Pagination";
+export { ProductItem } from "./ProductItem";
+export { Skeleton } from "./ProductItem/Skeleton";
 export { CartItem } from './CartItem';
 export { FavoriteItem } from './FavoriteItem';
 export { Collapse } from './Collapse';

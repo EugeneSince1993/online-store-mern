@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppRouter = exports.Collapse = exports.FavoriteItem = exports.CartItem = exports.Pagination = exports.Button = exports.Sorting = exports.Filters = exports.Footer = exports.Header = void 0;
+exports.AppRouter = exports.Collapse = exports.FavoriteItem = exports.CartItem = exports.Skeleton = exports.ProductItem = exports.Pagination = exports.Button = exports.Sorting = exports.Filters = exports.Footer = exports.Header = void 0;
 var Header_1 = require("./Header");
 Object.defineProperty(exports, "Header", { enumerable: true, get: function () { return Header_1.Header; } });
 var Footer_1 = require("./Footer");
@@ -13,6 +13,10 @@ var Button_1 = require("./Button");
 Object.defineProperty(exports, "Button", { enumerable: true, get: function () { return Button_1.Button; } });
 var Pagination_1 = require("./Pagination");
 Object.defineProperty(exports, "Pagination", { enumerable: true, get: function () { return Pagination_1.Pagination; } });
+var ProductItem_1 = require("./ProductItem");
+Object.defineProperty(exports, "ProductItem", { enumerable: true, get: function () { return ProductItem_1.ProductItem; } });
+var Skeleton_1 = require("./ProductItem/Skeleton");
+Object.defineProperty(exports, "Skeleton", { enumerable: true, get: function () { return Skeleton_1.Skeleton; } });
 var CartItem_1 = require("./CartItem");
 Object.defineProperty(exports, "CartItem", { enumerable: true, get: function () { return CartItem_1.CartItem; } });
 var FavoriteItem_1 = require("./FavoriteItem");

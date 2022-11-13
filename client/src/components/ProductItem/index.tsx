@@ -10,6 +10,7 @@ import { addFavoriteItem } from '../../redux/favorites/favoriteSlice';
 import { useSelector } from 'react-redux';
 import { selectCartItemById } from '../../redux/cart/selectors';
 import { selectFavoriteItemById } from '../../redux/favorites/selectors';
+import { FC } from 'react';
 
 interface Props {
   phoneImage: string;
@@ -21,7 +22,7 @@ interface Props {
   productCode: number;
 }
 
-export const ProductItem = ({ 
+export const ProductItem: FC<Props> = ({ 
   phoneImage, 
   rating, 
   testimonials, 
@@ -29,7 +30,7 @@ export const ProductItem = ({
   priceValue, 
   productId, 
   productCode
-}: Props) => {
+}) => {
   const dispatch = useAppDispatch();
   const cartItem = useSelector(selectCartItemById(productId));
   const favoriteItem = useSelector(selectFavoriteItemById(productId));

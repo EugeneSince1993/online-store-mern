@@ -1,12 +1,11 @@
-import React, { FC, useCallback, useEffect, useMemo } from "react";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import MediaQuery from 'react-responsive';
-import { Filters, Sorting, Pagination, Collapse } from "../../components";
+import { Filters, Sorting, Pagination, Collapse, ProductItem, Skeleton } from "../../components";
 import { selectFilter } from "../../redux/filter/selectors";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchProducts } from "../../redux/product/asyncActions";
 import { getRangeExtremes } from "../../redux/filter/asyncActions";
-import spinner from '../../assets/img/Spinner-1s-200px.gif';
-import { ProductItem } from "../../components/ProductItem";
+// import spinner from '../../assets/img/Spinner-1s-200px.gif';
 import { selectProduct } from "../../redux/product/selectors";
 import { setBrands, setColors, setCpuCores, setCurrentPage, setMemory, setRam } from "../../redux/filter/filterSlice";
 import { IProduct } from "../../types/IProduct";
@@ -214,6 +213,10 @@ export const Home: FC = () => {
   const ramArr = [setRam, ram];
   const cpuCoresArr = [setCpuCores, cpuCores];
   const colorsArr = [setColors, colors];
+
+  const skeletons = [...new Array(8)].map((_, index) => {
+    return <Skeleton className={styles.productSkeleton} key={index} />;
+  });
   
   return (
     <div className={styles.homeContainer}>
@@ -251,9 +254,22 @@ export const Home: FC = () => {
         <Sorting />
         <div className={styles.productListContainer}>
           {isLoading ? (
-            <div className={styles.loadingBlock}>
-              <img src={spinner} />
-            </div>
+            <>
+              <div className={styles.productListWrapper}>
+                <div className={styles.productList}>
+                  {skeletons}
+                </div>
+              </div>
+              <div className={styles.productsPagination}>
+                <Pagination 
+                  className={styles.paginationBar}
+                  currentPage={currentPage}
+                  totalCount={finalProducts.length}
+                  pageSize={pageSize}
+                  onPageChange={(page: number) => dispatch(setCurrentPage(page))}
+                />
+              </div>
+            </>
           ) : (currentData.length ? (
             <>
               <div className={styles.productListWrapper}>
