@@ -121,9 +121,15 @@
               background-color: #5c9aff;
             }
 
-            i {
-              color: #fff;
-              font-size: 18px;
+            .iconContainer {
+              width: 21px;
+              display: flex;
+              justify-content: center;
+
+              i {
+                color: #fff;
+                font-size: 18px;
+              }
             }
           }
   

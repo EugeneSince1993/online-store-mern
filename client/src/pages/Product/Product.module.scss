@@ -96,14 +96,16 @@
             background-color: #2d7dff;
             transition: background-color 0.2s ease-in-out;
             margin-right: 30px;
-  
+            width: 115px;
+
             &:hover {
               background-color: #5c9aff;
             }
   
-            > div {
+            .toCartInner {
               display: flex;
               align-items: center;
+              justify-content: center;
   
               .cartIcon {
                 display: inline-block;

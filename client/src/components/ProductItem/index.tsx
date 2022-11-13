@@ -7,6 +7,8 @@ import { useAppDispatch } from '../../redux/hooks';
 import { addItem } from '../../redux/cart/cartSlice';
 import { IFavoriteItem } from '../../redux/favorites/types';
 import { addFavoriteItem } from '../../redux/favorites/favoriteSlice';
+import { useSelector } from 'react-redux';
+import { selectCartItemById } from '../../redux/cart/selectors';
 
 interface Props {
   phoneImage: string;
@@ -28,6 +30,7 @@ export const ProductItem = ({
   productCode
 }: Props) => {
   const dispatch = useAppDispatch();
+  const cartItem = useSelector(selectCartItemById(productId));
 
   const onClickAddToCart = () => {
     const item: ICartItem = {
@@ -103,9 +106,18 @@ export const ProductItem = ({
               <button 
                 className="tooltip"
                 onClick={onClickAddToCart}
-              >
-                <i className="fa-solid fa-cart-shopping"></i>
-                <div className="tooltipText">Добавить в корзину</div>
+              > 
+                {cartItem ? (
+                  <div className={styles.iconContainer}>
+                    <i className="fa-solid fa-check"></i>
+                    <div className="tooltipText">Добавлено в корзину</div>                  
+                  </div>
+                ) : (
+                  <div className={styles.iconContainer}>
+                    <i className="fa-solid fa-cart-shopping"></i>
+                    <div className="tooltipText">Добавить в корзину</div>                  
+                  </div>
+                )}
               </button>
             </div>
           </div>

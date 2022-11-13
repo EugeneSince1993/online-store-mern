@@ -17,14 +17,18 @@ import { IFavoriteItem } from '../../redux/favorites/types';
 import { addFavoriteItem } from '../../redux/favorites/favoriteSlice';
 import { fetchProductById } from '../../redux/product/asyncActions';
 import { selectProduct } from '../../redux/product/selectors';
+import { useSelector } from 'react-redux';
+import { selectCartItemById } from '../../redux/cart/selectors';
 
 export const Product: FC = () => {
   const dispatch = useAppDispatch();
   const { currentProduct } = useAppSelector(selectProduct);
+  let { id } = useParams();
+  let idStr = id!.toString();
+  const cartItem = useSelector(selectCartItemById(idStr));
 
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  let { id } = useParams();
 
   useEffect(() => {
     dispatch(fetchProductById(id));
@@ -185,12 +189,21 @@ export const Product: FC = () => {
             <div className={styles.addToCartAndFavorites}>
               <div className={styles.addToCart}>
                 <button onClick={onClickAddToCart}>
-                  <div>
-                    <span className={styles.cartIcon}>
-                      <i className="fa-solid fa-cart-shopping"></i>
-                    </span>
-                    <span className={styles.toCart}>В корзину</span>
-                  </div>
+                  {cartItem ? (
+                    <div className={styles.toCartInner}>
+                      <span className={styles.cartIcon}>
+                        <i className="fa-solid fa-check"></i>
+                      </span>
+                      <span className={styles.toCart}>В корзине</span>
+                    </div>
+                  ) : (
+                    <div className={styles.toCartInner}>
+                      <span className={styles.cartIcon}>
+                        <i className="fa-solid fa-cart-shopping"></i>
+                      </span>
+                      <span className={styles.toCart}>В корзину</span>
+                    </div>                    
+                  )}
                 </button>
               </div>
               <div 
