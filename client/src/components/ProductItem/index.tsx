@@ -9,6 +9,7 @@ import { IFavoriteItem } from '../../redux/favorites/types';
 import { addFavoriteItem } from '../../redux/favorites/favoriteSlice';
 import { useSelector } from 'react-redux';
 import { selectCartItemById } from '../../redux/cart/selectors';
+import { selectFavoriteItemById } from '../../redux/favorites/selectors';
 
 interface Props {
   phoneImage: string;
@@ -31,6 +32,7 @@ export const ProductItem = ({
 }: Props) => {
   const dispatch = useAppDispatch();
   const cartItem = useSelector(selectCartItemById(productId));
+  const favoriteItem = useSelector(selectFavoriteItemById(productId));
 
   const onClickAddToCart = () => {
     const item: ICartItem = {
@@ -81,10 +83,21 @@ export const ProductItem = ({
             className={classNames(styles.favorites, "tooltip", styles.tooltip)}
             onClick={onClickAddToFavorites}
           >
-            <i className="fa-solid fa-heart"></i>
-            <div className={classNames("tooltipText", styles.tooltipText)}>
-              Добавить в избранное
-            </div>
+            {favoriteItem ? (
+              <div className={styles.favoritesInner}>
+                <i className={classNames("fa-solid fa-heart", styles.added)}></i>
+                <div className={classNames("tooltipText", styles.tooltipText)}>
+                  Добавлено в избранное
+                </div>
+              </div>
+            ) : (
+              <div className={styles.favoritesInner}>
+                <i className={classNames("fa-solid fa-heart", styles.add)}></i>
+                <div className={classNames("tooltipText", styles.tooltipText)}>
+                  Добавить в избранное
+                </div>
+              </div>
+            )}
           </div>
         </div>
         <NavLink to={`/products/${productId}`} className={styles.productLink}>

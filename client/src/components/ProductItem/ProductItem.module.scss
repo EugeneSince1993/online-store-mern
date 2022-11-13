@@ -63,14 +63,24 @@
       .favorites {
         margin-left: auto;
 
-        i {
-          color: rgb(255, 131, 189);
-          font-size: 19px;
-        }
+        .favoritesInner {
 
-        .tooltipText {
-          width: 175px;
-          margin-left: -89px;
+          i {
+            font-size: 19px;
+
+            &.add {
+              color: rgb(173, 173, 173);
+            }
+
+            &.added {
+              color: rgb(255, 131, 189);
+            }
+          }
+  
+          .tooltipText {
+            width: 175px;
+            margin-left: -89px;
+          }
         }
       }
     }

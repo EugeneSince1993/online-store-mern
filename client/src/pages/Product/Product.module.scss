@@ -128,15 +128,25 @@
   
         .favorites {
           cursor: pointer;
+
+          .favoritesInner {
+
+            i {
+              font-size: 24px;
   
-          i {
-            color: rgb(255, 131, 189);
-            font-size: 24px;
-          }
+              &.add {
+                color: rgb(173, 173, 173);
+              }
   
-          .tooltipText {
-            width: 175px;
-            margin-left: -88px;
+              &.added {
+                color: rgb(255, 131, 189);
+              }
+            }
+    
+            .tooltipText {
+              width: 175px;
+              margin-left: -88px;
+            }
           }
         }
       }

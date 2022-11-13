@@ -19,6 +19,7 @@ import { fetchProductById } from '../../redux/product/asyncActions';
 import { selectProduct } from '../../redux/product/selectors';
 import { useSelector } from 'react-redux';
 import { selectCartItemById } from '../../redux/cart/selectors';
+import { selectFavoriteItemById } from '../../redux/favorites/selectors';
 
 export const Product: FC = () => {
   const dispatch = useAppDispatch();
@@ -26,6 +27,7 @@ export const Product: FC = () => {
   let { id } = useParams();
   let idStr = id!.toString();
   const cartItem = useSelector(selectCartItemById(idStr));
+  const favoriteItem = useSelector(selectFavoriteItemById(idStr));
 
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -210,8 +212,21 @@ export const Product: FC = () => {
                 className={classNames(styles.favorites, "tooltip")}
                 onClick={onClickAddToFavorites}
               >
-                <i className="fa-solid fa-heart"></i>
-                <div className="tooltipText">Добавить в избранное</div>
+                {favoriteItem ? (
+                  <div className={styles.favoritesInner}>
+                    <i className={classNames("fa-solid fa-heart", styles.added)}></i>
+                    <div className={classNames("tooltipText", styles.tooltipText)}>
+                      Добавлено в избранное
+                    </div>
+                  </div>
+                ) : (
+                  <div className={styles.favoritesInner}>
+                    <i className={classNames("fa-solid fa-heart", styles.add)}></i>
+                    <div className={classNames("tooltipText", styles.tooltipText)}>
+                      Добавить в избранное
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
