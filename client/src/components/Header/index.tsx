@@ -38,15 +38,17 @@ export const Header: FC = () => {
   return (
     <>
       <header className={classNames(styles.header, 'bgLightGray')}>
-        <div className={styles.logo}>
-          <NavLink to="/">
-            <img src={onlineStoreLogo} alt="online store" />
-          </NavLink>
+        <div className={styles.headerInner}>
+          <div className={styles.logo}>
+            <NavLink to="/">
+              <img src={onlineStoreLogo} alt="online store" />
+            </NavLink>
+          </div>
+          {location.pathname === '/' && <Search />}
+          <MediaQuery minWidth={700}>
+            <Nav cartTotal={cartTotal} favoritesTotal={favoritesTotal} />
+          </MediaQuery>
         </div>
-        {location.pathname === '/' && <Search />}
-        <MediaQuery minWidth={700}>
-          <Nav cartTotal={cartTotal} favoritesTotal={favoritesTotal} />
-        </MediaQuery>
       </header>
       <MediaQuery maxWidth={699}>
         <Nav cartTotal={cartTotal} favoritesTotal={favoritesTotal} />

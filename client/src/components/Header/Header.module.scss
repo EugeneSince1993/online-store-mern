@@ -1,22 +1,29 @@
 .header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
   padding-top: 15px;
   padding-bottom: 15px;
   height: 61px;
-  padding-left: 100px;
-  padding-right: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
   z-index: 4;
 
-  .logo {
-    width: 160px;
+  .headerInner {
+    width: 1119px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    a {
-      display: inline-block;
-
-      img {
-        width: 100%;
+    .logo {
+      width: 160px;
+  
+      a {
+        display: flex;
+        align-items: center;
+  
+        img {
+          width: 100%;
+        }
       }
     }
   }
@@ -28,10 +35,13 @@
     height: auto;
     padding: 15px 20px 0;
 
-    .logo {
-      width: 190px;
-      margin-left: auto;
-      margin-right: auto;
+    .headerInner {
+
+      .logo {
+        width: 190px;
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
   }
 }
@@ -50,8 +60,11 @@
     padding-left: 20px;
     padding-right: 20px;
 
-    .logo {
-      width: 120px;
+    .headerInner {
+
+      .logo {
+        width: 120px;
+      }
     }
   }
 }
