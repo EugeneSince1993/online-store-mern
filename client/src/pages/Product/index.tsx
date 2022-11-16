@@ -20,10 +20,12 @@ import { selectProduct } from '../../redux/product/selectors';
 import { useSelector } from 'react-redux';
 import { selectCartItemById } from '../../redux/cart/selectors';
 import { selectFavoriteItemById } from '../../redux/favorites/selectors';
+import { GallerySkeleton } from './GallerySkeleton';
+import { MainDataSkeleton } from './MainDataSkeleton';
 
 export const Product: FC = () => {
   const dispatch = useAppDispatch();
-  const { currentProduct } = useAppSelector(selectProduct);
+  const { currentProduct, isLoading } = useAppSelector(selectProduct);
   let { id } = useParams();
   let idStr = id!.toString();
   const cartItem = useSelector(selectCartItemById(idStr));
@@ -131,105 +133,117 @@ export const Product: FC = () => {
     <>
       <div className={styles.productContainer}>
         <div className={styles.productImage}>
-          <div>
-            <Carousel showIndicators={false} showStatus={false}>
-              {divsWithGalImgs}
-            </Carousel>
-          </div>
-          <div>
-            {isOpen && (
-              <Lightbox
-                mainSrc={galleryImages[photoIndex]}
-                nextSrc={galleryImages[(photoIndex + 1) % galleryImages.length]}
-                prevSrc={galleryImages[(photoIndex + galleryImages.length - 1) % galleryImages.length]}
-                onCloseRequest={() => setIsOpen(false)}
-                onMovePrevRequest={
-                  () => setPhotoIndex((photoIndex + galleryImages.length - 1) % galleryImages.length)
-                }
-                onMoveNextRequest={
-                  () => setPhotoIndex((photoIndex + 1) % galleryImages.length)
-                }
-              />
-            )}
-          </div>
+          {isLoading ? (
+            <GallerySkeleton />
+          ) : (
+            <>
+              <div>
+                <Carousel showIndicators={false} showStatus={false}>
+                  {divsWithGalImgs}
+                </Carousel>
+              </div>
+              <div>
+                {isOpen && (
+                  <Lightbox
+                    mainSrc={galleryImages[photoIndex]}
+                    nextSrc={galleryImages[(photoIndex + 1) % galleryImages.length]}
+                    prevSrc={galleryImages[(photoIndex + galleryImages.length - 1) % galleryImages.length]}
+                    onCloseRequest={() => setIsOpen(false)}
+                    onMovePrevRequest={
+                      () => setPhotoIndex((photoIndex + galleryImages.length - 1) % galleryImages.length)
+                    }
+                    onMoveNextRequest={
+                      () => setPhotoIndex((photoIndex + 1) % galleryImages.length)
+                    }
+                  />
+                )}
+              </div>            
+            </>
+          )}
         </div>
         <div className={styles.mainData}>
-          <h1>{currentProduct.name}</h1>
-          <div className={styles.shortSpecs}>
-            {currentProduct.shortDesc}
-          </div>
-          <div className={styles.productCode}>
-            Код товара: {currentProduct.productCode}
-          </div>
-          <div className={styles.icons}>
-            <div className={classNames(styles.rating, "tooltip", styles.tooltip)}>
-              <i className="fa-solid fa-star"></i>
-              <span>{currentProduct.rating}</span>
-              <div className={classNames(styles.tooltipText, "tooltipText")}>
-                Рейтинг {currentProduct.rating} из 5
+          {isLoading ? (
+            <MainDataSkeleton />
+          ) : (
+            <>
+              <h1>{currentProduct.name}</h1>
+              <div className={styles.shortSpecs}>
+                {currentProduct.shortDesc}
               </div>
-            </div>
-            <div className={classNames(styles.testimonials, "tooltip", styles.tooltip)}>
-              <i className="fa-solid fa-comment"></i>
-              <span>{currentProduct.testimonials}</span>
-              <div className={classNames("tooltipText", styles.tooltipText)}>
-                {currentProduct.testimonials} отзывов
+              <div className={styles.productCode}>
+                Код товара: {currentProduct.productCode}
               </div>
-            </div>
-          </div>
-          <div className={styles.priceAndBuy}>
-            <div className={styles.price}>
-              <div className={styles.priceValue}>
-                <NumberFormat 
-                  value={currentProduct.price} 
-                  displayType='text' 
-                  thousandSeparator=' '
-                />
-              </div>
-              <div className={styles.currency}>₽</div>
-            </div>
-            <div className={styles.addToCartAndFavorites}>
-              <div className={styles.addToCart}>
-                <button onClick={onClickAddToCart}>
-                  {cartItem ? (
-                    <div className={styles.toCartInner}>
-                      <span className={styles.cartIcon}>
-                        <i className="fa-solid fa-check"></i>
-                      </span>
-                      <span className={styles.toCart}>В корзине</span>
-                    </div>
-                  ) : (
-                    <div className={styles.toCartInner}>
-                      <span className={styles.cartIcon}>
-                        <i className="fa-solid fa-cart-shopping"></i>
-                      </span>
-                      <span className={styles.toCart}>В корзину</span>
-                    </div>                    
-                  )}
-                </button>
-              </div>
-              <div 
-                className={classNames(styles.favorites, "tooltip")}
-                onClick={onClickAddToFavorites}
-              >
-                {favoriteItem ? (
-                  <div className={styles.favoritesInner}>
-                    <i className={classNames("fa-solid fa-heart", styles.added)}></i>
-                    <div className={classNames("tooltipText", styles.tooltipText)}>
-                      Добавлено в избранное
-                    </div>
+              <div className={styles.icons}>
+                <div className={classNames(styles.rating, "tooltip", styles.tooltip)}>
+                  <i className="fa-solid fa-star"></i>
+                  <span>{currentProduct.rating}</span>
+                  <div className={classNames(styles.tooltipText, "tooltipText")}>
+                    Рейтинг {currentProduct.rating} из 5
                   </div>
-                ) : (
-                  <div className={styles.favoritesInner}>
-                    <i className={classNames("fa-solid fa-heart", styles.add)}></i>
-                    <div className={classNames("tooltipText", styles.tooltipText)}>
-                      Добавить в избранное
-                    </div>
+                </div>
+                <div className={classNames(styles.testimonials, "tooltip", styles.tooltip)}>
+                  <i className="fa-solid fa-comment"></i>
+                  <span>{currentProduct.testimonials}</span>
+                  <div className={classNames("tooltipText", styles.tooltipText)}>
+                    {currentProduct.testimonials} отзывов
                   </div>
-                )}
+                </div>
               </div>
-            </div>
-          </div>
+              <div className={styles.priceAndBuy}>
+                <div className={styles.price}>
+                  <div className={styles.priceValue}>
+                    <NumberFormat 
+                      value={currentProduct.price} 
+                      displayType='text' 
+                      thousandSeparator=' '
+                    />
+                  </div>
+                  <div className={styles.currency}>₽</div>
+                </div>
+                <div className={styles.addToCartAndFavorites}>
+                  <div className={styles.addToCart}>
+                    <button onClick={onClickAddToCart}>
+                      {cartItem ? (
+                        <div className={styles.toCartInner}>
+                          <span className={styles.cartIcon}>
+                            <i className="fa-solid fa-check"></i>
+                          </span>
+                          <span className={styles.toCart}>В корзине</span>
+                        </div>
+                      ) : (
+                        <div className={styles.toCartInner}>
+                          <span className={styles.cartIcon}>
+                            <i className="fa-solid fa-cart-shopping"></i>
+                          </span>
+                          <span className={styles.toCart}>В корзину</span>
+                        </div>                    
+                      )}
+                    </button>
+                  </div>
+                  <div 
+                    className={classNames(styles.favorites, "tooltip")}
+                    onClick={onClickAddToFavorites}
+                  >
+                    {favoriteItem ? (
+                      <div className={styles.favoritesInner}>
+                        <i className={classNames("fa-solid fa-heart", styles.added)}></i>
+                        <div className={classNames("tooltipText", styles.tooltipText)}>
+                          Добавлено в избранное
+                        </div>
+                      </div>
+                    ) : (
+                      <div className={styles.favoritesInner}>
+                        <i className={classNames("fa-solid fa-heart", styles.add)}></i>
+                        <div className={classNames("tooltipText", styles.tooltipText)}>
+                          Добавить в избранное
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
       <div className={styles.info}>
