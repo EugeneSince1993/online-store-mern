@@ -22,6 +22,7 @@ import { selectCartItemById } from '../../redux/cart/selectors';
 import { selectFavoriteItemById } from '../../redux/favorites/selectors';
 import { GallerySkeleton } from './GallerySkeleton';
 import { MainDataSkeleton } from './MainDataSkeleton';
+import { InfoSkeleton } from './InfoSkeleton';
 
 export const Product: FC = () => {
   const dispatch = useAppDispatch();
@@ -247,22 +248,26 @@ export const Product: FC = () => {
         </div>
       </div>
       <div className={styles.info}>
-        <Tabs>
-          <TabList>
-            <Tab id="specs-title">Характеристики</Tab>
-            <Tab>Описание</Tab>
-          </TabList>
-          <TabPanel>
-            <div className={styles.specs}>
-              {specList}
-            </div>
-          </TabPanel>
-          <TabPanel>
-            <div className={styles.productDescription}>
-              {currentProductIsNotEmpty && parse(currentProduct.description)}
-            </div>
-          </TabPanel>
-        </Tabs>
+        {isLoading ? (
+          <InfoSkeleton />
+        ) : (
+          <Tabs>
+            <TabList>
+              <Tab id="specs-title">Характеристики</Tab>
+              <Tab>Описание</Tab>
+            </TabList>
+            <TabPanel>
+              <div className={styles.specs}>
+                {specList}
+              </div>
+            </TabPanel>
+            <TabPanel>
+              <div className={styles.productDescription}>
+                {currentProductIsNotEmpty && parse(currentProduct.description)}
+              </div>
+            </TabPanel>
+          </Tabs>
+        )}
       </div>
     </>
   );

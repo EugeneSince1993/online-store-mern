@@ -14,7 +14,9 @@ function App() {
     <>
       <Header />
       <div className="app-container app-content">
-        <AppRouter />
+        <div className="app-inner">
+          <AppRouter />
+        </div>
       </div>
       <Footer />
     </>

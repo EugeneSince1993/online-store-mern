@@ -193,8 +193,14 @@ body {
 
 // App
 .app-container {
+  display: flex;
+  justify-content: center;
   padding-left: 20px;
   padding-right: 20px;
+
+  .app-inner {
+    width: 1119px;
+  }
 }
 
 .app-content {
