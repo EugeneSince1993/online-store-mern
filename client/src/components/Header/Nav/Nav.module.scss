@@ -10,8 +10,18 @@
     li {
       margin-right: 15px;
 
-      &:nth-of-type(2) {
+      &.favoritesListItem {
         margin-right: 40px;
+      }
+
+      &.accountListItem, 
+      &.logoutListItem, 
+      &.loginListItem, 
+      &.registrationListItem {
+
+        i {
+          color: rgb(97, 97, 97);
+        }
       }
 
       a {
@@ -101,18 +111,58 @@
 @media screen and (max-width: 699px) {
   .nav {
     background-color: #efefef;
-    padding: 15px 20px;
+    padding: 11px 20px;
     position: sticky;
     top: 0;
     z-index: 4;
 
     nav ul {
       justify-content: space-between;
-      height: 20px;
+      flex-wrap: wrap;
 
       li {
         width: 50%;
         margin-right: 0;
+
+        &.cartListItem {
+          margin-bottom: 8px;
+        }
+
+        &.favoritesListItem {
+          margin-right: 0;
+          margin-bottom: 8px;
+        }
+
+        &.accountListItem {
+          width: 60%;
+        }
+
+        &.logoutListItem {
+          width: 40%;
+
+          .linkGroup {
+            justify-content: flex-end;
+
+            .linkInnerText {
+              margin-right: 26px;
+            }
+          }
+        }
+
+        &.loginListItem {
+
+        }
+
+        &.registrationListItem {
+
+          .linkGroup {
+            justify-content: flex-end;
+
+            .linkInnerText {
+              margin-right: 10px;
+            }
+          }
+        }
 
         a {
           display: block;

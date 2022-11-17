@@ -157,15 +157,12 @@
 
 @media screen and (min-width: 1200px) and (max-width: 1269px) {
   .productItem {
-  
-    .productItemInner {
-      height: 301px;
+    height: 301px;
 
-      .image {
-  
-        img {
-          height: 130px;
-        }
+    .image {
+
+      img {
+        height: 130px;
       }
     }
   }
@@ -174,15 +171,12 @@
 @media screen and (min-width: 700px) and (max-width: 1199px) {
   .productItem {
     flex-basis: 50%;
+    height: 298px;
 
-    .productItemInner {
-        height: 298px;
+    .image {
 
-      .image {
-  
-        img {
-          max-height: 130px;
-        }
+      img {
+        max-height: 130px;
       }
     }
   }
@@ -190,41 +184,37 @@
 
 @media screen and (max-width: 699px) {
   .productItem {
-    flex-basis: 50%;
+    width: 145px;
+    height: 315px;
+    padding: 10px;
 
     &:nth-of-type(odd) {
-      padding-right: 5px;
+      margin-right: 10px;
     }
 
     &:nth-of-type(even) {
-      padding-right: 0;
-      padding-left: 5px;
+      margin-right: 0;
     }
 
-    .productItemInner {
-      height: 315px;
-      padding: 15px 10px;
+    .image {
 
-      .image {
-  
-        img {
-          max-height: 125px;
-        }
+      img {
+        max-height: 125px;
       }
+    }
 
-      .productLink {
-        max-height: 70px;
-        font-size: 16px;
-      }
+    .productLink {
+      max-height: 70px;
+      font-size: 16px;
+    }
 
-      .buyContainer {
-        width: calc(100% - 20px);
+    .buyContainer {
+      width: calc(100% - 20px);
 
-        .buy {
-          .price {
-            .priceValue span, .currency {
-              font-size: 18px;
-            }
+      .buy {
+        .price {
+          .priceValue span, .currency {
+            font-size: 18px;
           }
         }
       }
@@ -232,45 +222,28 @@
   }
 }
 
-@media screen and (max-width: 355px) {
+@media screen and (min-width: 370px) and (max-width: 699px) {
   .productItem {
-    flex-basis: 50%;
+    width: 160px;
+    height: 307px;
 
-    &:nth-of-type(odd) {
-      padding-right: 5px;
-    }
+    .image {
 
-    &:nth-of-type(even) {
-      padding-right: 0;
-      padding-left: 5px;
-    }
-
-    .productItemInner {
-      height: 310px;
-      padding: 15px 10px;
-
-      .image {
-  
-        img {
-          max-height: 115px;
-        }
+      img {
+        max-height: 135px;
       }
+    }
+  }
+}
 
-      .productLink {
-        max-height: 70px;
-        font-size: 16px;
-      }
+@media screen and (max-width: 369px) {
+  .productItem {
+    height: 297px;
 
-      .buyContainer {
-        width: calc(100% - 20px);
+    .image {
 
-        .buy {
-          .price {
-            .priceValue span, .currency {
-              font-size: 18px;
-            }
-          }
-        }
+      img {
+        max-height: 115px;
       }
     }
   }

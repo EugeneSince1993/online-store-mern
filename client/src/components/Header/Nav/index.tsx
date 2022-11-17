@@ -51,7 +51,7 @@ export const Nav: FC<INavProps> = ({ cartTotal, favoritesTotal }) => {
     <div className={styles.nav}>
       <nav>
         <ul>
-          <li>
+          <li className={styles.cartListItem}>
             <NavLink to="/cart">
               <div className={classNames(styles.linkInner, styles.cartLink)}>
                 <div className={styles.linkGroup}>
@@ -68,7 +68,7 @@ export const Nav: FC<INavProps> = ({ cartTotal, favoritesTotal }) => {
               </div>
             </NavLink>
           </li>
-          <li>
+          <li className={styles.favoritesListItem}>
             <NavLink to="/favorites">
               <div className={classNames(styles.linkInner, styles.favoritesLink)}>
                 <div className={styles.linkGroup}>
@@ -87,7 +87,7 @@ export const Nav: FC<INavProps> = ({ cartTotal, favoritesTotal }) => {
           </li>
           {isAuth ? (
             <>
-              <li>
+              <li className={styles.accountListItem}>
                 <NavLink to="/account">
                   <div className={classNames(styles.linkInner, styles.account)}>
                     <div className={styles.linkGroup}>
@@ -99,7 +99,7 @@ export const Nav: FC<INavProps> = ({ cartTotal, favoritesTotal }) => {
                   </div>
                 </NavLink>
               </li>
-              <li>
+              <li className={styles.logoutListItem}>
                 <a onClick={onClickLogout}>
                   <div className={classNames(styles.linkInner, styles.logout)}>
                     <div className={styles.linkGroup}>
@@ -114,7 +114,7 @@ export const Nav: FC<INavProps> = ({ cartTotal, favoritesTotal }) => {
             </>
           ) : (
             <>
-              <li>
+              <li className={styles.loginListItem}>
                 <a onClick={loginHandler}>
                   <div className={classNames(styles.linkInner, styles.login)}>
                     <div className={styles.linkGroup}>
@@ -126,7 +126,7 @@ export const Nav: FC<INavProps> = ({ cartTotal, favoritesTotal }) => {
                   </div>
                 </a>
               </li>
-              <li>
+              <li className={styles.registrationListItem}>
                 <a onClick={registerHandler}>
                   <div className={classNames(styles.linkInner, styles.register)}>
                     <div className={styles.linkGroup}>

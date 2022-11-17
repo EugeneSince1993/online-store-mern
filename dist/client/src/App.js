@@ -10,7 +10,7 @@ function App() {
     (0, react_1.useEffect)(() => {
         dispatch((0, asyncActions_1.fetchAuthMe)());
     }, []);
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(components_1.Header, {}), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: "app-container app-content" }, { children: (0, jsx_runtime_1.jsx)(components_1.AppRouter, {}) })), (0, jsx_runtime_1.jsx)(components_1.Footer, {})] }));
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(components_1.Header, {}), (0, jsx_runtime_1.jsx)("div", Object.assign({ className: "app-container app-content" }, { children: (0, jsx_runtime_1.jsx)("div", Object.assign({ className: "app-inner" }, { children: (0, jsx_runtime_1.jsx)(components_1.AppRouter, {}) })) })), (0, jsx_runtime_1.jsx)(components_1.Footer, {})] }));
 }
 exports.default = App;
 //# sourceMappingURL=App.js.map

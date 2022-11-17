@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppRouter = exports.Collapse = exports.FavoriteItem = exports.CartItem = exports.Skeleton = exports.ProductItem = exports.Pagination = exports.Button = exports.Sorting = exports.Filters = exports.Footer = exports.Header = void 0;
+exports.ProductItemSkeletonAbove700 = exports.ProductItemSkeleton370 = exports.ProductItemSkeleton320 = exports.AppRouter = exports.Collapse = exports.FavoriteItem = exports.CartItem = exports.ProductItem = exports.Pagination = exports.Button = exports.Sorting = exports.Filters = exports.Footer = exports.Header = void 0;
 var Header_1 = require("./Header");
 Object.defineProperty(exports, "Header", { enumerable: true, get: function () { return Header_1.Header; } });
 var Footer_1 = require("./Footer");
@@ -15,8 +15,6 @@ var Pagination_1 = require("./Pagination");
 Object.defineProperty(exports, "Pagination", { enumerable: true, get: function () { return Pagination_1.Pagination; } });
 var ProductItem_1 = require("./ProductItem");
 Object.defineProperty(exports, "ProductItem", { enumerable: true, get: function () { return ProductItem_1.ProductItem; } });
-var Skeleton_1 = require("./ProductItem/Skeleton");
-Object.defineProperty(exports, "Skeleton", { enumerable: true, get: function () { return Skeleton_1.Skeleton; } });
 var CartItem_1 = require("./CartItem");
 Object.defineProperty(exports, "CartItem", { enumerable: true, get: function () { return CartItem_1.CartItem; } });
 var FavoriteItem_1 = require("./FavoriteItem");
@@ -25,4 +23,10 @@ var Collapse_1 = require("./Collapse");
 Object.defineProperty(exports, "Collapse", { enumerable: true, get: function () { return Collapse_1.Collapse; } });
 var AppRouter_1 = require("./AppRouter");
 Object.defineProperty(exports, "AppRouter", { enumerable: true, get: function () { return AppRouter_1.AppRouter; } });
+var ProductItemSkeleton320_1 = require("./ProductItem/ProductItemSkeleton320");
+Object.defineProperty(exports, "ProductItemSkeleton320", { enumerable: true, get: function () { return ProductItemSkeleton320_1.ProductItemSkeleton320; } });
+var ProductItemSkeleton370_1 = require("./ProductItem/ProductItemSkeleton370");
+Object.defineProperty(exports, "ProductItemSkeleton370", { enumerable: true, get: function () { return ProductItemSkeleton370_1.ProductItemSkeleton370; } });
+var ProductItemSkeletonAbove700_1 = require("./ProductItem/ProductItemSkeletonAbove700");
+Object.defineProperty(exports, "ProductItemSkeletonAbove700", { enumerable: true, get: function () { return ProductItemSkeletonAbove700_1.ProductItemSkeletonAbove700; } });
 //# sourceMappingURL=index.js.map
