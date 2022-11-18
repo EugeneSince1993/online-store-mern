@@ -201,9 +201,12 @@
     display: block;
     margin-top: 15px;
     margin-bottom: 30px;
+    height: auto;
   
     .productImage {
       padding-right: 0;
+      width: auto;
+      margin-right: 0;
     }
   
     .mainData {
@@ -269,13 +272,17 @@
     .specs {
   
       .spec {
-  
-        div {
-          font-size: 16px;
 
-          &:nth-of-type(2) {
-            padding-left: 10px;
-          }
+        .specName {
+          font-size: 16px;
+          width: 240px;
+        }
+
+        .specValue {
+          font-size: 16px;
+          width: 95px;
+          word-wrap: break-word;
+          padding-left: 10px;
         }
       }
     }
@@ -291,26 +298,23 @@
   }
 }
 
-@media screen and (max-width: 355px) {
+@media screen and (max-width: 369px) {
   .productContainer {
-    display: block;
-    margin-top: 15px;
-    margin-bottom: 30px;
+
   
     .productImage {
-      padding-right: 0;
+
     }
   
     .mainData {
-      margin-top: 30px;
+
 
       .shortSpecs {
-        font-size: 17px;
-        line-height: 24px;
+
       }
 
       .productCode {
-        font-size: 16px;
+
       }
 
       .priceAndBuy {
@@ -318,11 +322,11 @@
         .price {
 
           .priceValue span {
-            font-size: 22px;
+
           }
 
           .currency {
-            font-size: 22px;
+
           }
         }
 
@@ -335,14 +339,14 @@
               div {
 
                 .cartIcon {
-                  
+
                   i {
-                    font-size: 16px;
+
                   }
                 }
 
                 .toCart {
-                  font-size: 16px;
+
                 }
               }
             }
@@ -351,7 +355,7 @@
           .favorites {
 
             i {
-              font-size: 28px;
+
             }
           }
         }
@@ -364,27 +368,14 @@
     .specs {
   
       .spec {
-  
-        div {
-          font-size: 16px;
-
-          &:nth-of-type(2) {
-            padding-left: 10px;
-          }
-        }
 
         .specName {
           width: 205px;
         }
-      }
-    }
 
-    .productDescription {
-      width: 100%;
-      line-height: 24px;
-
-      div {
-        font-size: 16px;
+        .specValue {
+          width: 80px;
+        }
       }
     }
   }

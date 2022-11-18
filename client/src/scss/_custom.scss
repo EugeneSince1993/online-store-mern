@@ -246,8 +246,13 @@ body {
   }
 
   .app-container {
+    display: block;
     padding-left: 10px;
     padding-right: 10px;
+
+    .app-inner {
+      width: auto;
+    }
   }
   
   .app-content {
