@@ -23,6 +23,8 @@ import { selectFavoriteItemById } from '../../redux/favorites/selectors';
 import { GallerySkeleton } from './GallerySkeleton';
 import { MainDataSkeleton } from './MainDataSkeleton';
 import { InfoSkeleton } from './InfoSkeleton';
+import MediaQuery from 'react-responsive';
+import { GallerySkeleton320 } from './Skeletons/GallerySkeleton320';
 
 export const Product: FC = () => {
   const dispatch = useAppDispatch();
@@ -135,7 +137,17 @@ export const Product: FC = () => {
       <div className={styles.productContainer}>
         <div className={styles.productImage}>
           {isLoading ? (
-            <GallerySkeleton />
+            <>
+              <MediaQuery maxWidth={369}>
+                <GallerySkeleton320 />
+              </MediaQuery>
+              {/* <MediaQuery minWidth={370} maxWidth={699}>
+
+              </MediaQuery> */}
+              <MediaQuery minWidth={700}>
+                <GallerySkeleton />
+              </MediaQuery>
+            </>
           ) : (
             <>
               <div>
