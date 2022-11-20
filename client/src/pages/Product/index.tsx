@@ -25,6 +25,8 @@ import { MainDataSkeleton } from './MainDataSkeleton';
 import { InfoSkeleton } from './InfoSkeleton';
 import MediaQuery from 'react-responsive';
 import { GallerySkeleton320 } from './Skeletons/GallerySkeleton320';
+import { GallerySkeleton370 } from './Skeletons/GallerySkeleton370';
+import { MainDataSkeletonSmartphone } from './Skeletons/MainDataSkeletonSmartphone';
 
 export const Product: FC = () => {
   const dispatch = useAppDispatch();
@@ -141,9 +143,9 @@ export const Product: FC = () => {
               <MediaQuery maxWidth={369}>
                 <GallerySkeleton320 />
               </MediaQuery>
-              {/* <MediaQuery minWidth={370} maxWidth={699}>
-
-              </MediaQuery> */}
+              <MediaQuery minWidth={370} maxWidth={699}>
+                <GallerySkeleton370 />
+              </MediaQuery>
               <MediaQuery minWidth={700}>
                 <GallerySkeleton />
               </MediaQuery>
@@ -176,7 +178,14 @@ export const Product: FC = () => {
         </div>
         <div className={styles.mainData}>
           {isLoading ? (
-            <MainDataSkeleton />
+            <>
+              <MediaQuery maxWidth={699}>
+                <MainDataSkeletonSmartphone />
+              </MediaQuery>
+              <MediaQuery minWidth={700}>
+                <MainDataSkeleton />
+              </MediaQuery>
+            </>
           ) : (
             <>
               <h1>{currentProduct.name}</h1>
