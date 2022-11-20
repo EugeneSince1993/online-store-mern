@@ -45,12 +45,12 @@ export const Header: FC = () => {
             </NavLink>
           </div>
           {location.pathname === '/' && <Search />}
-          <MediaQuery minWidth={700}>
+          <MediaQuery minWidth={1024}>
             <Nav cartTotal={cartTotal} favoritesTotal={favoritesTotal} />
           </MediaQuery>
         </div>
       </header>
-      <MediaQuery maxWidth={699}>
+      <MediaQuery maxWidth={1023}>
         <Nav cartTotal={cartTotal} favoritesTotal={favoritesTotal} />
       </MediaQuery>
     </>

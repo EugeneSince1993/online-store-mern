@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
+import React, { FC, useCallback, useEffect, useMemo } from "react";
 import MediaQuery from 'react-responsive';
 import { Filters, Sorting, Pagination, Collapse, ProductItem, ProductItemSkeletonAbove700, ProductItemSkeleton320, ProductItemSkeleton370 } from "../../components";
 import { selectFilter } from "../../redux/filter/selectors";

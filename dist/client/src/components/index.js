@@ -23,10 +23,10 @@ var Collapse_1 = require("./Collapse");
 Object.defineProperty(exports, "Collapse", { enumerable: true, get: function () { return Collapse_1.Collapse; } });
 var AppRouter_1 = require("./AppRouter");
 Object.defineProperty(exports, "AppRouter", { enumerable: true, get: function () { return AppRouter_1.AppRouter; } });
-var ProductItemSkeleton320_1 = require("./ProductItem/ProductItemSkeleton320");
+var ProductItemSkeleton320_1 = require("./ProductItem/Skeletons/ProductItemSkeleton320");
 Object.defineProperty(exports, "ProductItemSkeleton320", { enumerable: true, get: function () { return ProductItemSkeleton320_1.ProductItemSkeleton320; } });
-var ProductItemSkeleton370_1 = require("./ProductItem/ProductItemSkeleton370");
+var ProductItemSkeleton370_1 = require("./ProductItem/Skeletons/ProductItemSkeleton370");
 Object.defineProperty(exports, "ProductItemSkeleton370", { enumerable: true, get: function () { return ProductItemSkeleton370_1.ProductItemSkeleton370; } });
-var ProductItemSkeletonAbove700_1 = require("./ProductItem/ProductItemSkeletonAbove700");
+var ProductItemSkeletonAbove700_1 = require("./ProductItem/Skeletons/ProductItemSkeletonAbove700");
 Object.defineProperty(exports, "ProductItemSkeletonAbove700", { enumerable: true, get: function () { return ProductItemSkeletonAbove700_1.ProductItemSkeletonAbove700; } });
 //# sourceMappingURL=index.js.map

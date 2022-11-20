@@ -29,7 +29,7 @@
   }
 }
 
-@media screen and (max-width: 699px) {
+@media screen and (max-width: 1023px) {
   .header {
     display: block;
     height: auto;
@@ -48,7 +48,7 @@
   }
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 1024px) {
   .header {
     position: fixed;
     width: 100%;
@@ -57,7 +57,7 @@
   }
 }
 
-@media screen and (min-width: 700px) and (max-width: 1199px) {
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
   .header {
     padding-left: 20px;
     padding-right: 20px;
