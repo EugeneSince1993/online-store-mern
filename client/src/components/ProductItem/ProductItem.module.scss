@@ -170,13 +170,36 @@
 
 @media screen and (min-width: 700px) and (max-width: 1199px) {
   .productItem {
-    flex-basis: 50%;
+    width: 185px;
     height: 298px;
+
+    &:nth-of-type(odd) {
+      margin-right: 20px;
+    }
+
+    &:nth-of-type(even) {
+      margin-right: 0;
+    }
 
     .image {
 
       img {
         max-height: 130px;
+      }
+    }
+
+    .productLink {
+      font-size: 16px;
+    }
+
+    .buyContainer {
+
+      .buy {
+        .price {
+          .priceValue span, .currency {
+            font-size: 18px;
+          }
+        }
       }
     }
   }

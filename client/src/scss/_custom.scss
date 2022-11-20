@@ -219,16 +219,30 @@ body {
   }
 }
 
+@media screen and (min-width: 1024px) {
+  .app-content {
+    padding-top: 91px;
+  }
+}
+
+@media screen and (min-width: 700px) and (max-width: 1023px) {
+  * {
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  h3 {
+    font-size: 22px;
+  }
+}
+
 @media screen and (min-width: 700px) and (max-width: 1199px) {
   .app-container {
     padding-left: 20px;
     padding-right: 20px;
-  }
-}
-
-@media screen and (min-width: 700px) {
-  .app-content {
-    padding-top: 91px;
   }
 }
 

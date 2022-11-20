@@ -194,6 +194,24 @@
 
         .productListWrapper {
           height: 1272px;
+
+          .productList {
+            justify-content: center;
+            max-width: 509px;
+            margin-left: auto;
+            margin-right: auto;
+
+            .productSkeleton {
+              margin-bottom: 20px;
+    
+              &:nth-of-type(odd) {
+                margin-right: 20px;
+              }
+              &:nth-of-type(even) {
+                margin-right: 0;
+              }
+            }
+          }
         }
       }
     }
