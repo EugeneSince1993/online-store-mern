@@ -1,7 +1,7 @@
 import { FC } from "react";
 import ContentLoader from "react-content-loader";
 
-export const ProductItemSkeletonAbove700: FC<any> = (props) => (
+export const ProductItemSkeletonDesktop: FC<any> = (props) => (
   <ContentLoader 
     speed={2}
     width={203}

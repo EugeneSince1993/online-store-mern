@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProductItemSkeletonAbove700 = exports.ProductItemSkeleton370 = exports.ProductItemSkeleton320 = exports.AppRouter = exports.Collapse = exports.FavoriteItem = exports.CartItem = exports.ProductItem = exports.Pagination = exports.Button = exports.Sorting = exports.Filters = exports.Footer = exports.Header = void 0;
+exports.ProductItemSkeletonTablet = exports.ProductItemSkeletonDesktop = exports.ProductItemSkeleton370 = exports.ProductItemSkeleton320 = exports.AppRouter = exports.Collapse = exports.FavoriteItem = exports.CartItem = exports.ProductItem = exports.Pagination = exports.Button = exports.Sorting = exports.Filters = exports.Footer = exports.Header = void 0;
 var Header_1 = require("./Header");
 Object.defineProperty(exports, "Header", { enumerable: true, get: function () { return Header_1.Header; } });
 var Footer_1 = require("./Footer");
@@ -27,6 +27,8 @@ var ProductItemSkeleton320_1 = require("./ProductItem/Skeletons/ProductItemSkele
 Object.defineProperty(exports, "ProductItemSkeleton320", { enumerable: true, get: function () { return ProductItemSkeleton320_1.ProductItemSkeleton320; } });
 var ProductItemSkeleton370_1 = require("./ProductItem/Skeletons/ProductItemSkeleton370");
 Object.defineProperty(exports, "ProductItemSkeleton370", { enumerable: true, get: function () { return ProductItemSkeleton370_1.ProductItemSkeleton370; } });
-var ProductItemSkeletonAbove700_1 = require("./ProductItem/Skeletons/ProductItemSkeletonAbove700");
-Object.defineProperty(exports, "ProductItemSkeletonAbove700", { enumerable: true, get: function () { return ProductItemSkeletonAbove700_1.ProductItemSkeletonAbove700; } });
+var ProductItemSkeletonDesktop_1 = require("./ProductItem/Skeletons/ProductItemSkeletonDesktop");
+Object.defineProperty(exports, "ProductItemSkeletonDesktop", { enumerable: true, get: function () { return ProductItemSkeletonDesktop_1.ProductItemSkeletonDesktop; } });
+var ProductItemSkeletonTablet_1 = require("./ProductItem/Skeletons/ProductItemSkeletonTablet");
+Object.defineProperty(exports, "ProductItemSkeletonTablet", { enumerable: true, get: function () { return ProductItemSkeletonTablet_1.ProductItemSkeletonTablet; } });
 //# sourceMappingURL=index.js.map

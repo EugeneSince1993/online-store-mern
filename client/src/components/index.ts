@@ -11,4 +11,5 @@ export { Collapse } from './Collapse';
 export { AppRouter } from './AppRouter';
 export { ProductItemSkeleton320 } from './ProductItem/Skeletons/ProductItemSkeleton320';
 export { ProductItemSkeleton370 } from './ProductItem/Skeletons/ProductItemSkeleton370';
-export { ProductItemSkeletonAbove700 } from "./ProductItem/Skeletons/ProductItemSkeletonAbove700";
+export { ProductItemSkeletonDesktop } from "./ProductItem/Skeletons/ProductItemSkeletonDesktop";
+export { ProductItemSkeletonTablet } from "./ProductItem/Skeletons/ProductItemSkeletonTablet";

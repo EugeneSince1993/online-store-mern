@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useEffect, useMemo } from "react";
 import MediaQuery from 'react-responsive';
-import { Filters, Sorting, Pagination, Collapse, ProductItem, ProductItemSkeletonAbove700, ProductItemSkeleton320, ProductItemSkeleton370 } from "../../components";
+import { Filters, Sorting, Pagination, Collapse, ProductItem, ProductItemSkeletonDesktop, ProductItemSkeleton320, ProductItemSkeleton370, ProductItemSkeletonTablet } from "../../components";
 import { selectFilter } from "../../redux/filter/selectors";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchProducts } from "../../redux/product/asyncActions";
@@ -213,17 +213,20 @@ export const Home: FC = () => {
   const cpuCoresArr = [setCpuCores, cpuCores];
   const colorsArr = [setColors, colors];
 
-  const skeletonsAbove700 = [...new Array(8)].map((_, index) => {
-    return <ProductItemSkeletonAbove700 className={styles.productSkeleton} key={index} />;
-  });
-
   const skeletons320 = [...new Array(8)].map((_, index) => {
     return <ProductItemSkeleton320 className={styles.productSkeleton} key={index} />;
   });
-
   const skeletons370 = [...new Array(8)].map((_, index) => {
     return <ProductItemSkeleton370 className={styles.productSkeleton} key={index} />;
   });
+  const skeletonsDesktop = [...new Array(8)].map((_, index) => {
+    return <ProductItemSkeletonDesktop className={styles.productSkeleton} key={index} />;
+  });
+  const skeletonsTablet = [...new Array(8)].map((_, index) => {
+    return <ProductItemSkeletonTablet className={styles.productSkeleton} key={index} />;
+  });
+
+
   
   return (
     <div className={styles.homeContainer}>
@@ -266,7 +269,8 @@ export const Home: FC = () => {
                 <div className={styles.productList}>
                   <MediaQuery maxWidth={369}>{skeletons320}</MediaQuery>
                   <MediaQuery minWidth={370} maxWidth={699}>{skeletons370}</MediaQuery>
-                  <MediaQuery minWidth={700}>{skeletonsAbove700}</MediaQuery>
+                  <MediaQuery minWidth={700} maxWidth={1023}>{skeletonsTablet}</MediaQuery>
+                  <MediaQuery minWidth={1024}>{skeletonsDesktop}</MediaQuery>
                 </div>
               </div>
               <div className={styles.productsPagination}>
