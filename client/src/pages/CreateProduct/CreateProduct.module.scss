@@ -165,3 +165,57 @@ h3 {
     }
   }
 }
+
+@media screen and (max-width: 699px) {
+  .form {
+    width: 100%;
+
+    form {
+
+      .inputGroup {
+
+        &.productThumbnail,
+        &.productImages {
+
+          .inputHeading,
+          a {
+            font-size: 16px;
+          }
+        }
+
+        &.productImages {
+          margin-bottom: 15px;
+
+          > a {
+            margin-bottom: 15px;
+          }
+
+          .imagesContainer {
+            flex-wrap: wrap;
+            margin-top: 0;
+    
+            .imageContainer {
+              margin-bottom: 15px;
+            }
+          }
+
+          .errorMsg {
+            margin-bottom: 15px;
+          }
+        }
+
+        input,
+        textarea,
+        select,
+        .errorMsg {
+          font-size: 16px;
+        }
+      }
+
+      .submit,
+      .cancel {
+        font-size: 16px;
+      }
+    }
+  }
+}
