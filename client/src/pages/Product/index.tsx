@@ -27,6 +27,8 @@ import { InfoSkeleton } from './Skeletons/InfoSkeleton';
 import { GallerySkeleton320 } from './Skeletons/GallerySkeleton320';
 import { GallerySkeleton370 } from './Skeletons/GallerySkeleton370';
 import { MainDataSkeletonSmartphone } from './Skeletons/MainDataSkeletonSmartphone';
+import { GallerySkeletonTablet } from './Skeletons/GallerySkeletonTablet';
+import { MainDataSkeletonTablet } from './Skeletons/MainDataSkeletonTablet';
 
 export const Product: FC = () => {
   const dispatch = useAppDispatch();
@@ -146,7 +148,10 @@ export const Product: FC = () => {
               <MediaQuery minWidth={370} maxWidth={699}>
                 <GallerySkeleton370 />
               </MediaQuery>
-              <MediaQuery minWidth={700}>
+              <MediaQuery minWidth={700} maxWidth={1199}>
+                <GallerySkeletonTablet />
+              </MediaQuery>              
+              <MediaQuery minWidth={1200}>
                 <GallerySkeleton />
               </MediaQuery>
             </>
@@ -182,7 +187,10 @@ export const Product: FC = () => {
               <MediaQuery maxWidth={699}>
                 <MainDataSkeletonSmartphone />
               </MediaQuery>
-              <MediaQuery minWidth={700}>
+              <MediaQuery minWidth={700} maxWidth={1199}>
+                <MainDataSkeletonTablet />
+              </MediaQuery>
+              <MediaQuery minWidth={1200}>
                 <MainDataSkeleton />
               </MediaQuery>
             </>

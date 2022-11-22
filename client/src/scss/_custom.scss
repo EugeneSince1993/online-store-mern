@@ -241,8 +241,13 @@ body {
 
 @media screen and (min-width: 700px) and (max-width: 1199px) {
   .app-container {
+    display: block;
     padding-left: 20px;
     padding-right: 20px;
+
+    .app-inner {
+      width: auto;
+    }
   }
 }
 

@@ -196,6 +196,32 @@
   }
 }
 
+@media screen and (min-width: 700px) and (max-width: 1199px) {
+  .productContainer {
+
+    .productImage {
+      width: 298px;
+    }
+
+    .mainData {
+
+      .priceAndBuy {
+
+        .price {
+
+          .priceValue span {
+            font-size: 22px;
+          }
+
+          .currency {
+            font-size: 22px;
+          }
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 699px) {
   .productContainer {
     display: block;
