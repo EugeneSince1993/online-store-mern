@@ -100,3 +100,54 @@
     }
   }
 }
+
+@media screen and (min-width: 700px) and (max-width: 1199px) {
+  .account {
+  
+    .content {
+      display: block;
+
+      .productData {
+        width: 100%;
+
+        .productListContainer {
+
+          .productsPagination {
+            margin-top: 30px;
+            margin-bottom: 30px;
+          }
+        }
+      }
+
+      .userData {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 699px) {
+  .account {
+  
+    .content {
+      display: block;
+  
+      .productData {
+        width: auto;
+  
+        .productListContainer {
+          
+          .productsPagination {
+            width: auto;
+            margin-top: 30px;
+            margin-bottom: 30px;
+          }
+        }
+      }
+    
+      .userData {
+        width: auto;
+      }
+    }
+  }
+}

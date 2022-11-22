@@ -7,9 +7,11 @@
     align-items: center;
     width: 110px;
     margin-right: 20px;
+    overflow: hidden;
 
     img {
       height: 100px;
+      max-width: 100%;
       object-fit: contain;
       margin-left: auto;
       margin-right: auto;
@@ -152,7 +154,7 @@
     .dataContainer {
   
       .productInfo {
-        width: 290px;
+        width: 280px;
       }
     }
   }
@@ -194,8 +196,22 @@
         }
   
         .productCode {
+          display: inline-block;
+          width: 193px;
           font-size: 16px;
           line-height: 22px;
+          margin-bottom: 0;
+          margin-right: 15px;
+        }
+
+        .icons {
+          display: inline-block;
+          margin-right: 0;
+          margin-bottom: 0;
+
+          .rating {
+            margin-right: 0;
+          }
         }
       }
   
@@ -238,6 +254,30 @@
             font-size: 16px;
           }
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 369px) {
+  .productItem {
+  
+    .dataContainer {
+  
+      .productInfo {
+  
+        .productCode {
+          width: 165px;
+        }
+      }
+  
+      .price {
+        width: 79px;
+        margin-right: 10px;
+      }
+
+      .changeProduct {
+        margin-right: 12px;
       }
     }
   }
