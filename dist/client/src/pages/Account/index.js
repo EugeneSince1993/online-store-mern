@@ -37,6 +37,9 @@ const Account = () => {
     (0, react_1.useEffect)(() => {
         getProducts();
     }, [sort.sortProperty]);
+    (0, react_1.useEffect)(() => {
+        window.scrollTo(0, 0);
+    }, []);
     const currentData = (0, react_1.useMemo)(() => {
         const firstPageIndex = (currentPage - 1) * pageSize;
         const lastPageIndex = firstPageIndex + pageSize;

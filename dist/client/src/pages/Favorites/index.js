@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Favorites = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
+const react_1 = require("react");
 const hooks_1 = require("../../redux/hooks");
 const react_redux_1 = require("react-redux");
 const components_1 = require("../../components");
@@ -20,6 +21,9 @@ const Favorites = () => {
             dispatch((0, favoriteSlice_1.clearFavoriteItems)());
         }
     };
+    (0, react_1.useEffect)(() => {
+        window.scrollTo(0, 0);
+    }, []);
     if (!items.length) {
         return (0, jsx_runtime_1.jsx)(FavoritesEmpty_1.FavoritesEmpty, {});
     }

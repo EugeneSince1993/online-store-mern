@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cart = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
+const react_1 = require("react");
 const hooks_1 = require("../../redux/hooks");
 const react_redux_1 = require("react-redux");
 const selectors_1 = require("../../redux/cart/selectors");
@@ -18,6 +19,9 @@ const Cart = () => {
     const dispatch = (0, hooks_1.useAppDispatch)();
     const { totalPrice, items } = (0, react_redux_1.useSelector)(selectors_1.selectCart);
     const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+    (0, react_1.useEffect)(() => {
+        window.scrollTo(0, 0);
+    }, []);
     const onClickClear = () => {
         if (window.confirm('Очистить корзину?')) {
             dispatch((0, cartSlice_1.clearItems)());

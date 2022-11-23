@@ -44,6 +44,7 @@ const Home = () => {
         getProducts();
     }, [sort.sortProperty]);
     (0, react_1.useEffect)(() => {
+        window.scrollTo(0, 0);
         dispatch((0, asyncActions_2.getRangeExtremes)());
     }, []);
     const setCheckedItems = (itemList) => {

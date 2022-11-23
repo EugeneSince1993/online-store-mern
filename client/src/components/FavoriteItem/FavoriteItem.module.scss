@@ -169,12 +169,13 @@
 
       .price {
         display: inline-block;
-        margin-right: 45px;
+        width: 79px;
+        margin-right: 20px;
       }
 
       .addToCart {
         display: inline-block;
-        margin-right: 25px;
+        margin-right: 20px;
 
         button {
           padding: 7px;
@@ -206,6 +207,22 @@
             font-size: 16px;
           }
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 369px) {
+  .productItem {
+  
+    .dataContainer {
+
+      .price {
+        margin-right: 10px;
+      }
+
+      .addToCart {
+        margin-right: 10px;
       }
     }
   }

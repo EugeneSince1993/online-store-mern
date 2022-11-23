@@ -138,8 +138,8 @@ const UpdateProduct = () => {
         }),
     });
     (0, react_1.useEffect)(() => {
-        dispatch((0, asyncActions_1.fetchProductById)(id));
         window.scrollTo(0, 0);
+        dispatch((0, asyncActions_1.fetchProductById)(id));
     }, []);
     const handleClickInputFile = () => {
         if (inputFileRef.current) {

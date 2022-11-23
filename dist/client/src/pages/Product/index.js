@@ -44,6 +44,7 @@ const Product = () => {
     const [photoIndex, setPhotoIndex] = (0, react_1.useState)(0);
     const [isOpen, setIsOpen] = (0, react_1.useState)(false);
     (0, react_1.useEffect)(() => {
+        window.scrollTo(0, 0);
         dispatch((0, asyncActions_1.fetchProductById)(id));
     }, []);
     const objIsNotEmpty = (obj) => {
