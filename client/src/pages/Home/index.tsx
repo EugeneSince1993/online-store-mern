@@ -60,6 +60,7 @@ export const Home: FC = () => {
   }, [sort.sortProperty]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(getRangeExtremes());
   }, []);
 

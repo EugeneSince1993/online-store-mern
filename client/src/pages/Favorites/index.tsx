@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useAppDispatch } from '../../redux/hooks';
 import { useSelector } from 'react-redux';
 import { Button, FavoriteItem } from '../../components';
@@ -17,6 +17,10 @@ export const Favorites: FC = () => {
       dispatch(clearFavoriteItems());
     }
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (!items.length) {
     return <FavoritesEmpty />;

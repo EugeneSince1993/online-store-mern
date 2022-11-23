@@ -42,6 +42,7 @@ export const Product: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(fetchProductById(id));
   }, []);
 

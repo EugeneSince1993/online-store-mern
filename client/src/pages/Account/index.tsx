@@ -40,6 +40,10 @@ export const Account: FC = () => {
     getProducts();
   }, [sort.sortProperty]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const currentData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * pageSize;
     const lastPageIndex = firstPageIndex + pageSize;

@@ -187,6 +187,10 @@ export const CreateProduct: FC = () => {
     formik.setFieldValue('images', productImagesStr);
   }, [productImages]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div>
       <h3>Добавление товара</h3>

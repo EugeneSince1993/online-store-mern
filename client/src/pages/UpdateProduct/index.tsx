@@ -113,8 +113,8 @@ export const UpdateProduct: FC = () => {
   });  
 
   useEffect(() => {
-    dispatch(fetchProductById(id));
     window.scrollTo(0, 0);
+    dispatch(fetchProductById(id));
   }, []);
 
   const handleClickInputFile = () => {

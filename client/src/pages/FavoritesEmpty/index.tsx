@@ -1,9 +1,13 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import styles from './FavoritesEmpty.module.scss';
 import { Button } from '../../components';
 import favoritesEmpty from '../../assets/img/favorites.png';
 
 export const FavoritesEmpty: FC = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className={styles.favoritesEmpty}>
       <h1>Избранное</h1>

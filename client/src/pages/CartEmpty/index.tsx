@@ -1,9 +1,13 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import styles from './CartEmpty.module.scss';
 import { Button } from '../../components';
 import cartEmpty from '../../assets/img/cart-empty.png';
 
 export const CartEmpty: FC = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className={styles.cartEmpty}>
       <h1>Корзина</h1>
