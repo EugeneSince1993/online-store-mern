@@ -85,6 +85,11 @@ h3 {
       }
 
       &.productImages {
+        margin-bottom: 15px;
+
+        > a {
+          margin-bottom: 15px;
+        }
 
         input.inputFilesImages {
           display: none;
@@ -92,9 +97,10 @@ h3 {
 
         .imagesContainer {
           display: flex;
-          margin-top: 15px;
+          flex-wrap: wrap;
 
           .imageContainer {
+            margin-bottom: 15px;
 
             .image {
               margin-right: 20px;
@@ -111,10 +117,14 @@ h3 {
           }
         }
 
+        .errorMsg {
+          margin-bottom: 15px;
+        }
+
         .images {
           display: none;
         }
-      }      
+      }     
   
       .errorMsg {
         margin-top: 10px;
@@ -166,9 +176,8 @@ h3 {
   }
 }
 
-@media screen and (max-width: 699px) {
+@media screen and (max-width: 1023px) {
   .form {
-    width: 100%;
 
     form {
 
@@ -180,27 +189,6 @@ h3 {
           .inputHeading,
           a {
             font-size: 16px;
-          }
-        }
-
-        &.productImages {
-          margin-bottom: 15px;
-
-          > a {
-            margin-bottom: 15px;
-          }
-
-          .imagesContainer {
-            flex-wrap: wrap;
-            margin-top: 0;
-    
-            .imageContainer {
-              margin-bottom: 15px;
-            }
-          }
-
-          .errorMsg {
-            margin-bottom: 15px;
           }
         }
 
@@ -217,5 +205,11 @@ h3 {
         font-size: 16px;
       }
     }
+  }
+}
+
+@media screen and (max-width: 699px) {
+  .form {
+    width: 100%;
   }
 }
