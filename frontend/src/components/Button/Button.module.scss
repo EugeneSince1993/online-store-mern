@@ -1,0 +1,47 @@
+.buttonContainer {
+  display: flex;
+
+  &.justifyContentCenter {
+    justify-content: center;
+  }
+}
+
+.button {
+  display: inline-block;
+  font-size: 14px;
+  padding: 7px 12px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &.outlined {
+    background-color: #fff;
+    border: 1px solid #000;
+    color: #000;
+
+    &:hover {
+      color: #2d7dff;
+      border-color: #2d7dff;
+    }
+  }
+
+  &.solid {
+    background-color: #2d7dff;
+    color: #fff;
+    border-style: none;
+
+    &:hover {
+      background-color: #5c9aff;
+    }
+  }
+
+  &.db {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  &.dib {
+    display: inline-block;
+  }
+}

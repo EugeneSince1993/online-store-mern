@@ -1,1 +1,0 @@
-This application represents an online store of smartphones.

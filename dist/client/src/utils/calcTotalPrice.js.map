@@ -1,1 +1,0 @@
-{"version":3,"file":"calcTotalPrice.js","sourceRoot":"","sources":["../../../../client/src/utils/calcTotalPrice.ts"],"names":[],"mappings":";;;AAEO,MAAM,cAAc,GAAG,CAAC,KAAkB,EAAE,EAAE;IACnD,OAAO,KAAK,CAAC,MAAM,CAAC,CAAC,GAAG,EAAE,GAAG,EAAE,EAAE,CAAC,GAAG,CAAC,KAAK,GAAG,GAAG,CAAC,KAAK,GAAG,GAAG,EAAE,CAAC,CAAC,CAAC;AACpE,CAAC,CAAC;AAFW,QAAA,cAAc,kBAEzB"}

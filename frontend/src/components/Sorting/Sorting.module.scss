@@ -1,0 +1,74 @@
+.sorting {
+  display: flex;
+  margin-bottom: 25px;
+  .rating, .price, .title {
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+  }
+  .price {
+    margin-right: 20px;
+  }
+  .price, .title {
+    i {
+      margin-left: 5px;
+    }
+  }
+  .rating {
+    margin-right: 42px;
+  }
+  .price {
+    width: 72px;
+  }
+  .title {
+    width: 104px;
+  }
+  .selected {
+    font-weight: 500;
+  }
+  .unselected {
+    font-weight: 400;
+  }
+}
+
+@media screen and (min-width: 700px) and (max-width: 1023px) {
+  .sorting {
+
+    .rating, .price span, .title span {
+      font-size: 16px;
+    }
+
+    .rating {
+      margin-right: 46px;
+    }
+
+    .price {
+      width: 83px;
+    }
+
+    .title {
+      width: 120px;
+    }
+  }
+}
+
+@media screen and (max-width: 699px) {
+  .sorting {
+    padding-left: 10px;
+
+    .rating, .price span, .title span {
+      font-size: 16px;
+    }
+
+    .price {
+      width: auto;
+    }
+
+    .title {
+      display: none;
+    }
+  }
+}

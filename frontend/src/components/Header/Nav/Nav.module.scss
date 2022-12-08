@@ -1,0 +1,282 @@
+.nav {
+
+  nav ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-right: 15px;
+
+      &.favoritesListItem {
+        margin-right: 40px;
+      }
+
+      &.accountListItem, 
+      &.logoutListItem, 
+      &.loginListItem, 
+      &.registrationListItem {
+
+        i {
+          color: rgb(97, 97, 97);
+        }
+      }
+
+      a {
+        display: inline-block;
+        color: #000;
+        cursor: pointer;
+
+        .linkInner {
+
+          .linkGroup {
+            display: flex;
+            align-items: center;
+          }
+
+          .linkInnerText {
+            display: flex;
+            align-items: center;
+            margin-right: 5px;
+
+            i, div {
+              display: block;
+            }
+            
+            i {
+              margin-right: 5px;
+              font-size: 16px;
+            }
+          }
+
+          .totalCount {
+            width: 20px;
+            height: 20px;
+            background-color: #2d7dff;
+            border-radius: 50%;
+            position: relative;
+
+            div {
+              position: absolute;
+              top: 2px;
+              left: 50%;
+              -webkit-transform: translateX(-50%);
+              transform: translateX(-50%);
+              color: #fff;
+              font-weight: 500;
+            }
+          }
+
+          &.cartLink {
+
+            .linkGroup {
+              width: 105px;
+
+              .linkInnerText {
+
+                i {
+                  color: #2d7dff;
+                }
+              }
+            }
+          }
+
+          &.favoritesLink {
+
+            .linkGroup {
+              width: 119px;
+
+              .linkInnerText {
+
+                i {
+                  color: rgb(255, 131, 189);
+                }
+              }
+            }
+
+            .totalCount {
+              background-color: rgb(255, 131, 189);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .nav {
+    background-color: #efefef;
+    padding: 11px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 4;
+
+    nav ul {
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      li {
+        width: 50%;
+        margin-right: 0;
+
+        &.cartListItem {
+          margin-bottom: 8px;
+        }
+
+        &.favoritesListItem {
+          margin-right: 0;
+          margin-bottom: 8px;
+        }
+
+        &.accountListItem {
+          width: 60%;
+        }
+
+        &.logoutListItem {
+          width: 40%;
+
+          .linkGroup {
+            justify-content: flex-end;
+
+            .linkInnerText {
+              margin-right: 26px;
+            }
+          }
+        }
+
+        &.loginListItem {
+
+        }
+
+        &.registrationListItem {
+
+          .linkGroup {
+            justify-content: flex-end;
+
+            .linkInnerText {
+              margin-right: 10px;
+            }
+          }
+        }
+
+        a {
+          display: block;
+
+          .linkInner {
+
+            &.cartLink {
+
+              .linkGroup {
+                width: 115px;
+              }
+            }
+
+            &.favoritesLink {
+              margin-right: 0;
+              display: flex;
+              justify-content: flex-end;
+
+              .linkGroup {
+                width: 131px;
+              }
+            }
+
+            .linkInnerText {
+              margin-right: 0;
+
+              i {
+                font-size: 18px;
+              }
+
+              div {
+                font-size: 16px;
+              }
+            }
+
+            .totalCount {
+              margin-left: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 700px) and (max-width: 1023px) {
+  .nav {
+
+    nav ul {
+
+      li {
+        flex-basis: 25%;
+
+        &.cartListItem {
+          margin-bottom: 0;
+        }
+
+        &.favoritesListItem {
+          margin-bottom: 0;
+
+          a {
+            
+            .linkInner {
+              display: block;
+            }
+          }
+        }
+
+        &.accountListItem {
+          a {
+            .linkInner {
+              .linkGroup {
+                display: block;
+              }
+            }
+          }
+        }
+
+        &.logoutListItem {
+          a {
+            .linkInner {
+              .linkGroup {
+                display: block;
+    
+                .linkInnerText {
+                  margin-right: 0;
+                }
+              }
+            }
+          }
+        }
+
+        &.loginListItem {
+          a {
+            .linkInner {
+              .linkGroup {
+                display: block;
+              }
+            }
+          }
+        }
+
+        &.registrationListItem {
+          a {
+            .linkInner {
+              .linkGroup {
+                display: block;
+    
+                .linkInnerText {
+                  margin-right: 0;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

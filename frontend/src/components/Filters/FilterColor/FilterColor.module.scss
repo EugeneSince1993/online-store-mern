@@ -1,0 +1,66 @@
+.filterColorList {
+  display: flex;
+  flex-wrap: wrap;
+
+  label.formControl {
+    display: block;
+    flex-basis: 25%;
+    margin-bottom: 10px;  
+
+    input[type="checkbox"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 32px;
+      height: 32px;
+      border: 1px solid #efefef;
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+      z-index: 3;
+
+      &:checked::before,
+      &:hover::before, 
+      &:checked::after,
+      &:hover::after {
+        content: '';
+        display: block;
+        position: absolute;
+        border-radius: 50%;
+        background-color: transparent;            
+        box-sizing: border-box;
+      }
+
+      &:checked::before,
+      &:hover::before {
+        width: 34px;
+        height: 34px;
+        top: calc(50% - 17px);
+        left: calc(50% - 17px);
+        border: 2px solid #fff;
+        z-index: 2;
+      }
+
+      &:checked::after,
+      &:hover::after {
+        width: 38px;
+        height: 38px;
+        top: calc(50% - 19px);
+        left: calc(50% - 19px);
+        border: 2px solid #bcbcbc;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 699px) {
+  .filterColorList {
+
+    label.formControl {
+      margin-bottom: 16px;
+
+      input[type="checkbox"]:not(:checked)::after {
+        border-style: none;
+      }
+    }
+  }
+}

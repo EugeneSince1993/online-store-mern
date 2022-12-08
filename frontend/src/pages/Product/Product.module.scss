@@ -1,0 +1,407 @@
+.productContainer {
+  display: flex;
+  height: 414px;
+
+  .productImage {
+    width: 419px;
+    margin-right: 40px;
+  }
+
+  .mainData {
+
+    h1 {
+      margin-bottom: 25px;
+    }
+
+    .shortSpecs {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .productCode {
+      margin-bottom: 20px;
+      color: #757575;
+    }
+
+    .icons {
+      display: flex;
+      align-items: center;
+      margin-right: 30px;
+      margin-bottom: 20px;
+
+      i {
+        margin-right: 4px;
+      }
+
+      .testimonials {
+        cursor: pointer;
+      }
+
+      .rating {
+        margin-right: 15px;
+
+        i {
+          color: rgb(255, 192, 74);
+        }
+
+        .tooltipText {
+          width: 120px;
+          margin-left: -60px;
+        }
+      }
+
+      .testimonials {
+        display: none;
+
+        i {
+          color: rgb(173, 173, 173);
+        }
+
+        .tooltipText {
+          width: 95px;
+          margin-left: -47px;
+        }
+      }
+    }
+
+    .priceAndBuy {
+      margin-bottom: 20px;
+
+      .price {
+        display: block;
+        margin-bottom: 20px;
+
+        .priceValue, .currency {
+          display: inline-block;
+          font-size: 28px;
+        }
+
+        .priceValue {
+          margin-right: 5px;
+        }
+      }
+
+      .addToCartAndFavorites {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        
+        .addToCart {
+  
+          button {
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            padding: 7px;
+            background-color: #2d7dff;
+            transition: background-color 0.2s ease-in-out;
+            margin-right: 30px;
+            width: 115px;
+
+            &:hover {
+              background-color: #5c9aff;
+            }
+  
+            .toCartInner {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+  
+              .cartIcon {
+                display: inline-block;
+                margin-right: 7px;
+                
+                i {
+                  color: #fff;
+                  font-size: 16px;
+                }
+              }
+    
+              .toCart {
+                display: inline-block;
+                color: #fff;
+                font-size: 16px;
+              }
+            }
+          }
+        }
+  
+        .favorites {
+          cursor: pointer;
+
+          .favoritesInner {
+
+            i {
+              font-size: 24px;
+  
+              &.add {
+                color: rgb(173, 173, 173);
+              }
+  
+              &.added {
+                color: rgb(255, 131, 189);
+              }
+            }
+    
+            .tooltipText {
+              width: 175px;
+              margin-left: -88px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.info {
+  display: flex;
+  border-top: 1px solid #bebebe;
+
+  .specs {
+    padding-left: 15px;
+
+    .spec {
+      display: flex;
+      margin-bottom: 10px;
+
+      .specName {
+        width: 230px;
+      }
+    }
+  }
+
+  .productDescription {
+    line-height: 20px;
+    width: 1000px;
+    padding-left: 15px;
+
+    div {
+      margin-bottom: 10px;
+    }
+
+    h6 {
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .info {
+
+    .productDescription {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (min-width: 700px) and (max-width: 1199px) {
+  .productContainer {
+
+    .productImage {
+      width: 298px;
+    }
+
+    .mainData {
+
+      .priceAndBuy {
+
+        .price {
+
+          .priceValue span {
+            font-size: 22px;
+          }
+
+          .currency {
+            font-size: 22px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 699px) {
+  .productContainer {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    height: auto;
+  
+    .productImage {
+      padding-right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      width: 333px;
+    }
+  
+    .mainData {
+      margin-top: 30px;
+
+      .shortSpecs {
+        font-size: 17px;
+        line-height: 24px;
+      }
+
+      .productCode {
+        font-size: 16px;
+      }
+
+      .priceAndBuy {
+
+        .price {
+
+          .priceValue span {
+            font-size: 22px;
+          }
+
+          .currency {
+            font-size: 22px;
+          }
+        }
+
+        .addToCartAndFavorites {
+
+          .addToCart {
+
+            button {
+
+              div {
+
+                .cartIcon {
+
+                  i {
+                    font-size: 16px;
+                  }
+                }
+
+                .toCart {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+
+          .favorites {
+
+            i {
+              font-size: 28px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .info {
+  
+    .specs {
+  
+      .spec {
+
+        .specName {
+          font-size: 16px;
+          width: 240px;
+        }
+
+        .specValue {
+          font-size: 16px;
+          width: 88px;
+          word-wrap: break-word;
+          padding-left: 10px;
+        }
+      }
+    }
+
+    .productDescription {
+      width: 100%;
+      line-height: 24px;
+
+      div {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 369px) {
+  .productContainer {
+  
+    .productImage {
+      width: 289px;
+    }
+  
+    .mainData {
+
+      .shortSpecs {
+
+      }
+
+      .productCode {
+
+      }
+
+      .priceAndBuy {
+
+        .price {
+
+          .priceValue span {
+
+          }
+
+          .currency {
+
+          }
+        }
+
+        .addToCartAndFavorites {
+
+          .addToCart {
+
+            button {
+
+              div {
+
+                .cartIcon {
+
+                  i {
+
+                  }
+                }
+
+                .toCart {
+
+                }
+              }
+            }
+          }
+
+          .favorites {
+
+            i {
+
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .info {
+  
+    .specs {
+  
+      .spec {
+
+        .specName {
+          width: 190px;
+        }
+
+        .specValue {
+          width: 80px;
+        }
+      }
+    }
+  }
+}

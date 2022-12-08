@@ -1,1 +1,0 @@
-{"version":3,"file":"useForceUpdate.js","sourceRoot":"","sources":["../../../../client/src/utils/useForceUpdate.ts"],"names":[],"mappings":";;;AAAA,iCAAiC;AAE1B,MAAM,cAAc,GAAG,GAAG,EAAE;IACjC,MAAM,CAAC,KAAK,EAAE,QAAQ,CAAC,GAAG,IAAA,gBAAQ,EAAC,CAAC,CAAC,CAAC;IACtC,OAAO,GAAG,EAAE,CAAC,QAAQ,CAAC,KAAK,CAAC,EAAE,CAAC,KAAK,GAAG,CAAC,CAAC,CAAC;AAC5C,CAAC,CAAC;AAHW,QAAA,cAAc,kBAGzB"}

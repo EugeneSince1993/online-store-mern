@@ -1,0 +1,273 @@
+.productItem {
+  width: 202px;
+  height: 317px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ebebeb;
+  border-radius: 6px;
+  position: relative;
+
+  &:nth-of-type(4),
+  &:nth-of-type(8) {
+    margin-right: 0;
+  }
+
+  .image {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    overflow: hidden;
+
+    img {
+      height: 148px;
+    }
+  }
+
+  .icons {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+
+    i {
+      margin-right: 4px;
+    }
+
+    .testimonials, .favorites {
+      cursor: pointer;
+    }
+
+    .rating {
+      margin-right: 15px;
+
+      i {
+        color: rgb(255, 192, 74);
+      }
+
+      .tooltipText {
+        width: 120px;
+        margin-left: -60px;
+      }
+    }
+
+    .testimonials {
+      display: none;
+
+      i {
+        color: rgb(173, 173, 173);
+      }
+
+      .tooltipText {
+        width: 95px;
+        margin-left: -47px;
+      }
+    }
+
+    .favorites {
+      margin-left: auto;
+
+      .favoritesInner {
+
+        i {
+          font-size: 19px;
+
+          &.add {
+            color: rgb(173, 173, 173);
+          }
+
+          &.added {
+            color: rgb(255, 131, 189);
+          }
+        }
+
+        .tooltipText {
+          width: 175px;
+          margin-left: -89px;
+        }
+      }
+    }
+  }
+
+  .productLink {
+    display: block;
+    font-size: 15px;
+    line-height: 20px;
+    max-height: 40px;
+    overflow: hidden;
+    color: #000;
+  }
+
+  .buyContainer {
+    position: absolute;
+    width: calc(100% - 30px);
+    bottom: 15px;
+
+    .buy {
+      display: flex;
+      align-items: center;
+
+      .price {
+        display: block;
+
+        .priceValue, .currency {
+          display: inline-block;
+          font-size: 18px;
+        }
+
+        .priceValue {
+          margin-right: 5px;
+        }
+      }
+
+      .addToCart {
+        margin-left: auto;
+
+        button {
+          cursor: pointer;
+          border: none;
+          border-radius: 5px;
+          padding: 7px;
+          background-color: #2d7dff;
+          transition: background-color 0.2s ease-in-out;
+
+          &:hover {
+            background-color: #5c9aff;
+          }
+
+          .iconContainer {
+            width: 21px;
+            display: flex;
+            justify-content: center;
+
+            i {
+              color: #fff;
+              font-size: 18px;
+            }
+          }
+        }
+
+        .tooltipText {
+          width: 155px;
+          margin-left: -78px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1269px) {
+  .productItem {
+    height: 301px;
+
+    .image {
+
+      img {
+        height: 130px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 700px) and (max-width: 1199px) {
+  .productItem {
+    width: 185px;
+    height: 298px;
+
+    &:nth-of-type(odd) {
+      margin-right: 20px;
+    }
+
+    &:nth-of-type(even) {
+      margin-right: 0;
+    }
+
+    .image {
+
+      img {
+        max-height: 130px;
+      }
+    }
+
+    .productLink {
+      font-size: 16px;
+    }
+
+    .buyContainer {
+
+      .buy {
+        .price {
+          .priceValue span, .currency {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 699px) {
+  .productItem {
+    width: 145px;
+    height: 315px;
+    padding: 10px;
+
+    &:nth-of-type(odd) {
+      margin-right: 10px;
+    }
+
+    &:nth-of-type(even) {
+      margin-right: 0;
+    }
+
+    .image {
+
+      img {
+        max-height: 125px;
+      }
+    }
+
+    .productLink {
+      max-height: 70px;
+      font-size: 16px;
+    }
+
+    .buyContainer {
+      width: calc(100% - 20px);
+
+      .buy {
+        .price {
+          .priceValue span, .currency {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 370px) and (max-width: 699px) {
+  .productItem {
+    width: 160px;
+    height: 307px;
+
+    .image {
+
+      img {
+        max-height: 135px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 369px) {
+  .productItem {
+    height: 297px;
+
+    .image {
+
+      img {
+        max-height: 115px;
+      }
+    }
+  }
+}
