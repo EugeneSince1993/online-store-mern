@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 import express from 'express';
-import cors from 'cors';
+// import cors from 'cors';
 import mongoose from 'mongoose';
 import path from 'path';
 import router from './routes';
@@ -19,7 +19,7 @@ const main = async () => {
   const app = express();
   
   app.use(express.json());
-  app.use(cors());
+  // app.use(cors());
   app.use('/api', router);
 
   if (process.env.NODE_ENV === 'production') {
