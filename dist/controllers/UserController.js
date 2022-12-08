@@ -37,10 +37,12 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             fullName: req.body.fullName,
             avatarUrl: req.body.avatarUrl,
             passwordHash: hash,
+            role: 'USER',
         });
         const user = yield doc.save();
         const token = jsonwebtoken_1.default.sign({
             _id: user._id,
+            role: user.role
         }, 'secret123', {
             expiresIn: '30d',
         });
@@ -71,6 +73,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const token = jsonwebtoken_1.default.sign({
             _id: user._id,
+            role: user.role,
         }, 'secret123', {
             expiresIn: '30d',
         });

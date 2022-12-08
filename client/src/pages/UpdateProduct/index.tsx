@@ -175,7 +175,7 @@ export const UpdateProduct: FC = () => {
           }
         });
         const imageUrlsArr = data.files.map((file: any) => {
-          return `/uploads/images/${file.originalname}`;
+          return `/api/uploads/images/${file.originalname}`;
         });
         setProductImages(imageUrlsArr);
         formik.touched.images = true;

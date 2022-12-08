@@ -29,6 +29,8 @@ import { GallerySkeleton370 } from './Skeletons/GallerySkeleton370';
 import { MainDataSkeletonSmartphone } from './Skeletons/MainDataSkeletonSmartphone';
 import { GallerySkeletonTablet } from './Skeletons/GallerySkeletonTablet';
 import { MainDataSkeletonTablet } from './Skeletons/MainDataSkeletonTablet';
+import demoSvg from '../../assets/img/demo-svg-image.svg';
+import { Rating } from '../../components/Rating';
 
 export const Product: FC = () => {
   const dispatch = useAppDispatch();

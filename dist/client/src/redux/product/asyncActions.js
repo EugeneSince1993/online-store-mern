@@ -19,7 +19,7 @@ const pickBy_1 = __importDefault(require("lodash/pickBy"));
 const identity_1 = __importDefault(require("lodash/identity"));
 exports.fetchProducts = (0, toolkit_1.createAsyncThunk)('product/fetchProducts', (params) => __awaiter(void 0, void 0, void 0, function* () {
     const { sortBy, order } = params;
-    const { data } = yield axios_1.default.get('products', {
+    const { data } = yield axios_1.default.get('/products', {
         params: (0, pickBy_1.default)({
             sortBy,
             order,
@@ -28,19 +28,19 @@ exports.fetchProducts = (0, toolkit_1.createAsyncThunk)('product/fetchProducts',
     return data;
 }));
 exports.fetchProductById = (0, toolkit_1.createAsyncThunk)('product/fetchProductById', (_id) => __awaiter(void 0, void 0, void 0, function* () {
-    const { data } = yield axios_1.default.get(`products/${_id}`);
+    const { data } = yield axios_1.default.get(`/products/${_id}`);
     return data;
 }));
 exports.createProduct = (0, toolkit_1.createAsyncThunk)('product/createProduct', (paramsObj) => __awaiter(void 0, void 0, void 0, function* () {
-    const { data } = yield axios_1.default.post('products', Object.assign({}, paramsObj));
+    const { data } = yield axios_1.default.post('/products', Object.assign({}, paramsObj));
     return data;
 }));
 exports.updateProductById = (0, toolkit_1.createAsyncThunk)('product/updateProductById', (paramsObj) => __awaiter(void 0, void 0, void 0, function* () {
-    const { data } = yield axios_1.default.patch(`products/${paramsObj.id}`, Object.assign({}, paramsObj));
+    const { data } = yield axios_1.default.patch(`/products/${paramsObj.id}`, Object.assign({}, paramsObj));
     return data;
 }));
 exports.deleteProductById = (0, toolkit_1.createAsyncThunk)('product/deleteProductById', (productId) => __awaiter(void 0, void 0, void 0, function* () {
-    const { data } = yield axios_1.default.delete(`products/${productId}`);
+    const { data } = yield axios_1.default.delete(`/products/${productId}`);
     return data;
 }));
 //# sourceMappingURL=asyncActions.js.map

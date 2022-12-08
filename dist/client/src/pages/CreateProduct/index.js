@@ -182,7 +182,7 @@ const CreateProduct = () => {
                     }
                 });
                 const imageUrlsArr = data.files.map((file) => {
-                    return `/uploads/images/${file.originalname}`;
+                    return `/api/uploads/images/${file.originalname}`;
                 });
                 setProductImages(imageUrlsArr);
             }

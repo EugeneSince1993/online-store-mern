@@ -5,6 +5,7 @@ export interface IResponse {
   avatarUrl: string;
   createdAt: string;
   token: string;
+  role: string;
 }
 
 export interface ILoginParams {

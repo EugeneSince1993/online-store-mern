@@ -3,8 +3,9 @@ import NumberFormat from "react-number-format";
 import { NavLink } from "react-router-dom";
 import classNames from 'classnames';
 import styles from './ProductBlock.module.scss';
-import { useAppDispatch } from "../../../redux/hooks";
-import { deleteProductById } from "../../../redux/product/asyncActions";
+import { useAppDispatch } from "../../redux/hooks";
+import { deleteProductById } from "../../redux/product/asyncActions";
+import { ButtonWithIcon } from "../ButtonWithIcon";
 
 interface Props {
   _id: string;
@@ -87,18 +88,12 @@ export const ProductBlock: FC<Props> = ({
           <div className={styles.currency}>₽</div>
         </div>
         <div className={styles.changeProduct}>
-          <button>
-            <div>
-              <span className={styles.changeIcon}>
-                <i className="fa-solid fa-gear"></i>
-              </span>
-              <span className={styles.toChange}>
-                <NavLink to={`/update-product/${_id}`}>
-                  Изменить
-                </NavLink>
-              </span>
-            </div>
-          </button>
+          <ButtonWithIcon
+            link={`/update-product/${_id}`}
+            faClass="fa-solid fa-gear"
+          >
+            Изменить
+          </ButtonWithIcon>
         </div>
         <div className={classNames(styles.deleteProduct, "tooltip", styles.tooltip)}>
           <div onClick={onClickRemove}>

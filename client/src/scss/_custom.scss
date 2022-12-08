@@ -208,6 +208,21 @@ body {
   padding-bottom: 75px;
 }
 
+// Account, favorites
+.user-main {
+
+  .favorites-block {
+
+    .favorites-container {
+      display: block;
+
+      .summary {
+        padding-left: 0;
+      }
+    }
+  }
+}
+
 // Responsible UI
 
 @media screen and (max-width: 1199px) {
@@ -215,6 +230,20 @@ body {
   
     .tooltipText { 
       display: none;
+    }
+  }
+
+  .user-main {
+
+    .favorites-block {
+  
+      .favorites-container {
+  
+        .summary {
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
+      }
     }
   }
 }
@@ -298,6 +327,20 @@ body {
               }
             }
           }
+        }
+      }
+    }
+  }
+
+  .user-main {
+
+    .favorites-block {
+  
+      .favorites-container {
+  
+        .summary {
+          margin-top: 30px;
+          margin-bottom: 30px;
         }
       }
     }

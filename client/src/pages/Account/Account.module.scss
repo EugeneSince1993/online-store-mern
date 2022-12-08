@@ -8,79 +8,90 @@
     display: flex;
     flex-wrap: wrap;
 
-    .productData {
+    .mainData {
       width: 80%;
 
-      .addProduct {
-        margin-bottom: 20px;
+      .adminMain {
+
+        .addProduct {
+          margin-bottom: 20px;
+    
+          a {
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            padding: 7px;
+            background-color: #2d7dff;
+            transition: background-color 0.2s ease-in-out;
   
-        a {
-          display: inline-block;
-          cursor: pointer;
-          border: none;
-          border-radius: 5px;
-          padding: 7px;
-          background-color: #2d7dff;
-          transition: background-color 0.2s ease-in-out;
-
-          &:hover {
-            background-color: #5c9aff;
-          }
-
-          > div {
-            display: flex;
-            align-items: center;
-
-            .icon {
-              display: inline-block;
-              margin-right: 7px;
-              
-              i {
+            &:hover {
+              background-color: #5c9aff;
+            }
+  
+            > div {
+              display: flex;
+              align-items: center;
+  
+              .icon {
+                display: inline-block;
+                margin-right: 7px;
+                
+                i {
+                  color: #fff;
+                  font-size: 16px;
+                }
+              }
+    
+              .text {
+                display: inline-block;
                 color: #fff;
                 font-size: 16px;
               }
             }
+          }
+        }
   
-            .text {
-              display: inline-block;
-              color: #fff;
-              font-size: 16px;
+        .sorting {
+          margin-bottom: 30px;
+        }
+  
+        .productListContainer {
+  
+          .loadingBlock {
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        
+            img {
+              width: 80px;
+            }
+          }
+        
+          .productList {
+      
+          }
+          
+          .productsPagination {
+            width: 780px;
+            margin-top: 10px;
+          
+            .paginationBar {
+              width: 100%;
+              display: flex;
+              justify-content: center;
             }
           }
         }
       }
 
-      .sorting {
-        margin-bottom: 30px;
-      }
-
-      .productListContainer {
-
-        .loadingBlock {
-          height: 500px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-      
-          img {
-            width: 80px;
-          }
-        }
-      
-        .productList {
-    
-        }
+      .userMain {
         
-        .productsPagination {
-          width: 780px;
-          margin-top: 10px;
-        
-          .paginationBar {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-          }
+        h1 {
+          font-size: 20px;
+          font-weight: 500;
         }
       }
     }
@@ -107,15 +118,18 @@
     .content {
       display: block;
 
-      .productData {
+      .mainData {
         width: 100%;
 
-        .productListContainer {
+        .adminMain {
 
-          .productsPagination {
-            margin-top: 30px;
-            margin-bottom: 30px;
-          }
+          .productListContainer {
+
+            .productsPagination {
+              margin-top: 30px;
+              margin-bottom: 30px;
+            }
+          }          
         }
       }
 
@@ -132,15 +146,18 @@
     .content {
       display: block;
   
-      .productData {
+      .mainData {
         width: auto;
-  
-        .productListContainer {
+
+        .adminMain {
           
-          .productsPagination {
-            width: auto;
-            margin-top: 30px;
-            margin-bottom: 30px;
+          .productListContainer {
+          
+            .productsPagination {
+              width: auto;
+              margin-top: 30px;
+              margin-bottom: 30px;
+            }
           }
         }
       }

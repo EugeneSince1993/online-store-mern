@@ -38,15 +38,15 @@ const Home = () => {
         const sortBy = sort.sortProperty.replace('-', '');
         const order = sort.sortProperty.includes('-') ? 'desc' : 'asc';
         dispatch((0, asyncActions_1.fetchProducts)({ sortBy, order }));
+        dispatch((0, asyncActions_2.getRangeExtremes)());
         setFirstPage();
     };
     (0, react_1.useEffect)(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    (0, react_1.useEffect)(() => {
         getProducts();
     }, [sort.sortProperty]);
-    (0, react_1.useEffect)(() => {
-        window.scrollTo(0, 0);
-        dispatch((0, asyncActions_2.getRangeExtremes)());
-    }, []);
     const setCheckedItems = (itemList) => {
         return Object.entries(itemList).filter(item => item[1]).map(item => item[0]);
     };

@@ -7,6 +7,7 @@ import { selectFavorites } from '../../redux/favorites/selectors';
 import { clearFavoriteItems } from '../../redux/favorites/favoriteSlice';
 import styles from './Favorites.module.scss';
 import { IFavoriteItem } from '../../redux/favorites/types';
+import classNames from 'classnames';
 
 export const Favorites: FC = () => {
   const dispatch = useAppDispatch();
@@ -27,15 +28,15 @@ export const Favorites: FC = () => {
   }
   
   return (
-    <div className={styles.favoritesBlock}>
+    <div className={classNames(styles.favoritesBlock, "favorites-block")}>
       <h1>Избранное</h1>
-      <div className={styles.favoritesContainer}>
+      <div className={classNames(styles.favoritesContainer, "favorites-container")}>
         <div className={styles.productList}>
           {items.map((item: IFavoriteItem) => (
             <FavoriteItem key={item._id} {...item} />
           ))}
         </div>
-        <div className={styles.summary}>
+        <div className={classNames(styles.summary, "summary")}>
           <Button 
             display="block" 
             variant="outlined"

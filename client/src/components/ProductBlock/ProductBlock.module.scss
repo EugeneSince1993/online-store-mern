@@ -90,42 +90,12 @@
     }
 
     .changeProduct {
-  
-      button {
-        cursor: pointer;
-        border: none;
-        border-radius: 5px;
-        padding: 7px;
-        background-color: #2d7dff;
-        transition: background-color 0.2s ease-in-out;
-        margin-right: 35px;
+      margin-right: 30px;
 
-        &:hover {
-          background-color: #5c9aff;
-        }
+      a {
 
-        > div {
-          display: flex;
-          align-items: center;
-
-          .changeIcon {
-            display: inline-block;
-            margin-right: 7px;
-            
-            i {
-              color: #fff;
-              font-size: 16px;
-            }
-          }
-
-          .toChange {
-            display: inline-block;
-
-            a {
-              color: #fff;
-              font-size: 16px;
-            }
-          }
+        div, div i {
+          font-size: 16px;
         }
       }
     }

@@ -11,7 +11,7 @@ export const fetchProducts = createAsyncThunk<IProduct[], SearchProductParams>(
   'product/fetchProducts',
   async (params) => {
     const { sortBy, order } = params;
-    const { data } = await axios.get<IProduct[]>('products', {
+    const { data } = await axios.get<IProduct[]>('/products', {
       params: pickBy({
           sortBy,
           order,
@@ -27,7 +27,7 @@ export const fetchProducts = createAsyncThunk<IProduct[], SearchProductParams>(
 export const fetchProductById = createAsyncThunk<IProduct, any>(
   'product/fetchProductById',
   async (_id) => {
-    const { data } = await axios.get<IProduct>(`products/${_id}`);
+    const { data } = await axios.get<IProduct>(`/products/${_id}`);
     return data;
   }
 );
@@ -35,7 +35,7 @@ export const fetchProductById = createAsyncThunk<IProduct, any>(
 export const createProduct = createAsyncThunk<IProduct, IProductParams>(
   'product/createProduct',
   async (paramsObj) => {
-    const { data } = await axios.post<IProduct>('products', {...paramsObj});
+    const { data } = await axios.post<IProduct>('/products', {...paramsObj});
     return data;
   }
 );
@@ -43,7 +43,7 @@ export const createProduct = createAsyncThunk<IProduct, IProductParams>(
 export const updateProductById = createAsyncThunk<IProduct, IProductParamsId>(
   'product/updateProductById',
   async (paramsObj: IProductParamsId) => {
-    const { data } = await axios.patch<IProduct>(`products/${paramsObj.id}`, {...paramsObj});
+    const { data } = await axios.patch<IProduct>(`/products/${paramsObj.id}`, {...paramsObj});
     return data;
   }
 );
@@ -51,7 +51,7 @@ export const updateProductById = createAsyncThunk<IProduct, IProductParamsId>(
 export const deleteProductById = createAsyncThunk<any, string>(
   'product/deleteProductById',
   async (productId: string) => {
-    const { data } = await axios.delete<any>(`products/${productId}`);
+    const { data } = await axios.delete<any>(`/products/${productId}`);
     return data;
   }
 );

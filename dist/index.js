@@ -36,75 +36,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv = __importStar(require("dotenv"));
-dotenv.config();
 const express_1 = __importDefault(require("express"));
-const fs_extra_1 = __importDefault(require("fs-extra"));
-const multer_1 = __importDefault(require("multer"));
 const cors_1 = __importDefault(require("cors"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const path = require('path');
-const index_1 = require("./controllers/index");
-const validations_1 = require("./validations");
-const utils_1 = require("./utils");
+const path_1 = __importDefault(require("path"));
+const routes_1 = __importDefault(require("./routes"));
+dotenv.config();
 const url = process.env.MONGO_URI;
 let port = process.env.PORT || 5000;
-function main() {
-    return __awaiter(this, void 0, void 0, function* () {
-        yield mongoose_1.default
-            .connect(url)
-            .then(() => console.log('DB ok'))
-            .catch((err) => console.log('DB error', err));
-        const app = (0, express_1.default)();
-        const uploadFunc = (dest) => {
-            const storage = multer_1.default.diskStorage({
-                destination: (req, file, callback) => {
-                    const path = `./uploads/${dest}`;
-                    if (!fs_extra_1.default.existsSync(path)) {
-                        fs_extra_1.default.mkdirSync(path);
-                    }
-                    callback(null, path);
-                },
-                filename: (req, file, callback) => {
-                    callback(null, file.originalname);
-                },
-            });
-            const upload = (0, multer_1.default)({ storage });
-            return upload;
-        };
-        app.use(express_1.default.json());
-        app.use((0, cors_1.default)());
-        app.use('/uploads/thumbnail', express_1.default.static('uploads/thumbnail'));
-        app.use('/uploads/images', express_1.default.static('uploads/images'));
-        app.post('/auth/login', validations_1.loginValidation, utils_1.handleValidationErrors, index_1.UserController.login);
-        app.post('/auth/register', validations_1.registerValidation, utils_1.handleValidationErrors, index_1.UserController.register);
-        app.get('/auth/me', utils_1.checkAuth, index_1.UserController.getMe);
-        app.post('/uploads/thumbnail', utils_1.checkAuth, uploadFunc('thumbnail').single('inputFile'), (req, res) => {
-            res.json({
-                url: `/uploads/thumbnail/${req.file.originalname}`
-            });
+const main = () => __awaiter(void 0, void 0, void 0, function* () {
+    yield mongoose_1.default
+        .connect(url)
+        .then(() => console.log('DB ok'))
+        .catch((err) => console.log('DB error', err));
+    const app = (0, express_1.default)();
+    app.use(express_1.default.json());
+    app.use((0, cors_1.default)());
+    app.use('/api', routes_1.default);
+    if (process.env.NODE_ENV === 'production') {
+        app.use(express_1.default.static('client/build'));
+        app.get('*', (req, res) => {
+            res.sendFile(path_1.default.resolve(__dirname, 'client', 'build', 'index.html'));
         });
-        app.post('/uploads/images', utils_1.checkAuth, uploadFunc('images').fields([{ name: 'inputFiles', maxCount: 5 }]), (req, res) => {
-            res.json({
-                files: req.files['inputFiles']
-            });
-        });
-        app.delete('/uploads', utils_1.checkAuth, index_1.ProductController.deleteImage);
-        app.get('/products', index_1.ProductController.getAll);
-        app.get('/products/:id', index_1.ProductController.getOne);
-        app.post('/products', utils_1.checkAuth, validations_1.productCreateValidation, utils_1.handleValidationErrors, index_1.ProductController.create);
-        app.delete('/products/:id', utils_1.checkAuth, index_1.ProductController.remove);
-        app.patch('/products/:id', utils_1.checkAuth, validations_1.productCreateValidation, utils_1.handleValidationErrors, index_1.ProductController.update);
-        app.get('/get-range-extremes', index_1.ProductController.getRangeExtremes);
-        if (process.env.NODE_ENV === 'production') {
-            app.use(express_1.default.static('client/build'));
-            app.get('*', (req, res) => {
-                res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-            });
-        }
-        app.listen(port, () => {
-            console.log(`Server is successfully running on port ${port}`);
-        });
+    }
+    app.listen(port, () => {
+        console.log(`Server OK, port ${port}`);
     });
-}
+});
 main().catch(err => console.log(err));
 //# sourceMappingURL=index.js.map

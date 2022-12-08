@@ -14,6 +14,7 @@ export const register = async (req, res) => {
       fullName: req.body.fullName,
       avatarUrl: req.body.avatarUrl,
       passwordHash: hash,
+      role: 'USER',
     });
 
     const user: any = await doc.save();
@@ -21,6 +22,7 @@ export const register = async (req, res) => {
     const token = jwt.sign(
       {
         _id: user._id,
+        role: user.role
       },
       'secret123',
       {
@@ -63,6 +65,7 @@ export const login = async (req, res) => {
     const token = jwt.sign(
       {
         _id: user._id,
+        role: user.role,
       },
       'secret123',
       {

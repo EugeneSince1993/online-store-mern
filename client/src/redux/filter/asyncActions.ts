@@ -5,8 +5,7 @@ import { IRangeExtremes } from './types';
 export const getRangeExtremes = createAsyncThunk(
   'product/getRangeExtremes',
   async () => {
-    let { data } = await axios.get<IRangeExtremes>('get-range-extremes');
+    let { data } = await axios.get<IRangeExtremes>('/products/get-range-extremes');
     return data;
   }
 );
-

@@ -52,17 +52,17 @@ export const Home: FC = () => {
     const order = sort.sortProperty.includes('-') ? 'desc' : 'asc';
 
     dispatch(fetchProducts({sortBy, order}));
+    dispatch(getRangeExtremes());
     setFirstPage();
   };
 
   useEffect(() => {
-    getProducts();
-  }, [sort.sortProperty]);
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    dispatch(getRangeExtremes());
-  }, []);
+    getProducts();
+  }, [sort.sortProperty]);
 
   const setCheckedItems = (itemList: any) => {
     return Object.entries(itemList).filter(item => item[1]).map(item => item[0]);
