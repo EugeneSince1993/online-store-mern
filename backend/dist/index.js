@@ -55,7 +55,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     app.use('/api', routes_1.default);
     if (process.env.NODE_ENV === 'production') {
         app.use(express_1.default.static(path_1.default.join(__dirname, '../frontend', 'build')));
-        app.get('*', (req, res) => {
+        app.get('/*', (req, res) => {
             res.sendFile(path_1.default.join(__dirname, '../frontend', 'build', 'index.html'));
         });
     }
