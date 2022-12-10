@@ -54,9 +54,9 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     app.use((0, cors_1.default)());
     app.use('/api', routes_1.default);
     if (process.env.NODE_ENV === 'production') {
-        app.use(express_1.default.static('./../client/build'));
+        app.use(express_1.default.static('./../../client/build'));
         app.get('*', (req, res) => {
-            res.sendFile(path_1.default.resolve(__dirname, './../client', 'build', 'index.html'));
+            res.sendFile(path_1.default.resolve(__dirname, './../../client', 'build', 'index.html'));
         });
     }
     app.listen(port, () => {
