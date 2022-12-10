@@ -29,8 +29,8 @@ import { GallerySkeleton370 } from './Skeletons/GallerySkeleton370';
 import { MainDataSkeletonSmartphone } from './Skeletons/MainDataSkeletonSmartphone';
 import { GallerySkeletonTablet } from './Skeletons/GallerySkeletonTablet';
 import { MainDataSkeletonTablet } from './Skeletons/MainDataSkeletonTablet';
-import demoSvg from '../../assets/img/demo-svg-image.svg';
-import { Rating } from '../../components/Rating';
+// import { Rating } from '../../components/Rating';
+import { Testimonial } from '../../components';
 
 export const Product: FC = () => {
   const dispatch = useAppDispatch();
@@ -287,6 +287,7 @@ export const Product: FC = () => {
             <TabList>
               <Tab id="specs-title">Характеристики</Tab>
               <Tab>Описание</Tab>
+              <Tab>Отзывы</Tab>
             </TabList>
             <TabPanel>
               <div className={styles.specs}>
@@ -296,6 +297,13 @@ export const Product: FC = () => {
             <TabPanel>
               <div className={styles.productDescription}>
                 {currentProductIsNotEmpty && parse(currentProduct.description)}
+              </div>
+            </TabPanel>
+            <TabPanel>
+              <div className={styles.productTestimonials}>
+                <Testimonial />
+                <Testimonial />
+                <Testimonial />
               </div>
             </TabPanel>
           </Tabs>

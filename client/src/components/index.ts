@@ -11,6 +11,7 @@ export { FavoriteItem } from './FavoriteItem';
 export { Collapse } from './Collapse';
 export { AppRouter } from './AppRouter';
 export { ProductBlock } from './ProductBlock';
+export { Testimonial } from './Testimonial';
 export { ProductItemSkeleton320 } from './ProductItem/Skeletons/ProductItemSkeleton320';
 export { ProductItemSkeleton370 } from './ProductItem/Skeletons/ProductItemSkeleton370';
 export { ProductItemSkeletonDesktop } from "./ProductItem/Skeletons/ProductItemSkeletonDesktop";

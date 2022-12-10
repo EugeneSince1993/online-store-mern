@@ -1,0 +1,70 @@
+.testimonial {
+  display: flex;
+  width: 700px;
+  margin-bottom: 40px;
+
+  .avatar {
+    margin-right: 20px;
+
+    img {
+      width: 50px;
+    }
+  }
+
+  .content {
+
+    .nameDateRating {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+
+      .name {
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .dateRating {
+        display: flex;
+
+        .date {
+          margin-right: 30px;
+        }
+
+        .rating {
+
+          i {
+            display: inline-block;
+            margin-right: 4px;
+            color: rgb(255, 192, 74);
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+    .pros {
+      margin-bottom: 15px;
+
+    }
+
+    .cons {
+      margin-bottom: 15px;
+
+    }
+
+    .comments {
+
+    }
+
+    .pros,
+    .cons,
+    .comments {
+
+      h5 {
+        font-weight: 500;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
