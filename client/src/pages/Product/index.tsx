@@ -30,7 +30,7 @@ import { MainDataSkeletonSmartphone } from './Skeletons/MainDataSkeletonSmartpho
 import { GallerySkeletonTablet } from './Skeletons/GallerySkeletonTablet';
 import { MainDataSkeletonTablet } from './Skeletons/MainDataSkeletonTablet';
 // import { Rating } from '../../components/Rating';
-import { Testimonial } from '../../components';
+// import { Testimonial } from '../../components';
 
 export const Product: FC = () => {
   const dispatch = useAppDispatch();
@@ -287,7 +287,7 @@ export const Product: FC = () => {
             <TabList>
               <Tab id="specs-title">Характеристики</Tab>
               <Tab>Описание</Tab>
-              <Tab>Отзывы</Tab>
+              {/* <Tab>Отзывы</Tab> */}
             </TabList>
             <TabPanel>
               <div className={styles.specs}>
@@ -299,13 +299,13 @@ export const Product: FC = () => {
                 {currentProductIsNotEmpty && parse(currentProduct.description)}
               </div>
             </TabPanel>
-            <TabPanel>
+            {/* <TabPanel>
               <div className={styles.productTestimonials}>
                 <Testimonial />
                 <Testimonial />
                 <Testimonial />
               </div>
-            </TabPanel>
+            </TabPanel> */}
           </Tabs>
         )}
       </div>
